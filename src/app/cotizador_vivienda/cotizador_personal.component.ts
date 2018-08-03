@@ -58,7 +58,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     // convenience getter for easy access to form fields
     //I also added a getter 'f' as a convenience property to make it
-    // easier to access form controls from the template. So for example 
+    // easier to access form controls from the template. So for example
     //you can access the email field in the template using f.email
     //instead of registerForm.controls.email.
         get f() { return this.registerForm.controls; }
@@ -71,7 +71,7 @@ export class Cotizador_personalComponent implements OnInit {
                 return;
             }
 
-            alert('SUCCESS!! :-)')
+            alert('enviar submit...!! :-)')
         }
 
 
