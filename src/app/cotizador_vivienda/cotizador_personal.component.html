@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form  (ngSubmit)="onSubmit()">
     <div class="container" style="padding:20px 0px;"></div>
     <div class="container">
         <div class="row">
@@ -66,21 +66,22 @@
                 <div class="col-sm-12 col-md-3 col-lg-3">
 
 
-                    <div class="form-group">
+                    <div class="form-group"  [formGroup]="registerForm" >
                         <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
 
-                         <select name="ciudad_filtro"
-                                 [(ngModel)]="ciudad_seleccionada"
-                                 (ngModelChange)="onSeleccion_ciudades_lista()">
+                         <select formControlName="fs_ciudad_filtro"
+                                 (ngModelChange)="onSeleccion_ciudades_lista()"
+                                 class="form-control"
+                                 [ngClass]="{ 'is-invalid': submitted && f.fs_ciudad_filtro.errors }">
 
-                                    <option *ngFor="let ciudad of (ciudades_lista$ | async); let i = index"
+                                    <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index"
                                     [value]="ciudad" [selected]="i == 0">
                                         {{ciudad}}
                                     </option>
                         </select>
-
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">Campo necesario</div>
+                        <div *ngIf="submitted && f.fs_ciudad_filtro.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3">
@@ -189,13 +190,14 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group" [formGroup]="registerForm">
                         <label>{{texto_cotizacion_persona.tituloNombres}}</label>
-                        <input type="text" formControlName="nombres"
+                        <input type="text"
+                        formControlName="fs_nombres"
                          class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f.nombres.errors }" />
-                        <div *ngIf="submitted && f.nombres.errors" class="invalid-feedback">
-                            <div *ngIf="f.nombres.errors.required">Campo necesario</div>
+                         [ngClass]="{ 'is-invalid': submitted && f.fs_nombres.errors }" />
+                        <div *ngIf="submitted && f.fs_nombres.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_nombres.errors.required">Campo necesario</div>
                         </div>
                     </div>
 
@@ -237,7 +239,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-4">
                     <div class="form-group">
                         <label>{{texto_cotizacion_persona.tituloafiliadoColsubsidio}}</label>
-                        <select name="nombres" id="nombres" value="" class="form-control" placeholder="" required="required" title="Sin puntos por favor">
+                        <select name="afiliadoColsubsidio" id="afiliadoColsubsidio" value="" class="form-control" placeholder="" required="required" title="Sin puntos por favor">
                             <option value="">Selecciona</option>
                             <option value="si">Si</option>
                             <option value="no">No</option>
@@ -268,7 +270,7 @@
                 <div class="form-group paddin40">
                     <div class="button-wrapper">
 
-                      <button [disabled]="loading" class="btn btn-primary">Siguiente</button> 
+                      <button [disabled]="loading" class="btn btn-primary">Siguiente</button>
                     </div>
                 </div>
             </div>

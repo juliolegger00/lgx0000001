@@ -10,7 +10,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-cotizador_personal',
@@ -26,15 +26,15 @@ export class Cotizador_personalComponent implements OnInit {
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
     proyecto_vivienda_seleccionado: any = {};
-    ciudad_seleccionada:any ;
-    ciudades_lista_obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-    ciudades_lista$: Observable<any> =  this.ciudades_lista_obsArray.asObservable();
+
+    fs_ciudades_lista_obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+    fs_ciudades_lista$: Observable<any> =  this.fs_ciudades_lista_obsArray.asObservable();
 
 
     addElementToObservableArray_ciudades_lista(item) {
-      this.ciudades_lista$.pipe(take(1)).subscribe(val => {
+      this.fs_ciudades_lista$.pipe(take(1)).subscribe(val => {
         const newArr = [...val, item];
-        this.ciudades_lista_obsArray.next(newArr);
+        this.fs_ciudades_lista_obsArray.next(newArr);
       })
     }
 
@@ -42,17 +42,20 @@ export class Cotizador_personalComponent implements OnInit {
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
         private formBuilder: FormBuilder
-    ) {}
+    ) {
+      this.initializeFormulario();
+    }
 
     ngOnInit() {
-      this.initializeFormulario();
+
       this.initializeData();
     } //fin metodo ngOnInit
 
     public initializeFormulario(){
 
-      this.registerForm = this.formBuilder.group({
-            nombres: ['', Validators.required]
+      this.registerForm =new FormGroup({
+        fs_nombres: new FormControl('', Validators.required),
+        fs_ciudad_filtro: new FormControl('', Validators.required),
         });
     }
 
@@ -71,7 +74,7 @@ export class Cotizador_personalComponent implements OnInit {
                 return;
             }
 
-            alert('enviar submit...!! :-)')
+            alert('SUCCESS!! :-)')
         }
 
 
@@ -115,7 +118,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     public onSeleccion_ciudades_lista(){
-      console.log(this.ciudad_seleccionada);
+        console.log(this.f.fs_ciudad_filtro.value);
     }
 
 
