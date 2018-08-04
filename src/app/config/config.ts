@@ -6,6 +6,7 @@ export class CONFIG {
     public static api_texto_cotizacion_persona=CONFIG.api_info_texto_vivienda+"113";
     public static api_lista_proyectos_vivienda= CONFIG.api_wp_json+"proyectos_vivienda/";
     public static api_lista_como_se_entero= CONFIG.api_wp_json+"datocomo_entero/";
+    public static api_lista_tipo_documento= CONFIG.api_wp_json+"tipo_documento/";
 
 
 

@@ -39,6 +39,9 @@ export class Cotizador_personalComponent implements OnInit {
     fs_como_se_entero_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
     fs_como_se_entero_lista$: Observable < any > = this.fs_como_se_entero_lista_obsArray.asObservable();
 
+    fs_tipo_documento_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_tipo_documento_lista$: Observable < any > = this.fs_tipo_documento_lista_obsArray.asObservable();
+
     constructor(
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
@@ -58,6 +61,7 @@ export class Cotizador_personalComponent implements OnInit {
             fs_proyecto_filtro: new FormControl('', Validators.required),
             fs_proyectosTamano_filtro: new FormControl('', Validators.required),
             fs_como_se_entero_filtro: new FormControl('', Validators.required),
+            fs_tipo_documento_campo: new FormControl('', Validators.required),
             fs_nombres: new FormControl('', Validators.required),
         });
     } // fin initializeFormulario
@@ -70,22 +74,34 @@ export class Cotizador_personalComponent implements OnInit {
         });
 
         this.spinnerService.show();
-
-
+        this.addElementToObservableArray_como_se_entero_lista(CONFIG.lang_seleccione);
         this.http.get(CONFIG.api_lista_como_se_entero).pipe(delay(0)).subscribe(data => {
 
             let data_lst: any = {};
             data_lst = data;
 
             data_lst.forEach((item, index) => {
-                this.addElementToObservableArray_como_se_entero_lista(item);
+                this.addElementToObservableArray_como_se_entero_lista(item.title.rendered);
             });
 
         });
 
 
+        this.spinnerService.show();
+        this.addElementToObservableArray_tipo_documento_lista({"id":CONFIG.lang_seleccione ,"tipo_documento":CONFIG.lang_seleccione});
+        this.http.get(CONFIG.api_lista_tipo_documento).pipe(delay(0)).subscribe(data => {
 
+            let data_lst: any = {};
+            data_lst = data;
 
+            data_lst.forEach((item, index) => {
+                  let item_t: any = {"id":item.id_tipo_documento ,"tipo_documento":item.title.rendered};
+                this.addElementToObservableArray_tipo_documento_lista(item_t);
+            });
+
+        });
+
+        this.spinnerService.show();
         this.http.get(CONFIG.api_lista_proyectos_vivienda).pipe(delay(0)).subscribe(data => {
             this.proyecto_vivienda_lista = data;
             this.proyecto_vivienda_seleccionado = data[0];
@@ -121,6 +137,7 @@ export class Cotizador_personalComponent implements OnInit {
     } //fin onSubmit
 
 
+    onSeleccion_tipo_documento_lista() {}
     onSeleccion_como_se_entero_lista() {}
 
     public onSeleccion_ciudades_lista() {
@@ -242,6 +259,16 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
+        //tipo_documento
+        //tipo_documento
+        addElementToObservableArray_tipo_documento_lista(item) {
+            this.fs_tipo_documento_lista$.pipe(take(1)).subscribe(val => {
+                const newArr = [...val, item];
+                this.fs_tipo_documento_lista_obsArray.next(newArr);
+            })
+        }
+        //tipo_documento
+        //tipo_documento
 
     //como_se_entero
     //como_se_entero
