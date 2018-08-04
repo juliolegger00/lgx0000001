@@ -30,11 +30,41 @@ export class Cotizador_personalComponent implements OnInit {
     fs_ciudades_lista_obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
     fs_ciudades_lista$: Observable<any> =  this.fs_ciudades_lista_obsArray.asObservable();
 
+    fs_proyectos_lista_obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+    fs_proyectos_lista$: Observable<any> =  this.fs_proyectos_lista_obsArray.asObservable();
+
 
     addElementToObservableArray_ciudades_lista(item) {
       this.fs_ciudades_lista$.pipe(take(1)).subscribe(val => {
         const newArr = [...val, item];
         this.fs_ciudades_lista_obsArray.next(newArr);
+      })
+    }
+
+
+
+    //ejemplo importante no borrar
+    removeRoomArr(data: any) {
+        let roomArr: any[] = this.fs_proyectos_lista_obsArray.getValue();
+        roomArr.forEach((item, index) => {
+            if(item === data) { roomArr.splice(index, 1); }
+        });
+        this.fs_proyectos_lista_obsArray.next(roomArr);
+    }
+
+
+
+      removeRoomAll_proyectos_lista( ) {
+            let roomArr: any[] = this.fs_proyectos_lista_obsArray.getValue();
+            roomArr.splice(0, roomArr.length);
+            this.fs_proyectos_lista_obsArray.next(roomArr);
+        }
+
+
+    addElementToObservableArray_proyectos_lista(item) {
+        this.fs_proyectos_lista$.pipe(take(1)).subscribe(val => {
+        const newArr = [...val, item];
+        this.fs_proyectos_lista_obsArray.next(newArr);
       })
     }
 
@@ -54,8 +84,9 @@ export class Cotizador_personalComponent implements OnInit {
     public initializeFormulario(){
 
       this.registerForm =new FormGroup({
-        fs_nombres: new FormControl('', Validators.required),
         fs_ciudad_filtro: new FormControl('', Validators.required),
+        fs_proyecto_filtro: new FormControl('', Validators.required),
+        fs_nombres: new FormControl('', Validators.required),
         });
     }
 
@@ -107,19 +138,54 @@ export class Cotizador_personalComponent implements OnInit {
             }
         }
 
-        this.addElementToObservableArray_ciudades_lista("Selecciona");
+        //this.addElementToObservableArray_ciudades_lista("Selecciona");
         for (i = 0; i < temp_ciudades_lista.length; i++) {
              this.addElementToObservableArray_ciudades_lista(temp_ciudades_lista[i]);
         }
 
-
-
     } // fin metodo getListaCiudades
 
 
+
+        public getListaProyectos() {
+
+            let temp_proyectos_lista0 = [];
+            let temp_proyectos_lista1 = [];
+            let i = 0;
+            let i0 = 0;
+
+            for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
+
+                if (this.f.fs_ciudad_filtro.value.indexOf(this.proyecto_vivienda_lista[i].ubicacion) > -1) {
+                    temp_proyectos_lista0.push(this.proyecto_vivienda_lista[i].proyecto);
+                    i0++;
+                }
+            }
+
+            for (i = 0; i < i0; i++) {
+                if (temp_proyectos_lista1.indexOf(temp_proyectos_lista0[i]) === -1) {
+                    temp_proyectos_lista1.push(temp_proyectos_lista0[i]);
+                }
+            }
+
+            //this.addElementToObservableArray_ciudades_lista("Selecciona");
+            for (i = 0; i < temp_proyectos_lista1.length; i++) {
+                 this.addElementToObservableArray_proyectos_lista(temp_proyectos_lista1[i]);
+            }
+
+        } // fin metodo getListaCiudades
+
+
     public onSeleccion_ciudades_lista(){
-        console.log(this.f.fs_ciudad_filtro.value);
+        //console.log(this.f.fs_ciudad_filtro.value);
+        this.spinnerService.show();
+        this.removeRoomAll_proyectos_lista( );
+        this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
+        this.getListaProyectos();
+        this.spinnerService.hide();
     }
 
+  public onSeleccion_proyectos_lista(){
+  }
 
 }

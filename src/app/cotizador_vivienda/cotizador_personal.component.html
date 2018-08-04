@@ -85,23 +85,26 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3">
-                    <div class="form-group">
-                        <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
-                        <select name="proyectos_filtro" id="proyectos_filtro" value="" class="form-control" placeholder="" required="required" title="Selecciona una opción">
-                            <option value="">Selecciona</option>
-                            <option value="Agrupación Ocaña  – Soacha, Cundinamarca">Agrupación Ocaña – Soacha, Cundinamarca</option>
-                            <option value="Agrupación Mompós – Soacha, Cundinamarca">Agrupación Mompós – Soacha, Cundinamarca</option>
-                            <option value="Mirto – Ciudad Verde, Soacha - Cundinamarca">Mirto – Ciudad Verde, Soacha - Cundinamarca</option>
-                            <option value="Caminos de Sie – Tocancipá">Caminos de Sie – Tocancipá</option>
-                            <option value="Mirador del campanario - Guaduas">Mirador del campanario - Guaduas</option>
-                            <option value="El Molino - Girardot">El Molino - Girardot</option>
-                            <option value="Mirador de Bella Flora - Usme">Mirador de Bella Flora - Usme</option>
-                            <option value="Parque Central Tintal, Localidad de Kennedy, Bogotá">Parque Central Tintal, Localidad de Kennedy, Bogotá</option>
-                            <option value="Altavista del Portal – Usme, Bogotá">Altavista del Portal – Usme, Bogotá</option>
-                        </select>
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">Campo necesario</div>
-                    </div>
+
+
+                  <div class="form-group"  [formGroup]="registerForm" >
+                      <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
+
+                       <select formControlName="fs_proyecto_filtro"
+                               (ngModelChange)="onSeleccion_proyectos_lista()"
+                               class="form-control"
+                               [ngClass]="{ 'is-invalid': submitted && f.fs_proyecto_filtro.errors }">
+
+                                  <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index"
+                                  [value]="proyecto" [selected]="i == 0">
+                                      {{proyecto}}
+                                  </option>
+                      </select>
+                      <div *ngIf="submitted && f.fs_proyecto_filtro.errors" class="invalid-feedback">
+                          <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
+                      </div>
+                  </div> 
+
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3">
                     <div class="form-group">
