@@ -7,7 +7,7 @@ import {delay } from 'rxjs/internal/operators/delay';
 
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Observable, BehaviorSubject, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take  } from 'rxjs/operators';
 
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -27,88 +27,40 @@ export class Cotizador_personalComponent implements OnInit {
     proyecto_vivienda_lista: any = {};
     proyecto_vivienda_seleccionado: any = {};
 
-    fs_ciudades_lista_obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-    fs_ciudades_lista$: Observable<any> =  this.fs_ciudades_lista_obsArray.asObservable();
+    fs_ciudades_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_ciudades_lista$: Observable < any > = this.fs_ciudades_lista_obsArray.asObservable();
 
-    fs_proyectos_lista_obsArray: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-    fs_proyectos_lista$: Observable<any> =  this.fs_proyectos_lista_obsArray.asObservable();
+    fs_proyectos_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_proyectos_lista$: Observable < any > = this.fs_proyectos_lista_obsArray.asObservable();
 
+    fs_proyectosTamano_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_proyectosTamano_lista$: Observable < any > = this.fs_proyectosTamano_lista_obsArray.asObservable();
 
-    addElementToObservableArray_ciudades_lista(item) {
-      this.fs_ciudades_lista$.pipe(take(1)).subscribe(val => {
-        const newArr = [...val, item];
-        this.fs_ciudades_lista_obsArray.next(newArr);
-      })
-    }
-
-
-
-    //ejemplo importante no borrar
-    removeRoomArr(data: any) {
-        let roomArr: any[] = this.fs_proyectos_lista_obsArray.getValue();
-        roomArr.forEach((item, index) => {
-            if(item === data) { roomArr.splice(index, 1); }
-        });
-        this.fs_proyectos_lista_obsArray.next(roomArr);
-    }
-
-
-
-      removeRoomAll_proyectos_lista( ) {
-            let roomArr: any[] = this.fs_proyectos_lista_obsArray.getValue();
-            roomArr.splice(0, roomArr.length);
-            this.fs_proyectos_lista_obsArray.next(roomArr);
-        }
-
-
-    addElementToObservableArray_proyectos_lista(item) {
-        this.fs_proyectos_lista$.pipe(take(1)).subscribe(val => {
-        const newArr = [...val, item];
-        this.fs_proyectos_lista_obsArray.next(newArr);
-      })
-    }
+    fs_como_se_entero_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_como_se_entero_lista$: Observable < any > = this.fs_como_se_entero_lista_obsArray.asObservable();
 
     constructor(
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
         private formBuilder: FormBuilder
     ) {
-      this.initializeFormulario();
-    }
+        this.initializeFormulario();
+    } //fin constructor
 
     ngOnInit() {
-
-      this.initializeData();
+        this.initializeData();
     } //fin metodo ngOnInit
 
-    public initializeFormulario(){
+    public initializeFormulario() {
 
-      this.registerForm =new FormGroup({
-        fs_ciudad_filtro: new FormControl('', Validators.required),
-        fs_proyecto_filtro: new FormControl('', Validators.required),
-        fs_nombres: new FormControl('', Validators.required),
+        this.registerForm = new FormGroup({
+            fs_ciudad_filtro: new FormControl('', Validators.required),
+            fs_proyecto_filtro: new FormControl('', Validators.required),
+            fs_proyectosTamano_filtro: new FormControl('', Validators.required),
+            fs_como_se_entero_filtro: new FormControl('', Validators.required),
+            fs_nombres: new FormControl('', Validators.required),
         });
-    }
-
-    // convenience getter for easy access to form fields
-    //I also added a getter 'f' as a convenience property to make it
-    // easier to access form controls from the template. So for example
-    //you can access the email field in the template using f.email
-    //instead of registerForm.controls.email.
-        get f() { return this.registerForm.controls; }
-
-        onSubmit() {
-            this.submitted = true;
-
-            // stop here if form is invalid
-            if (this.registerForm.invalid) {
-                return;
-            }
-
-            alert('SUCCESS!! :-)')
-        }
-
-
+    } // fin initializeFormulario
 
     public initializeData() {
 
@@ -116,6 +68,23 @@ export class Cotizador_personalComponent implements OnInit {
         this.http.get(CONFIG.api_texto_cotizacion_persona).pipe(delay(0)).subscribe(data => {
             this.texto_cotizacion_persona = data;
         });
+
+        this.spinnerService.show();
+
+
+        this.http.get(CONFIG.api_lista_como_se_entero).pipe(delay(0)).subscribe(data => {
+
+            let data_lst: any = {};
+            data_lst = data;
+
+            data_lst.forEach((item, index) => {
+                this.addElementToObservableArray_como_se_entero_lista(item);
+            });
+
+        });
+
+
+
 
         this.http.get(CONFIG.api_lista_proyectos_vivienda).pipe(delay(0)).subscribe(data => {
             this.proyecto_vivienda_lista = data;
@@ -127,10 +96,106 @@ export class Cotizador_personalComponent implements OnInit {
     } // fin metodo initializeData
 
 
+
+    // convenience getter for easy access to form fields
+    //I also added a getter 'f' as a convenience property to make it
+    // easier to access form controls from the template. So for example
+    //you can access the email field in the template using f.email
+    //instead of registerForm.controls.email.
+    get f() {
+        return this.registerForm.controls;
+    }
+
+
+
+
+    onSubmit() {
+        this.submitted = true;
+
+        // stop here if form is invalid
+        if (this.registerForm.invalid) {
+            return;
+        }
+
+        alert('SUCCESS!! :-)')
+    } //fin onSubmit
+
+
+    onSeleccion_como_se_entero_lista() {}
+
+    public onSeleccion_ciudades_lista() {
+        //console.log(this.f.fs_ciudad_filtro.value);
+        this.spinnerService.show();
+        this.removeRoomAll_proyectosTamano_lista();
+        this.removeRoomAll_proyectos_lista();
+        this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
+        this.getListaProyectos();
+        this.spinnerService.hide();
+    }
+
+    public onSeleccion_proyectos_lista() {
+        this.spinnerService.show();
+        this.removeRoomAll_proyectosTamano_lista();
+        this.addElementToObservableArray_proyectosTamano_lista(CONFIG.lang_seleccione);
+        this.getListaproyectosTamano();
+        this.spinnerService.hide();
+
+
+    }
+
+    public onSeleccion_proyectosTamano_lista() {
+
+        this.spinnerService.show();
+        let i = 0;
+
+        for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
+
+            if (
+                (this.f.fs_ciudad_filtro.value.indexOf(this.proyecto_vivienda_lista[i].ubicacion) > -1) &&
+                (this.f.fs_proyecto_filtro.value.indexOf(this.proyecto_vivienda_lista[i].proyecto) > -1) &&
+                (this.f.fs_proyectosTamano_filtro.value.indexOf(this.proyecto_vivienda_lista[i].area_construida) > -1)
+            ) {
+                this.proyecto_vivienda_seleccionado = this.proyecto_vivienda_lista[i];
+            }
+        }
+
+        this.spinnerService.hide();
+    } //onSeleccion_proyectosTamano_lista
+
+    public getListaproyectosTamano() {
+
+        let temp_proyectosTamano_lista0 = [];
+        let temp_proyectosTamano_lista1 = [];
+        let i = 0;
+        let i0 = 0;
+
+        for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
+
+            if (
+                (this.f.fs_ciudad_filtro.value.indexOf(this.proyecto_vivienda_lista[i].ubicacion) > -1) &&
+                (this.f.fs_proyecto_filtro.value.indexOf(this.proyecto_vivienda_lista[i].proyecto) > -1)
+            ) {
+                temp_proyectosTamano_lista0.push(this.proyecto_vivienda_lista[i].area_construida);
+                i0++;
+            }
+        }
+
+        for (i = 0; i < i0; i++) {
+            if (temp_proyectosTamano_lista1.indexOf(temp_proyectosTamano_lista0[i]) === -1) {
+                temp_proyectosTamano_lista1.push(temp_proyectosTamano_lista0[i]);
+            }
+        }
+
+        //this.addElementToObservableArray_proyectosTamano_lista("Selecciona");
+        for (i = 0; i < temp_proyectosTamano_lista1.length; i++) {
+            this.addElementToObservableArray_proyectosTamano_lista(temp_proyectosTamano_lista1[i]);
+        }
+    } //getListaproyectosTamano
+
     public getListaCiudades() {
 
-        var temp_ciudades_lista = [];
-        var i = 0;
+        let temp_ciudades_lista = [];
+        let i = 0;
 
         for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
             if (temp_ciudades_lista.indexOf(this.proyecto_vivienda_lista[i].ubicacion) === -1) {
@@ -140,52 +205,115 @@ export class Cotizador_personalComponent implements OnInit {
 
         //this.addElementToObservableArray_ciudades_lista("Selecciona");
         for (i = 0; i < temp_ciudades_lista.length; i++) {
-             this.addElementToObservableArray_ciudades_lista(temp_ciudades_lista[i]);
+            this.addElementToObservableArray_ciudades_lista(temp_ciudades_lista[i]);
         }
 
     } // fin metodo getListaCiudades
 
 
 
-        public getListaProyectos() {
+    public getListaProyectos() {
 
-            let temp_proyectos_lista0 = [];
-            let temp_proyectos_lista1 = [];
-            let i = 0;
-            let i0 = 0;
+        let temp_proyectos_lista0 = [];
+        let temp_proyectos_lista1 = [];
+        let i = 0;
+        let i0 = 0;
 
-            for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
+        for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
 
-                if (this.f.fs_ciudad_filtro.value.indexOf(this.proyecto_vivienda_lista[i].ubicacion) > -1) {
-                    temp_proyectos_lista0.push(this.proyecto_vivienda_lista[i].proyecto);
-                    i0++;
-                }
+            if (this.f.fs_ciudad_filtro.value.indexOf(this.proyecto_vivienda_lista[i].ubicacion) > -1) {
+                temp_proyectos_lista0.push(this.proyecto_vivienda_lista[i].proyecto);
+                i0++;
             }
+        }
 
-            for (i = 0; i < i0; i++) {
-                if (temp_proyectos_lista1.indexOf(temp_proyectos_lista0[i]) === -1) {
-                    temp_proyectos_lista1.push(temp_proyectos_lista0[i]);
-                }
+        for (i = 0; i < i0; i++) {
+            if (temp_proyectos_lista1.indexOf(temp_proyectos_lista0[i]) === -1) {
+                temp_proyectos_lista1.push(temp_proyectos_lista0[i]);
             }
+        }
 
-            //this.addElementToObservableArray_ciudades_lista("Selecciona");
-            for (i = 0; i < temp_proyectos_lista1.length; i++) {
-                 this.addElementToObservableArray_proyectos_lista(temp_proyectos_lista1[i]);
-            }
+        //this.addElementToObservableArray_ciudades_lista("Selecciona");
+        for (i = 0; i < temp_proyectos_lista1.length; i++) {
+            this.addElementToObservableArray_proyectos_lista(temp_proyectos_lista1[i]);
+        }
 
-        } // fin metodo getListaCiudades
+    } // fin metodo getListaCiudades
 
 
-    public onSeleccion_ciudades_lista(){
-        //console.log(this.f.fs_ciudad_filtro.value);
-        this.spinnerService.show();
-        this.removeRoomAll_proyectos_lista( );
-        this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
-        this.getListaProyectos();
-        this.spinnerService.hide();
+
+
+    //como_se_entero
+    //como_se_entero
+    addElementToObservableArray_como_se_entero_lista(item) {
+        this.fs_como_se_entero_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_como_se_entero_lista_obsArray.next(newArr);
+        })
+    }
+    //como_se_entero
+    //como_se_entero
+
+
+    //ciudades
+    //ciudades
+    addElementToObservableArray_ciudades_lista(item) {
+        this.fs_ciudades_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_ciudades_lista_obsArray.next(newArr);
+        })
+    }
+    //ciudades
+    //ciudades
+
+    //proyectosTamano
+    //proyectosTamano
+    addElementToObservableArray_proyectosTamano_lista(item) {
+        this.fs_proyectosTamano_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_proyectosTamano_lista_obsArray.next(newArr);
+        })
     }
 
-  public onSeleccion_proyectos_lista(){
-  }
+    removeRoomAll_proyectosTamano_lista() {
+        let roomArr: any[] = this.fs_proyectosTamano_lista_obsArray.getValue();
+        roomArr.splice(0, roomArr.length);
+        this.fs_proyectosTamano_lista_obsArray.next(roomArr);
+    }
+    //proyectosTamano
+    //proyectosTamano
+
+
+    //proyectos
+    //proyectos
+    addElementToObservableArray_proyectos_lista(item) {
+        this.fs_proyectos_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_proyectos_lista_obsArray.next(newArr);
+        })
+    }
+
+    removeRoomAll_proyectos_lista() {
+        let roomArr: any[] = this.fs_proyectos_lista_obsArray.getValue();
+        roomArr.splice(0, roomArr.length);
+        this.fs_proyectos_lista_obsArray.next(roomArr);
+    }
+    //proyectos
+    //proyectos
+
+
+
+
+    //ejemplo importante no borrar
+    removeRoomArr(data: any) {
+        let roomArr: any[] = this.fs_proyectos_lista_obsArray.getValue();
+        roomArr.forEach((item, index) => {
+            if (item === data) {
+                roomArr.splice(index, 1);
+            }
+        });
+        this.fs_proyectos_lista_obsArray.next(roomArr);
+    }
+    //ejemplo importante no borrar
 
 }

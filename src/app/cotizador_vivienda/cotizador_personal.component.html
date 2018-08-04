@@ -1,4 +1,4 @@
-<form  (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()">
     <div class="container" style="padding:20px 0px;"></div>
     <div class="container">
         <div class="row">
@@ -66,18 +66,14 @@
                 <div class="col-sm-12 col-md-3 col-lg-3">
 
 
-                    <div class="form-group"  [formGroup]="registerForm" >
+                    <div class="form-group" [formGroup]="registerForm">
                         <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
 
-                         <select formControlName="fs_ciudad_filtro"
-                                 (ngModelChange)="onSeleccion_ciudades_lista()"
-                                 class="form-control"
-                                 [ngClass]="{ 'is-invalid': submitted && f.fs_ciudad_filtro.errors }">
+                        <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_ciudad_filtro.errors }">
 
-                                    <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index"
-                                    [value]="ciudad" [selected]="i == 0">
-                                        {{ciudad}}
-                                    </option>
+                            <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
+                                {{ciudad}}
+                            </option>
                         </select>
                         <div *ngIf="submitted && f.fs_ciudad_filtro.errors" class="invalid-feedback">
                             <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
@@ -87,50 +83,64 @@
                 <div class="col-sm-12 col-md-3 col-lg-3">
 
 
-                  <div class="form-group"  [formGroup]="registerForm" >
-                      <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
+                    <div class="form-group" [formGroup]="registerForm">
+                        <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
 
-                       <select formControlName="fs_proyecto_filtro"
-                               (ngModelChange)="onSeleccion_proyectos_lista()"
-                               class="form-control"
-                               [ngClass]="{ 'is-invalid': submitted && f.fs_proyecto_filtro.errors }">
+                        <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyecto_filtro.errors }">
 
-                                  <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index"
-                                  [value]="proyecto" [selected]="i == 0">
-                                      {{proyecto}}
-                                  </option>
-                      </select>
-                      <div *ngIf="submitted && f.fs_proyecto_filtro.errors" class="invalid-feedback">
-                          <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
-                      </div>
-                  </div> 
+                            <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
+                                {{proyecto}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && f.fs_proyecto_filtro.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3">
-                    <div class="form-group">
+
+
+
+
+                    <div class="form-group" [formGroup]="registerForm">
                         <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
-                        <select name="tamano_filtro" id="tamano_filtro" value="" class="form-control" placeholder="" required="required" title="Selecciona una opción">
-                            <option value="">Selecciona</option>
-                            <option value="43">43,30 mt2</option>
-                            <option value="60">60,80 mt2</option>
+
+                        <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyectosTamano_filtro.errors }">
+
+                            <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
+                                {{proyectosTamano}}
+                            </option>
                         </select>
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">Campo necesario</div>
+                        <div *ngIf="submitted && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
+                        </div>
                     </div>
+
+
+
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3">
-                    <div class="form-group">
+
+
+                    <div class="form-group" [formGroup]="registerForm">
                         <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
-                        <select name="entero_filtro" id="entero_filtro" value="" class="form-control" placeholder="" required="required" title="Elige una opción">
-                            <option value="">Selecciona</option>
-                            <option value="">Guía de vivienda</option>
-                            <option value="">Página web</option>
-                            <option value="">Radio</option>
-                            <option value="">Redes sociales</option>
+
+                        <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_como_se_entero_filtro.errors }">
+
+                            <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
+                                {{como_se_entero.title.rendered}}
+                            </option>
                         </select>
-                        <div class="valid-feedback"></div>
-                        <div class="invalid-feedback">Campo necesario</div>
+                        <div *ngIf="submitted && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_como_se_entero_filtro.errors.required">Campo necesario</div>
+                        </div>
                     </div>
+
+
+
+
+
                 </div>
             </div>
 
@@ -195,10 +205,7 @@
 
                     <div class="form-group" [formGroup]="registerForm">
                         <label>{{texto_cotizacion_persona.tituloNombres}}</label>
-                        <input type="text"
-                        formControlName="fs_nombres"
-                         class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f.fs_nombres.errors }" />
+                        <input type="text" formControlName="fs_nombres" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_nombres.errors }" />
                         <div *ngIf="submitted && f.fs_nombres.errors" class="invalid-feedback">
                             <div *ngIf="f.fs_nombres.errors.required">Campo necesario</div>
                         </div>
@@ -273,7 +280,7 @@
                 <div class="form-group paddin40">
                     <div class="button-wrapper">
 
-                      <button [disabled]="loading" class="btn btn-primary">Siguiente</button>
+                        <button [disabled]="loading" class="btn btn-primary">Siguiente</button>
                     </div>
                 </div>
             </div>
