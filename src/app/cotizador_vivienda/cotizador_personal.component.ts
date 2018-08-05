@@ -74,6 +74,27 @@ export class Cotizador_personalComponent implements OnInit {
         });
     } // fin initializeFormulario
 
+
+        get fs(){
+
+          let fs_formulario = {
+                  "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
+                  "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
+                  "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
+                  "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
+                  "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
+                  "fs_nombres_campo": this.f.fs_nombres_campo.value,
+                  "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
+                  "fs_email_campo": this.f.fs_email_campo.value,
+                  "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
+                  "fs_celular_campo": this.f.fs_celular_campo.value,
+                  "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
+                  "proyecto_vivienda_seleccionado": JSON.stringify(this.proyecto_vivienda_seleccionado),
+          };
+
+          return fs_formulario;
+        }
+
     public initializeData() {
 
         this.spinnerService.show();
@@ -131,27 +152,6 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
-    get fs(){
-
-      let fs_formulario = {
-              "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
-              "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
-              "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
-              "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
-              "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
-              "fs_nombres_campo": this.f.fs_nombres_campo.value,
-              "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
-              "fs_email_campo": this.f.fs_email_campo.value,
-              "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
-              "fs_celular_campo": this.f.fs_celular_campo.value,
-              "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
-      };
-
-      return fs_formulario;
-
-
-
-    }
 
     handleSuccess_recaptcha2(event){
       //console.log(event);
