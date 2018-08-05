@@ -1,4 +1,6 @@
-<form (ngSubmit)="onSubmit()"  >
+
+  <form   (ngSubmit)="onSubmit()" >
+
     <div class="container" style="padding:20px 0px;"></div>
     <div class="container">
         <div class="row">
@@ -259,7 +261,6 @@
                     </div>
                 </div>
 
-
                     <div class="form-group">
                       <ngx-recaptcha2
                         [size]="size"
@@ -268,7 +269,8 @@
                         [type]="type"
                         (success)="handleSuccess_recaptcha2($event)">>
                       </ngx-recaptcha2>
-                             </div>
+                    </div>
+               
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-4">

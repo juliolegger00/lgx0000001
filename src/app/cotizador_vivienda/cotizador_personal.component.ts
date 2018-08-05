@@ -131,6 +131,28 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
+    get fs(){
+
+      let fs_formulario = {
+              "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
+              "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
+              "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
+              "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
+              "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
+              "fs_nombres_campo": this.f.fs_nombres_campo.value,
+              "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
+              "fs_email_campo": this.f.fs_email_campo.value,
+              "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
+              "fs_celular_campo": this.f.fs_celular_campo.value,
+              "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
+      };
+
+      return fs_formulario;
+
+
+
+    }
+
     handleSuccess_recaptcha2(event){
       //console.log(event);
       this.recaptcha2_valido=true;
@@ -138,7 +160,8 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     onSubmit() {
-      /*
+
+        localStorage.removeItem("cotizador_personal");
         this.submitted = true;
 
         // stop here if form is invalid
@@ -146,18 +169,15 @@ export class Cotizador_personalComponent implements OnInit {
             return;
         }
 
-
-
         if(!this.recaptcha2_valido){
           this.submitted = false;
-
           return;
-
         }
 
-        alert('SUCCESS!! :-)')
-        */  
-        this.submitted = true;  return;
+        //alert('SUCCESS!! :-)')
+
+        localStorage.setItem("cotizador_personal",JSON.stringify(this.fs));
+        this.router.navigate(["formapagopersonal"]);
 
     } //fin onSubmit
 
