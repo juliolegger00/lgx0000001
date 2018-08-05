@@ -1,0 +1,19 @@
+cosas instaladas
+yum install unzip
+sudo yum install wget
+sudo npm install -g @angular/cli
+sudo ng new colsubsidio
+cd /opt/legger/colsubsidio/
+sudo npm install --save @ng-bootstrap/ng-bootstrap
+sudo npm install --save rxjs-compat
+sudo npm i ng4-loading-spinner --save
+
+
+como actualizar y corre en el servidor
+cd /opt/legger/test
+sudo rm -rf ./*
+sudo wget https://github.com/juliolegger00/lgx0000001/archive/lgcolx000001.zip
+sudo unzip lgcolx000001.zip
+sudo cp -rf lgx0000001-lgcolx000001/src/* /opt/legger/colsubsidio/src/
+cd /opt/legger/colsubsidio/
+sudo ng serve --host 0.0.0.0
