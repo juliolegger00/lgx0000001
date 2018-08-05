@@ -89,7 +89,7 @@ export class Cotizador_personalComponent implements OnInit {
                   "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
                   "fs_celular_campo": this.f.fs_celular_campo.value,
                   "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
-                  "proyecto_vivienda_seleccionado": JSON.stringify(this.proyecto_vivienda_seleccionado),
+                  "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado,
           };
 
           return fs_formulario;

@@ -8,9 +8,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class Cotizador_formapagoComponent {
 
+cotizador_personal: any={};
+
  ngOnInit() {
-   let cotizador_personal = localStorage.getItem("cotizador_personal");
-   console.log(cotizador_personal);
+   this.cotizador_personal = localStorage.getItem("cotizador_personal"); 
  }
 
 
