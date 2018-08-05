@@ -7,6 +7,8 @@ cd /opt/legger/colsubsidio/
 sudo npm install --save @ng-bootstrap/ng-bootstrap
 sudo npm install --save rxjs-compat
 sudo npm i ng4-loading-spinner --save
+https://enngage.github.io/ngx-captcha/recaptcha2
+sudo npm install ngx-captcha
 
 
 como actualizar y corre en el servidor

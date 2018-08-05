@@ -11,6 +11,7 @@ import { take  } from 'rxjs/operators';
 
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-cotizador_personal',
@@ -22,6 +23,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     registerForm: FormGroup;
     submitted = false;
+    recaptcha2_valido=false;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -45,7 +47,8 @@ export class Cotizador_personalComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private router: Router
     ) {
         this.initializeFormulario();
     } //fin constructor
@@ -62,7 +65,12 @@ export class Cotizador_personalComponent implements OnInit {
             fs_proyectosTamano_filtro: new FormControl('', Validators.required),
             fs_como_se_entero_filtro: new FormControl('', Validators.required),
             fs_tipo_documento_campo: new FormControl('', Validators.required),
-            fs_nombres: new FormControl('', Validators.required),
+            fs_nombres_campo: new FormControl('', Validators.required),
+            fs_numeroDocumento_campo: new FormControl('', Validators.required),
+            fs_email_campo: new FormControl('', Validators.required),
+            fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
+            fs_celular_campo: new FormControl('', Validators.required),
+            fs_abeasdata_campo: new FormControl('', Validators.required),
         });
     } // fin initializeFormulario
 
@@ -123,9 +131,14 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
+    handleSuccess_recaptcha2(event){
+      //console.log(event);
+      this.recaptcha2_valido=true;
+    }
 
 
     onSubmit() {
+      /*
         this.submitted = true;
 
         // stop here if form is invalid
@@ -133,7 +146,19 @@ export class Cotizador_personalComponent implements OnInit {
             return;
         }
 
+
+
+        if(!this.recaptcha2_valido){
+          this.submitted = false;
+
+          return;
+
+        }
+
         alert('SUCCESS!! :-)')
+        */  
+        this.submitted = true;  return;
+
     } //fin onSubmit
 
 
