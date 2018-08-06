@@ -528,35 +528,55 @@
                <br />
                <div class="row" style="text-align:left !important; color:#333;">
                    <div class="col-sm-12 col-md-12 col-lg-12">
-                     <strong>{{tituloInventarioProyecto}}</strong>
+                     <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
                      <br />
-                     {{InventarioProyecto}}
+                     {{proyecto_vivienda_seleccionado.InventarioProyecto}}
                    </div>
                </div>
                <br />
                <ul class="list-group">
-                  <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                                Valor Venta <strong><br />$ 90.000.000</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                                {{tituloareaconstruidaProyecto}}<br /><strong>{{areaconstruidaProyecto}}</strong>
-                            </div>
-                             <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                                {{tituloareaPrivadaproyecto}}<br /><strong>{{areaPrivadaproyecto}}</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                {{titulohabitacionesProyecto}}<br /><strong>{{habitacionesProyecto}}</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                               {{titulodisponiblesProyecto}}<br /><strong>{{disponiblesProyecto}}</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-1 col-lg-1 ">
-                                {{titulobanosProyecto}}<br /><strong>{{banosProyecto}} </strong>
-                            </div>
-                        </div>
-                  </li>
+
+
+
+
+                 <li class="list-group-item">
+                     <div class="row">
+                       <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                           Valor Venta <strong><br />$ 90.000.000</strong>
+                       </div>
+
+                         <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                             {{texto_cotizacion_persona.tituloValorProyecto}}
+                               <br />
+                               <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+                         </div>
+                         <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                             {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
+                             <br />
+                             <strong>{{proyecto_vivienda_seleccionado.areaconstruidaProyecto}}</strong>
+                         </div>
+                         <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                             {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}
+                             <br />
+                             <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
+                         </div>
+                         <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                             {{texto_cotizacion_persona.titulohabitacionesProyecto}}
+                             <br />
+                             <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
+                         </div>
+                         <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                             {{texto_cotizacion_persona.titulodisponiblesProyecto}}
+                             <br />
+                             <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
+                         </div>
+                         <div class="col-sm-12 col-md-1 col-lg-1 ">
+                             {{texto_cotizacion_persona.titulobanosProyecto}}
+                             <br />
+                             <strong>{{proyecto_vivienda_seleccionado.banosProyecto}}</strong>
+                         </div>
+                     </div>
+                 </li>
                 </ul>
                 <br />
                 <div class="row" style="text-align:left !important; color:#333;">
@@ -565,25 +585,36 @@
                     </div>
                 </div>
                 <ul class="list-group">
-               		<li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                Documento de identidad<br /><strong>C.C.</strong> <strong>80244027</strong>
-                            </div>
-                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                Afiliado a Colsubsidio<br /><strong>Si</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                                Nombres y apellidos<br /><strong>David Ricardo Hernández </strong>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                                Correo electrónico<br /><strong>ricardo@leggercolombia.com </strong>
-                            </div>
-                            <div class="col-sm-12 col-md-2 col-lg-2">
-                                Celular<br /><strong>3144714918</strong>
-                            </div>
-                        </div>
-                  	</li>
+                  <li class="list-group-item">
+                      <div class="row">
+                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloDocumentoIdentidad}}
+                              <br />
+                              <strong>{{f.fs_nombre_documento_campo}}</strong>
+                              <strong>{{f.fs_numeroDocumento_campo.value}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloafiliadoColsubsidio}}
+                              <br />
+                              <strong>{{f.fs_afiliadoColsubsidio_campo.value}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                              {{texto_cotizacion_persona.tituloNombresApellidos}}
+                              <br />
+                              <strong>{{f.fs_nombres_campo.value}} </strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                              {{texto_cotizacion_persona.tituloEmail}}
+                              <br />
+                              <strong>{{f.fs_email_campo.value}} </strong>
+                          </div>
+                          <div class="col-sm-12 col-md-2 col-lg-2">
+                              {{texto_cotizacion_persona.tituloCelular}}
+                              <br />
+                              <strong>{{f.fs_celular_campo.value}}</strong>
+                          </div>
+                      </div>
+                  </li>
                 </ul>
                 <br />
                 <div class="row" style="text-align:left !important; color:#333;">
@@ -595,13 +626,19 @@
                		<li class="list-group-item">
                         <div class="row">
                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                Ingresos familiares<br /><strong>$ 1.600.000</strong>
+                                {{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}
+                                <br />
+                                <strong>$ {{f2.fs_ingresosGrupoFamiliar_campo}}</strong>
                             </div>
                              <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                Ahorros<br /><strong>$ 11.600.000</strong>
+                                {{texto_cotizacion_persona.tituloAhorros}}
+                                <br />
+                                <strong>$ {{f2.fs_ahorros_campo}}</strong>
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                                Cesantías<br /><strong>$ 3.400.000 </strong>
+                                {{texto_cotizacion_persona.tituloCesantias}}
+                                <br />
+                                <strong>$ {{f2.fs_cesantias_campo}}</strong>
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
 

@@ -26,8 +26,8 @@ export class Cotizador_personalComponent implements OnInit {
     submitted = false;
     recaptcha2_valido=false;
     hidden_paso1 = true;
-    hidden_paso2 = false;
-    hidden_paso3 = true;
+    hidden_paso2 = true;
+    hidden_paso3 = false;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
