@@ -26,8 +26,8 @@ export class Cotizador_personalComponent implements OnInit {
     submitted = false;
     recaptcha2_valido=false;
     hidden_paso1 = true;
-    hidden_paso2 = true;
-    hidden_paso3 = false;
+    hidden_paso2 = false;
+    hidden_paso3 = true;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -56,7 +56,7 @@ export class Cotizador_personalComponent implements OnInit {
         private router: Router
     ) {
         this.initializeFormularioPaso1();
-        this.initializeFormularioPaso2();
+        this.initializeFormularioPaso2();// paso2
     } //fin constructor
 
     ngOnInit() {
@@ -225,6 +225,10 @@ export class Cotizador_personalComponent implements OnInit {
 
         onSubmit_paso2() {
 
+          this.hidden_paso1 = true;
+          this.hidden_paso2 = false;
+          this.hidden_paso3 = true;
+          return;
         }
 
 
