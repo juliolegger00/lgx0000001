@@ -1,5 +1,5 @@
 
-  <form   (ngSubmit)="onSubmit()" >
+
 
     <div class="container" style="padding:20px 0px;"></div>
     <div class="container">
@@ -61,274 +61,438 @@
         </div>
     </div>
 
+    <!-- paso 1 -->
+    <div [hidden]="hidden_paso1">
+      <form   (ngSubmit)="onSubmit_paso1()" >
+      <div class="container seccion_titulos">
+          <div class="ingreso center-block" style="padding:30px;">
+              <div class="row">
+                  <div class="col-sm-12 col-md-3 col-lg-3">
 
-    <div class="container seccion_titulos">
-        <div class="ingreso center-block" style="padding:30px;">
-            <div class="row">
-                <div class="col-sm-12 col-md-3 col-lg-3">
+
+                      <div class="form-group" [formGroup]="registerForm">
+                          <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
+
+                          <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_ciudad_filtro.errors }">
+
+                              <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
+                                  {{ciudad}}
+                              </option>
+                          </select>
+                          <div *ngIf="submitted && f.fs_ciudad_filtro.errors" class="invalid-feedback">
+                              <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-3">
+
+
+                      <div class="form-group" [formGroup]="registerForm">
+                          <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
+
+                          <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyecto_filtro.errors }">
+
+                              <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
+                                  {{proyecto}}
+                              </option>
+                          </select>
+                          <div *ngIf="submitted && f.fs_proyecto_filtro.errors" class="invalid-feedback">
+                              <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
+                          </div>
+                      </div>
+
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-3">
+
+
+
+
+                      <div class="form-group" [formGroup]="registerForm">
+                          <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
+
+                          <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyectosTamano_filtro.errors }">
+
+                              <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
+                                  {{proyectosTamano}}
+                              </option>
+                          </select>
+                          <div *ngIf="submitted && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
+                              <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
+                          </div>
+                      </div>
+
+
+
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-3">
+
+
+                      <div class="form-group" [formGroup]="registerForm">
+                          <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
+
+                          <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_como_se_entero_filtro.errors }">
+
+                              <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
+                                  {{como_se_entero}}
+                              </option>
+                          </select>
+                          <div *ngIf="submitted && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
+                              <div *ngIf="f.fs_como_se_entero_filtro.errors.required">Campo necesario</div>
+                          </div>
+                      </div>
+
+
+
+
+
+                  </div>
+              </div>
+
+              <br />
+              <div class="row" style="text-align:left !important; color:#333;">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                      <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
+                      <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
+                  </div>
+              </div>
+              <br />
+              <ul class="list-group">
+                  <li class="list-group-item">
+                      <div class="row">
+                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloValorProyecto}}<br />
+                              <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}<br />
+                              <strong>{{proyecto_vivienda_seleccionado.area_construida}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}<br />
+                              <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.titulohabitacionesProyecto}}<br />
+                              <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                              {{texto_cotizacion_persona.titulodisponiblesProyecto}}<br />
+                              <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-1 col-lg-1 ">
+                              {{texto_cotizacion_persona.titulobanosProyecto}}<br />
+                              <strong>{{proyecto_vivienda_seleccionado.banosProyecto}} </strong>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+              <br />
+              <div class="row">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
 
 
                     <div class="form-group" [formGroup]="registerForm">
-                        <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
+                        <label>{{texto_cotizacion_persona.tituloTipoDocumento}}</label>
 
-                        <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_ciudad_filtro.errors }">
+                        <select formControlName="fs_tipo_documento_campo"
+                        (ngModelChange)="onSeleccion_tipo_documento_lista()" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.fs_tipo_documento_campo.errors }">
 
-                            <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
-                                {{ciudad}}
+                            <option *ngFor="let tipo_documento of (fs_tipo_documento_lista$ | async); let i = index"
+                            [value]="tipo_documento.id" [selected]="i == 0">
+                                {{tipo_documento.tipo_documento}}
                             </option>
                         </select>
-                        <div *ngIf="submitted && f.fs_ciudad_filtro.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
+                        <div *ngIf="submitted && f.fs_tipo_documento_campo.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_tipo_documento_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-3">
+
+
+                      <div class="form-group" [formGroup]="registerForm">
+                          <label>{{texto_cotizacion_persona.tituloNombres}}</label>
+                          <input type="text" formControlName="fs_nombres_campo" class="form-control"
+                           [ngClass]="{ 'is-invalid': submitted && f.fs_nombres_campo.errors }" />
+                          <div *ngIf="submitted && f.fs_nombres_campo.errors" class="invalid-feedback">
+                              <div *ngIf="f.fs_nombres_campo.errors.required">Campo necesario</div>
+                          </div>
+                      </div>
+
+
+
+                      <div class="form-group" [formGroup]="registerForm">
+                          <div class="form-check">
+                              <div class="row">
+                                  <div class="col-12">
+
+                                        <input type="checkbox" formControlName="fs_abeasdata_campo" class="form-control"
+                                       [ngClass]="{ 'is-invalid': submitted && f.fs_abeasdata_campo.errors }" />
+                                      <div *ngIf="submitted && f.fs_abeasdata_campo.errors" class="invalid-feedback">
+                                          <div *ngIf="f.fs_abeasdata_campo.errors.required">Campo necesario</div>
+                                      </div>
+
+                                      <label style="margin-top:0px;" class="form-check-label" for="exampleCheck1">{{texto_cotizacion_persona.tituloAutorizaDatos}}</label>
+                                      <br /><a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlTratamientoDatos}}"> {{texto_cotizacion_persona.tituloTratamientoDatos}}</a>
+                                      <br /><a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}"> {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 col-lg-4">
 
 
                     <div class="form-group" [formGroup]="registerForm">
-                        <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
-
-                        <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyecto_filtro.errors }">
-
-                            <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
-                                {{proyecto}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted && f.fs_proyecto_filtro.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
+                        <label>{{texto_cotizacion_persona.titulonumeroDocumento}}</label>
+                        <input type="number" formControlName="fs_numeroDocumento_campo" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.fs_numeroDocumento_campo.errors }" />
+                        <div *ngIf="submitted && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_numeroDocumento_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-3">
-
-
-
-
-                    <div class="form-group" [formGroup]="registerForm">
-                        <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
-
-                        <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyectosTamano_filtro.errors }">
-
-                            <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
-                                {{proyectosTamano}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div class="col-sm-12 col-md-3 col-lg-3">
-
-
-                    <div class="form-group" [formGroup]="registerForm">
-                        <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
-
-                        <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_como_se_entero_filtro.errors }">
-
-                            <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
-                                {{como_se_entero}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_como_se_entero_filtro.errors.required">Campo necesario</div>
-                        </div>
-                    </div>
-
-
-
-
-
-                </div>
-            </div>
-
-            <br />
-            <div class="row" style="text-align:left !important; color:#333;">
-                <div class="col-sm-12 col-md-12 col-lg-12">
-                    <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
-                    <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
-                </div>
-            </div>
-            <br />
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                            {{texto_cotizacion_persona.tituloValorProyecto}}<br />
-                            <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
-                        </div>
-                        <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                            {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}<br />
-                            <strong>{{proyecto_vivienda_seleccionado.area_construida}}</strong>
-                        </div>
-                        <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                            {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}<br />
-                            <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
-                        </div>
-                        <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                            {{texto_cotizacion_persona.titulohabitacionesProyecto}}<br />
-                            <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
-                        </div>
-                        <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                            {{texto_cotizacion_persona.titulodisponiblesProyecto}}<br />
-                            <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
-                        </div>
-                        <div class="col-sm-12 col-md-1 col-lg-1 ">
-                            {{texto_cotizacion_persona.titulobanosProyecto}}<br />
-                            <strong>{{proyecto_vivienda_seleccionado.banosProyecto}} </strong>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <br />
-            <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4">
 
 
                   <div class="form-group" [formGroup]="registerForm">
-                      <label>{{texto_cotizacion_persona.tituloTipoDocumento}}</label>
-
-                      <select formControlName="fs_tipo_documento_campo"
-                      (ngModelChange)="onSeleccion_tipo_documento_lista()" class="form-control"
-                      [ngClass]="{ 'is-invalid': submitted && f.fs_tipo_documento_campo.errors }">
-
-                          <option *ngFor="let tipo_documento of (fs_tipo_documento_lista$ | async); let i = index"
-                          [value]="tipo_documento.id" [selected]="i == 0">
-                              {{tipo_documento.tipo_documento}}
-                          </option>
-                      </select>
-                      <div *ngIf="submitted && f.fs_tipo_documento_campo.errors" class="invalid-feedback">
-                          <div *ngIf="f.fs_tipo_documento_campo.errors.required">Campo necesario</div>
+                      <label>{{texto_cotizacion_persona.tituloEmail}}</label>
+                      <input type="email" formControlName="fs_email_campo" class="form-control"
+                       [ngClass]="{ 'is-invalid': submitted && f.fs_email_campo.errors }" />
+                      <div *ngIf="submitted && f.fs_email_campo.errors" class="invalid-feedback">
+                          <div *ngIf="f.fs_email_campo.errors.required">Campo necesario</div>
                       </div>
                   </div>
 
+                    
+                      <div class="form-group">
+                        <ngx-recaptcha2
+                          [size]="size"
+                          [hl]="lang"
+                          [theme]="theme"
+                          [type]="type"
+                          (success)="handleSuccess_recaptcha2($event)">>
+                        </ngx-recaptcha2>
+                      </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+
+
 
                     <div class="form-group" [formGroup]="registerForm">
-                        <label>{{texto_cotizacion_persona.tituloNombres}}</label>
-                        <input type="text" formControlName="fs_nombres_campo" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f.fs_nombres_campo.errors }" />
-                        <div *ngIf="submitted && f.fs_nombres_campo.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_nombres_campo.errors.required">Campo necesario</div>
+                        <label>{{texto_cotizacion_persona.tituloafiliadoColsubsidio}}</label>
+
+                        <select formControlName="fs_afiliadoColsubsidio_campo"
+                         class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.fs_afiliadoColsubsidio_campo.errors }">
+                        <option value="">Selecciona</option>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                        </select>
+                        <div *ngIf="submitted && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_afiliadoColsubsidio_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
 
 
 
+
                     <div class="form-group" [formGroup]="registerForm">
-                        <div class="form-check">
-                            <div class="row">
-                                <div class="col-12">
-
-                                    <input type="checkbox" formControlName="fs_abeasdata_campo" class="form-control"
-                                     [ngClass]="{ 'is-invalid': submitted && f.fs_abeasdata_campo.errors }" />
-                                    <div *ngIf="submitted && f.fs_abeasdata_campo.errors" class="invalid-feedback">
-                                        <div *ngIf="f.fs_abeasdata_campo.errors.required">Campo necesario</div>
-                                    </div>
-
-                                    <label style="margin-top:0px;" class="form-check-label" for="exampleCheck1">{{texto_cotizacion_persona.tituloAutorizaDatos}}</label>
-                                    <br /><a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlTratamientoDatos}}"> {{texto_cotizacion_persona.tituloTratamientoDatos}}</a>
-                                    <br /><a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}"> {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
-                                </div>
-                            </div>
+                        <label>{{texto_cotizacion_persona.tituloCelular}}</label>
+                        <input type="number" formControlName="fs_celular_campo" class="form-control"
+                         [ngClass]="{ 'is-invalid': submitted && f.fs_celular_campo.errors }" />
+                        <div *ngIf="submitted && f.fs_celular_campo.errors" class="invalid-feedback">
+                            <div *ngIf="f.fs_celular_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
 
-                </div>
 
-                <div class="col-sm-12 col-md-4 col-lg-4">
+                      <p>
+                          {{texto_cotizacion_persona.textoObligatorio}}
+                      </p>
 
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+              <div class="row">
+                  <div class="col-9"></div>
+                  <div class="col-3">
+                      <div class="form-group paddin40">
+                          <div class="button-wrapper">
 
-                  <div class="form-group" [formGroup]="registerForm">
-                      <label>{{texto_cotizacion_persona.titulonumeroDocumento}}</label>
-                      <input type="number" formControlName="fs_numeroDocumento_campo" class="form-control"
-                       [ngClass]="{ 'is-invalid': submitted && f.fs_numeroDocumento_campo.errors }" />
-                      <div *ngIf="submitted && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
-                          <div *ngIf="f.fs_numeroDocumento_campo.errors.required">Campo necesario</div>
+                            <button type="submit"
+                                         [disabled]="registerForm.pristine || registerForm.invalid" class="btn btn-success">
+                                         Siguiente
+                                     </button>
+
+                          </div>
                       </div>
                   </div>
-
-
-                <div class="form-group" [formGroup]="registerForm">
-                    <label>{{texto_cotizacion_persona.tituloEmail}}</label>
-                    <input type="email" formControlName="fs_email_campo" class="form-control"
-                     [ngClass]="{ 'is-invalid': submitted && f.fs_email_campo.errors }" />
-                    <div *ngIf="submitted && f.fs_email_campo.errors" class="invalid-feedback">
-                        <div *ngIf="f.fs_email_campo.errors.required">Campo necesario</div>
-                    </div>
-                </div>
-
-                    <div class="form-group">
-                      <ngx-recaptcha2
-                        [size]="size"
-                        [hl]="lang"
-                        [theme]="theme"
-                        [type]="type"
-                        (success)="handleSuccess_recaptcha2($event)">>
-                      </ngx-recaptcha2>
-                    </div>
-               
-                </div>
-
-                <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-
-                  <div class="form-group" [formGroup]="registerForm">
-                      <label>{{texto_cotizacion_persona.tituloafiliadoColsubsidio}}</label>
-
-                      <select formControlName="fs_afiliadoColsubsidio_campo"
-                       class="form-control"
-                      [ngClass]="{ 'is-invalid': submitted && f.fs_afiliadoColsubsidio_campo.errors }">
-                      <option value="">Selecciona</option>
-                      <option value="si">Si</option>
-                      <option value="no">No</option>
-                      </select>
-                      <div *ngIf="submitted && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
-                          <div *ngIf="f.fs_afiliadoColsubsidio_campo.errors.required">Campo necesario</div>
-                      </div>
-                  </div>
-
-
-
-
-                  <div class="form-group" [formGroup]="registerForm">
-                      <label>{{texto_cotizacion_persona.tituloCelular}}</label>
-                      <input type="number" formControlName="fs_celular_campo" class="form-control"
-                       [ngClass]="{ 'is-invalid': submitted && f.fs_celular_campo.errors }" />
-                      <div *ngIf="submitted && f.fs_celular_campo.errors" class="invalid-feedback">
-                          <div *ngIf="f.fs_celular_campo.errors.required">Campo necesario</div>
-                      </div>
-                  </div>
-
-
-                    <p>
-                        {{texto_cotizacion_persona.textoObligatorio}}
-                    </p>
-
-                </div>
-            </div>
-        </div>
+              </div>
+          </div>
+      </form>
     </div>
+    <!-- paso 1 -->
 
-    <div class="container">
-        <div class="row">
-            <div class="col-9"></div>
-            <div class="col-3">
-                <div class="form-group paddin40">
-                    <div class="button-wrapper">
+    <!-- paso 2 -->
+    <div [hidden]="hidden_paso2">
+      <form   (ngSubmit)="onSubmit_paso2()" >
+      <div class="container seccion_titulos">
+          <div class="ingreso center-block info_pasada">
+              <h2 class="category-section-title title_line auto_width">
+                {{texto_cotizacion_persona.tituloPaso2}}
+              </h2>
+              <br style="clear:both;" />
+              <div class="row">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                          <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
+                          <input type="number" name="ingresos_familiar"
+                          id="ingresos_familiar" value="" class="form-control"
+                          placeholder="" required="required" title=""
+                           onChange="formatoNumeros(this);" onKeyUp="formatoNumeros(this);" />
+                          <div class="valid-feedback"></div>
+                          <div class="invalid-feedback">Campo necesario</div>
+                      </div>
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                          <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
+                          <input type="number" name="ahorros" id="ahorros"
+                          value="" class="form-control" placeholder="" required="required" title="" />
+                          <div class="valid-feedback"></div>
+                          <div class="invalid-feedback">Campo necesario</div>
+                      </div>
+                  </div>
 
-                      <button type="submit"
-                                   [disabled]="registerForm.pristine || registerForm.invalid" class="btn btn-success">
-                                   Siguiente
-                               </button>
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                      <div class="form-group">
+                          <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
+                          <input type="number" name="cesantias" id="cesantias"
+                          value="" class="form-control" placeholder="" required="required" title="" />
+                          <div class="valid-feedback"></div>
+                          <div class="invalid-feedback">Campo necesario</div>
+                      </div>
+                  </div>
+              </div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
+              <div class="row" style="text-align:left !important; color:#333;">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                      <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
+                      <br /> {{InventarioProyecto}}
+                  </div>
+              </div>
+              <br />
+              <ul class="list-group">
+                  <li class="list-group-item">
+                      <div class="row">
+                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloValorProyecto}}
+                                <br />
+                                <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
+                              <br />
+                              <strong>{{proyecto_vivienda_seleccionado.areaconstruidaProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}
+                              <br />
+                              <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.titulohabitacionesProyecto}}
+                              <br />
+                              <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                              {{texto_cotizacion_persona.titulodisponiblesProyecto}}
+                              <br />
+                              <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-1 col-lg-1 ">
+                              {{texto_cotizacion_persona.titulobanosProyecto}}
+                              <br />
+                              <strong>{{proyecto_vivienda_seleccionado.banosProyecto}}</strong>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+              <br />
+              <div class="row" style="text-align:left !important; color:#333;">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                      <strong>{{texto_cotizacion_persona.tituloPaso1}}</strong>
+                  </div>
+              </div>
+              <ul class="list-group">
+                  <li class="list-group-item">
+                      <div class="row">
+                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloDocumentoIdentidad}}
+                              <br />
+                              <strong>{{f.fs_nombre_documento_campo}}</strong>
+                              <strong>{{f.fs_numeroDocumento_campo}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                              {{texto_cotizacion_persona.tituloAfiliadoColsubsidio}}
+                              <br />
+                              <strong>{{fs_afiliadoColsubsidio_campo}}</strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                              {{texto_cotizacion_persona.tituloNombresApellidos}}
+                              <br />
+                              <strong>{{fs_nombres_campo}} </strong>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                              {{texto_cotizacion_persona.tituloEmail}}
+                              <br />
+                              <strong>{{fs_email_campo}} </strong>
+                          </div>
+                          <div class="col-sm-12 col-md-2 col-lg-2">
+                              {{texto_cotizacion_persona.tituloCelular}}
+                              <br />
+                              <strong>{{fs_celular_campo}}</strong>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+
+              <br />
+          </div>
+      </div>
+      <div class="container seccion_titulos">
+          <div class="row">
+              <div class="col-sm-12 col-md-4 col-lg-4">
+              </div>
+              <div class="col-sm-12 col-md-4 col-lg-4">
+                  <div class="form-group">
+                      <div class="button-wrapper">
+                          <button onclick="window.location.href='https://www.leggercolombia.com/cotizador-vivienda/forma_pago.php'" class="form-btn" type="button" id="anterior">
+                              <span class="text">Anterior</span> <span class="icon"></span>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-lg-4">
+                  <div class="form-group">
+                      <div class="button-wrapper">
+                          <button class="form-btn" type="submit" id="btnSubmit">
+                              <span class="text">Siguiente</span> <span class="icon"></span>
+                          </button>
+                      </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <p>
+                      {{texto_cotizacion_persona.textoObligatorio}}
+                  </p>
+              </div>
+          </div>
+      </div>
+      </form>
     </div>
-</form>
+    <!-- paso 2 -->

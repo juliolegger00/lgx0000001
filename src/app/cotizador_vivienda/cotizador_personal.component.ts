@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-cotizador_personal',
-    templateUrl: './cotizador_personal.component.html'
+    templateUrl: './cotizador_personal.component.html' ,
 })
 
 export class Cotizador_personalComponent implements OnInit {
@@ -24,6 +24,8 @@ export class Cotizador_personalComponent implements OnInit {
     registerForm: FormGroup;
     submitted = false;
     recaptcha2_valido=false;
+    hidden_paso1 = false;
+    hidden_paso2 = true;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -43,6 +45,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     fs_tipo_documento_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
     fs_tipo_documento_lista$: Observable < any > = this.fs_tipo_documento_lista_obsArray.asObservable();
+    data_lst_tipo_documento: any = {};
 
     constructor(
         private http: HttpClient,
@@ -77,19 +80,28 @@ export class Cotizador_personalComponent implements OnInit {
 
         get fs(){
 
+          let nombre_tipo_documento:string="";
+          this.data_lst_tipo_documento.forEach((item, index) => {
+            if(this.f.fs_tipo_documento_campo.value.indexOf(item.id_tipo_documento)>-1){
+              nombre_tipo_documento=item.title.rendered;
+            }
+          });
+
           let fs_formulario = {
                   "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
                   "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
                   "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
                   "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
                   "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
-                  "fs_nombres_campo": this.f.fs_nombres_campo.value,
+                  "fs_nombre_documento_campo": nombre_tipo_documento,
                   "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
+                  "fs_nombres_campo": this.f.fs_nombres_campo.value,
                   "fs_email_campo": this.f.fs_email_campo.value,
                   "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
                   "fs_celular_campo": this.f.fs_celular_campo.value,
                   "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
                   "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado,
+                  "texto_cotizacion_persona": this.texto_cotizacion_persona,
           };
 
           return fs_formulario;
@@ -120,10 +132,9 @@ export class Cotizador_personalComponent implements OnInit {
         this.addElementToObservableArray_tipo_documento_lista({"id":CONFIG.lang_seleccione ,"tipo_documento":CONFIG.lang_seleccione});
         this.http.get(CONFIG.api_lista_tipo_documento).pipe(delay(0)).subscribe(data => {
 
-            let data_lst: any = {};
-            data_lst = data;
+            this.data_lst_tipo_documento = data;
 
-            data_lst.forEach((item, index) => {
+            this.data_lst_tipo_documento.forEach((item, index) => {
                   let item_t: any = {"id":item.id_tipo_documento ,"tipo_documento":item.title.rendered};
                 this.addElementToObservableArray_tipo_documento_lista(item_t);
             });
@@ -159,27 +170,38 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
-    onSubmit() {
-
-        localStorage.removeItem("cotizador_personal");
-        this.submitted = true;
+    onSubmit_paso1() {
 
         // stop here if form is invalid
         if (this.registerForm.invalid) {
+          this.hidden_paso1 = false;
             return;
         }
 
+
         if(!this.recaptcha2_valido){
-          this.submitted = false;
+          this.hidden_paso1 = false;
           return;
         }
 
-        //alert('SUCCESS!! :-)')
 
-        localStorage.setItem("cotizador_personal",JSON.stringify(this.fs));
-        this.router.navigate(["formapagopersonal"]);
+        this.hidden_paso1 = true;
+        this.hidden_paso2 = false;
+        return;
+
+        //alert('SUCCESS!! :-)')
+        //localStorage.removeItem("cotizador_personal");
+        //localStorage.setItem("cotizador_personal",JSON.stringify(this.fs));
+        //this.router.navigate(["formapagopersonal"]);
+        //learla
+        //this.cotizador_personal = localStorage.getItem("cotizador_personal");
 
     } //fin onSubmit
+
+
+    onSubmit_paso2() {
+
+    }
 
 
     onSeleccion_tipo_documento_lista() {}

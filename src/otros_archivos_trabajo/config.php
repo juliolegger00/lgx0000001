@@ -1702,6 +1702,52 @@ function register_custom_fields_info_texto_vivienda()
             'get_callback' => 'show_fields'
         )
     );
+
+    register_rest_field(
+        'info_texto_vivienda','tituloIngresosGrupoFamiliar',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'info_texto_vivienda','tituloAhorros',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'info_texto_vivienda','tituloCesantias',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'info_texto_vivienda','tituloDocumentoIdentidad',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'info_texto_vivienda','tituloAfiliadoColsubsidio',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'info_texto_vivienda','tituloNombresApellidos',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+
+
+
 }
 
 
@@ -2069,6 +2115,84 @@ if(function_exists("register_field_group"))
 				'key' => 'field_2160184',
 				'label' => 'titulobanosProyecto',
 				'name' => 'titulobanosProyecto',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_214096',
+				'label' => 'tituloIngresosGrupoFamiliar',
+				'name' => 'tituloIngresosGrupoFamiliar',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_665795',
+				'label' => 'tituloAhorros',
+				'name' => 'tituloAhorros',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_256779',
+				'label' => 'tituloCesantias',
+				'name' => 'tituloCesantias',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_889582',
+				'label' => 'tituloDocumentoIdentidad',
+				'name' => 'tituloDocumentoIdentidad',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_565472',
+				'label' => 'tituloAfiliadoColsubsidio',
+				'name' => 'tituloAfiliadoColsubsidio',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_66753',
+				'label' => 'tituloNombresApellidos',
+				'name' => 'tituloNombresApellidos',
 				'type' => 'text',
 				'default_value' => '',
 				'placeholder' => '',
