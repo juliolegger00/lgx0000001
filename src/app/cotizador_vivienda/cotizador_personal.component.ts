@@ -21,7 +21,8 @@ import { Router } from '@angular/router';
 export class Cotizador_personalComponent implements OnInit {
 
 
-    registerForm: FormGroup;
+    regFormPaso1: FormGroup;
+    regFormPaso2: FormGroup;
     submitted = false;
     recaptcha2_valido=false;
     hidden_paso1 = false;
@@ -53,16 +54,17 @@ export class Cotizador_personalComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router
     ) {
-        this.initializeFormulario();
+        this.initializeFormularioPaso1();
+            this.initializeFormularioPaso2();
     } //fin constructor
 
     ngOnInit() {
         this.initializeData();
     } //fin metodo ngOnInit
 
-    public initializeFormulario() {
+    public initializeFormularioPaso1() {
 
-        this.registerForm = new FormGroup({
+        this.regFormPaso1 = new FormGroup({
             fs_ciudad_filtro: new FormControl('', Validators.required),
             fs_proyecto_filtro: new FormControl('', Validators.required),
             fs_proyectosTamano_filtro: new FormControl('', Validators.required),
@@ -74,6 +76,13 @@ export class Cotizador_personalComponent implements OnInit {
             fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
             fs_celular_campo: new FormControl('', Validators.required),
             fs_abeasdata_campo: new FormControl('', Validators.required),
+        });
+    } // fin initializeFormulario
+
+    public initializeFormularioPaso2() {
+
+        this.regFormPaso2 = new FormGroup({
+           
         });
     } // fin initializeFormulario
 
@@ -157,9 +166,9 @@ export class Cotizador_personalComponent implements OnInit {
     //I also added a getter 'f' as a convenience property to make it
     // easier to access form controls from the template. So for example
     //you can access the email field in the template using f.email
-    //instead of registerForm.controls.email.
+    //instead of regFormPaso1.controls.email.
     get f() {
-        return this.registerForm.controls;
+        return this.regFormPaso1.controls;
     }
 
 
@@ -181,7 +190,7 @@ export class Cotizador_personalComponent implements OnInit {
     onSubmit_paso1() {
 
         // stop here if form is invalid
-        if (this.registerForm.invalid) {
+        if (this.regFormPaso1.invalid) {
           this.hidden_paso1 = false;
             return;
         }
