@@ -170,6 +170,14 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
+
+    regresarPaso1(){
+
+              this.hidden_paso2 = true;
+              this.hidden_paso1 = false;
+              return;
+    }
+
     onSubmit_paso1() {
 
         // stop here if form is invalid
@@ -179,10 +187,10 @@ export class Cotizador_personalComponent implements OnInit {
         }
 
 
-        if(!this.recaptcha2_valido){
-          this.hidden_paso1 = false;
-          return;
-        }
+        //if(!this.recaptcha2_valido){
+        //  this.hidden_paso1 = false;
+        //  return;
+        //}
 
 
         this.hidden_paso1 = true;

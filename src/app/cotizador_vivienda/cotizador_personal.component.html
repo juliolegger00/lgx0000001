@@ -263,7 +263,7 @@
                       </div>
                   </div>
 
-                    
+                    <!--
                       <div class="form-group">
                         <ngx-recaptcha2
                           [size]="size"
@@ -273,7 +273,7 @@
                           (success)="handleSuccess_recaptcha2($event)">>
                         </ngx-recaptcha2>
                       </div>
-
+                    -->
                   </div>
 
                   <div class="col-sm-12 col-md-4 col-lg-4">
@@ -382,7 +382,7 @@
               <div class="row" style="text-align:left !important; color:#333;">
                   <div class="col-sm-12 col-md-12 col-lg-12">
                       <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
-                      <br /> {{InventarioProyecto}}
+                      <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
                   </div>
               </div>
               <br />
@@ -435,27 +435,27 @@
                               {{texto_cotizacion_persona.tituloDocumentoIdentidad}}
                               <br />
                               <strong>{{f.fs_nombre_documento_campo}}</strong>
-                              <strong>{{f.fs_numeroDocumento_campo}}</strong>
+                              <strong>{{f.fs_numeroDocumento_campo.value}}</strong>
                           </div>
                           <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.tituloAfiliadoColsubsidio}}
+                              {{texto_cotizacion_persona.tituloafiliadoColsubsidio}}
                               <br />
-                              <strong>{{fs_afiliadoColsubsidio_campo}}</strong>
+                              <strong>{{f.fs_afiliadoColsubsidio_campo.value}}</strong>
                           </div>
                           <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
                               {{texto_cotizacion_persona.tituloNombresApellidos}}
                               <br />
-                              <strong>{{fs_nombres_campo}} </strong>
+                              <strong>{{f.fs_nombres_campo.value}} </strong>
                           </div>
                           <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
                               {{texto_cotizacion_persona.tituloEmail}}
                               <br />
-                              <strong>{{fs_email_campo}} </strong>
+                              <strong>{{f.fs_email_campo.value}} </strong>
                           </div>
                           <div class="col-sm-12 col-md-2 col-lg-2">
                               {{texto_cotizacion_persona.tituloCelular}}
                               <br />
-                              <strong>{{fs_celular_campo}}</strong>
+                              <strong>{{f.fs_celular_campo.value}}</strong>
                           </div>
                       </div>
                   </li>
@@ -471,7 +471,9 @@
               <div class="col-sm-12 col-md-4 col-lg-4">
                   <div class="form-group">
                       <div class="button-wrapper">
-                          <button onclick="window.location.href='https://www.leggercolombia.com/cotizador-vivienda/forma_pago.php'" class="form-btn" type="button" id="anterior">
+                          <button
+                           (click)="regresarPaso1($event)"
+                            class="form-btn" type="button" >
                               <span class="text">Anterior</span> <span class="icon"></span>
                           </button>
                       </div>
@@ -481,7 +483,8 @@
               <div class="col-sm-12 col-md-4 col-lg-4">
                   <div class="form-group">
                       <div class="button-wrapper">
-                          <button class="form-btn" type="submit" id="btnSubmit">
+                          <button class="form-btn"
+                           type="button"  >
                               <span class="text">Siguiente</span> <span class="icon"></span>
                           </button>
                       </div>

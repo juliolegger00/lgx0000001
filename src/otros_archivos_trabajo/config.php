@@ -1731,12 +1731,6 @@ function register_custom_fields_info_texto_vivienda()
         )
     );
 
-    register_rest_field(
-        'info_texto_vivienda','tituloAfiliadoColsubsidio',
-        array(
-            'get_callback' => 'show_fields'
-        )
-    );
 
     register_rest_field(
         'info_texto_vivienda','tituloNombresApellidos',
@@ -2167,19 +2161,6 @@ if(function_exists("register_field_group"))
 				'key' => 'field_889582',
 				'label' => 'tituloDocumentoIdentidad',
 				'name' => 'tituloDocumentoIdentidad',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'html',
-				'maxlength' => '',
-			),
-
-			array (
-				'key' => 'field_565472',
-				'label' => 'tituloAfiliadoColsubsidio',
-				'name' => 'tituloAfiliadoColsubsidio',
 				'type' => 'text',
 				'default_value' => '',
 				'placeholder' => '',
