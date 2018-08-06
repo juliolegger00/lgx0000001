@@ -332,7 +332,7 @@
                       </div>
                   </div>
               </div>
-          </div>
+      </div>
       </form>
     </div>
     <!-- paso 1 -->
@@ -348,34 +348,49 @@
               <br style="clear:both;" />
               <div class="row">
                   <div class="col-sm-12 col-md-4 col-lg-4">
-                      <div class="form-group">
-                          <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
-                          <input type="number" name="ingresos_familiar"
-                          id="ingresos_familiar" value="" class="form-control"
-                          placeholder="" required="required" title=""
-                           onChange="formatoNumeros(this);" onKeyUp="formatoNumeros(this);" />
-                          <div class="valid-feedback"></div>
-                          <div class="invalid-feedback">Campo necesario</div>
-                      </div>
+
+
+
+
+
+                <div class="form-group" [formGroup]="regFormPaso2">
+                    <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
+                    <input type="number" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
+                     [ngClass]="{ 'is-invalid': submitted && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
+                    <div *ngIf="submitted && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
+                        <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
+                    </div>
+                </div>
+
+
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-4">
-                      <div class="form-group">
-                          <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
-                          <input type="number" name="ahorros" id="ahorros"
-                          value="" class="form-control" placeholder="" required="required" title="" />
-                          <div class="valid-feedback"></div>
-                          <div class="invalid-feedback">Campo necesario</div>
-                      </div>
+
+
+                        <div class="form-group" [formGroup]="regFormPaso2">
+                            <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
+                            <input type="number" formControlName="fs_ahorros_campo" class="form-control"
+                             [ngClass]="{ 'is-invalid': submitted && f2.fs_ahorros_campo.errors }" />
+                            <div *ngIf="submitted && f2.fs_ahorros_campo.errors" class="invalid-feedback">
+                                <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
+                            </div>
+                        </div>
+
                   </div>
 
                   <div class="col-sm-12 col-md-4 col-lg-4">
-                      <div class="form-group">
-                          <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
-                          <input type="number" name="cesantias" id="cesantias"
-                          value="" class="form-control" placeholder="" required="required" title="" />
-                          <div class="valid-feedback"></div>
-                          <div class="invalid-feedback">Campo necesario</div>
-                      </div>
+
+
+                        <div class="form-group" [formGroup]="regFormPaso2">
+                            <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
+                            <input type="number" formControlName="fs_cesantias_campo" class="form-control"
+                             [ngClass]="{ 'is-invalid': submitted && f2.fs_cesantias_campo.errors }" />
+                            <div *ngIf="submitted && f2.fs_cesantias_campo.errors" class="invalid-feedback">
+                                <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
+                            </div>
+                        </div>
+
+
                   </div>
               </div>
 
@@ -483,10 +498,11 @@
               <div class="col-sm-12 col-md-4 col-lg-4">
                   <div class="form-group">
                       <div class="button-wrapper">
-                          <button class="form-btn"
-                           type="button"  >
-                              <span class="text">Siguiente</span> <span class="icon"></span>
-                          </button>
+
+                  <button type="submit"
+                               [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" class="btn btn-success">
+                               Siguiente
+                           </button>
                       </div>
                   </div>
                   <div class="clearfix"></div>
@@ -499,3 +515,284 @@
       </form>
     </div>
     <!-- paso 2 -->
+
+
+
+
+    <!-- paso 3 -->
+    <div [hidden]="hidden_paso3">
+      <form   (ngSubmit)="onSubmit_paso3()" >
+
+        <div class="container seccion_titulos">
+        	<div class="ingreso center-block info_pasada">
+               <br />
+               <div class="row" style="text-align:left !important; color:#333;">
+                   <div class="col-sm-12 col-md-12 col-lg-12">
+                     <strong>{{tituloInventarioProyecto}}</strong>
+                     <br />
+                     {{InventarioProyecto}}
+                   </div>
+               </div>
+               <br />
+               <ul class="list-group">
+                  <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                                Valor Venta <strong><br />$ 90.000.000</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                                {{tituloareaconstruidaProyecto}}<br /><strong>{{areaconstruidaProyecto}}</strong>
+                            </div>
+                             <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                                {{tituloareaPrivadaproyecto}}<br /><strong>{{areaPrivadaproyecto}}</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                                {{titulohabitacionesProyecto}}<br /><strong>{{habitacionesProyecto}}</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                               {{titulodisponiblesProyecto}}<br /><strong>{{disponiblesProyecto}}</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-1 col-lg-1 ">
+                                {{titulobanosProyecto}}<br /><strong>{{banosProyecto}} </strong>
+                            </div>
+                        </div>
+                  </li>
+                </ul>
+                <br />
+                <div class="row" style="text-align:left !important; color:#333;">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                		<strong>Información personal</strong>
+                    </div>
+                </div>
+                <ul class="list-group">
+               		<li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                                Documento de identidad<br /><strong>C.C.</strong> <strong>80244027</strong>
+                            </div>
+                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                                Afiliado a Colsubsidio<br /><strong>Si</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                                Nombres y apellidos<br /><strong>David Ricardo Hernández </strong>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                                Correo electrónico<br /><strong>ricardo@leggercolombia.com </strong>
+                            </div>
+                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                Celular<br /><strong>3144714918</strong>
+                            </div>
+                        </div>
+                  	</li>
+                </ul>
+                <br />
+                <div class="row" style="text-align:left !important; color:#333;">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                		<strong>Forma de pago</strong>
+                    </div>
+                </div>
+                <ul class="list-group">
+               		<li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                                Ingresos familiares<br /><strong>$ 1.600.000</strong>
+                            </div>
+                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                                Ahorros<br /><strong>$ 11.600.000</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                                Cesantías<br /><strong>$ 3.400.000 </strong>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+
+                            </div>
+                            <div class="col-sm-12 col-md-2 col-lg-2">
+
+                            </div>
+                        </div>
+                  	</li>
+               	</ul>
+                <br />
+                <ul class="list-group">
+               		<li class="list-group-item">
+                        <div class="row">
+                            <table cellspacing='0' cellpadding='0' width='100%'>
+                              <tr>
+                                <td colspan='3'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>Proyecto   preferencial para afiliados a Colsubsidio</td>
+                              </tr>
+                              <tr>
+                                <td  width='250'  bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
+                                <td width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Sin acabados</td>
+                                <td width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Con acabados</td>
+                              </tr>
+                              <tr>
+                                <td >Valor del inmueble</td>
+                                <td >$ 89.900.000</td>
+                                <td >$ 97.900.000</td>
+                              </tr>
+                              <tr>
+                                <td >Cuota inicial 30%</td>
+                                <td >$ 26.970.000</td>
+                                <td >$ 29.370.000</td>
+                              </tr>
+                              <tr>
+                                <td >Separación</td>
+                                <td >$ 1.000.000</td>
+                                <td >$ 1.000.000</td>
+                              </tr>
+                              <tr>
+                                <td >Ingresos grupo familiar</td>
+                                <td >$ 3.000.000</td>
+                                <td >$ 3.000.000</td>
+                              </tr>
+                              <tr>
+                                <td >Subsidio aproximado</td>
+                                <td >$ 15.624.840</td>
+                                <td >$ 15.624.840</td>
+                              </tr>
+                              <tr>
+                                <td >Ahorros</td>
+                                <td >$ 500.000</td>
+                                <td >$ 500.000</td>
+                              </tr>
+                              <tr>
+                                <td >Cesantías</td>
+                                <td >$ 3.000.000</td>
+                                <td >$ 3.000.000</td>
+                              </tr>
+                              <tr>
+                                <td >Saldo en cuota inicial</td>
+                                <td >$ 6.845.160</td>
+                                <td >$ 9.245.160</td>
+                              </tr>
+                              <tr>
+                                <td>11 Cuotas mensuales</td>
+                                <td >$ 622.287</td>
+                                <td >$ 840.469</td>
+                              </tr>
+                            </table>
+                        </div>
+                   </li>
+             	</ul>
+
+                <br />
+                <ul class="list-group">
+               		<li class="list-group-item">
+                        <div class="row">
+                            <table cellspacing='0' cellpadding='0' width='100%'>
+                                <tr>
+                                    <td colspan='5'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>Información Crédito hipotecario Colsubsidio</td>
+                                </tr>
+                                <tr>
+                                    <td colspan='1' width='250'  bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
+                                    <td colspan='2' width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Sin acabados</td>
+                                    <td colspan='2' width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Con acabados</td>
+                                  </tr>
+                                <tr>
+                                    <td colspan='1'>Crédito requerido</td>
+                                    <td colspan='2'>$ 62.930.000</td>
+                                    <td colspan='2'>$ 68.530.000</td>
+                                </tr>
+                                  <tr>
+                                    <td >Plazo (Aprox)</td>
+                                    <td >Cuota UVR </td>
+                                    <td >Cuota Pesos</td>
+
+                                    <td >Cuota UVR </td>
+                                    <td >Cuota Pesos</td>
+                                  </tr>
+                                  <tr>
+                                    <td >10 años</td>
+                                    <td >$ 482.802</td>
+                                    <td >$ 936.746</td>
+
+                                    <td >$ 523.363</td>
+                                    <td >$ 1.020.105</td>
+                                  </tr>
+                                  <tr>
+                                    <td >15 años</td>
+                                    <td >$ 563.038</td>
+                                    <td >$ 795.763</td>
+
+                                    <td >$ 610.739</td>
+                                    <td >$ 866.576</td>
+                                  </tr>
+                                  <tr>
+                                    <td >20 años</td>
+                                    <td >$ 730.872</td>
+                                    <td >$ 738.138</td>
+
+                                    <td >$ 793.508</td>
+                                    <td >$ 803.823</td>
+                                  </tr>
+                            </table>
+                      	</div>
+                   	</li>
+               	</ul>
+                <br />
+                <ul class="list-group">
+               		<li class="list-group-item">
+                        <div class="row">
+                        	<div class="col-sm-12 col-md-4 col-lg-4 borde_der">
+                                Fecha de entrega: (aprox)<br /><strong>Junio 30 de 2018</strong>
+                            </div>
+                             <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
+                                Gastos de escrituración:(aprox)<br /><strong>$ 11.600.000</strong>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                Valor administración (aprox)<br /><strong>$ 40.000 </strong>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <br />
+                <ul class="list-group">
+               		<li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <ul style="padding-left:30px; text-align:left;">
+                                    <li>Esta cotización es válida por 8 días y sujeta a disponibilidad en el momento de entregar la documentación requerida.</li>
+                                    <li>La cuota del crédito hipotecario está sujeta a la tasa que esté vigente en la entidad a la fecha del desembolso.</li>
+                                    <li>Crédito Colsubsidio: Si eres afiliado categoría A o B, pregunta por nuestro Crédito Hipotecario, línea Tu hogar soñado.</li>
+                                    <li>El comprador no debe estar reportado negativamente en centrales de riesgo y debe mantener su capacidad de endeudamiento hasta el desembolso del crédito.</li>
+                                    <li>Los precios podrán ser modificados sin previo aviso, antes de la separación del inmueble.</li>
+                                    <li>El plazo para la cuota inicial no está asociado a la fecha de entrega.</li>
+                                    <li>El proyecto podrá ser desarrollado por etapas y ajustadas o modificadas por el Constructor, cumpliendo con las normas establecidas por las autoridades competentes.</li>
+                                    <li>Las características técnicas de los inmuebles estarán indicadas en el documento Especificaciones Técnicas y Acabados, podrán ser consultadas en la sala de ventas. Éste documento es entregado en el momento de la promesa de compraventa.</li>
+                                    <li>En el valor del inmueble no están incluidos los gastos de escrituración, registro ni estudio de títulos, avaluos o gastos por intereses de liquidación de crédito.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+               	</ul>
+        	</div>
+        </div>
+
+        <div class="container">
+        	<div class="row">
+            	<div class="col-sm-12 col-md-4 col-lg-4">
+                </div>
+            	<div class="col-sm-12 col-md-4 col-lg-4">
+                	<div class="form-group paddin40">
+                 		<div class="button-wrapper">
+                     		<button class="form-btn" type="submit" id="btnSubmit">
+                        		<span class="text">Anterior</span> <span class="icon"></span>
+                       		</button>
+                    	</div>
+               		</div>
+                </div>
+            	<div class="col-sm-12 col-md-4 col-lg-4">
+                	<div class="form-group paddin40">
+                 		<div class="button-wrapper">
+                     		<button class="form-btn" type="submit" id="btnSubmit">
+                        		<span class="text">Imprimir Cotización</span> <span class="icon"></span>
+                       		</button>
+                    	</div>
+               		</div>
+                </div>
+            </div>
+        </div>
+
+      </form>
+    </div>
+    <!-- paso 3 -->

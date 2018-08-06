@@ -25,8 +25,9 @@ export class Cotizador_personalComponent implements OnInit {
     regFormPaso2: FormGroup;
     submitted = false;
     recaptcha2_valido=false;
-    hidden_paso1 = false;
+    hidden_paso1 = true;
     hidden_paso2 = true;
+    hidden_paso3 = false;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -55,7 +56,7 @@ export class Cotizador_personalComponent implements OnInit {
         private router: Router
     ) {
         this.initializeFormularioPaso1();
-            this.initializeFormularioPaso2();
+        this.initializeFormularioPaso2();
     } //fin constructor
 
     ngOnInit() {
@@ -82,7 +83,10 @@ export class Cotizador_personalComponent implements OnInit {
     public initializeFormularioPaso2() {
 
         this.regFormPaso2 = new FormGroup({
-           
+          fs_ingresosGrupoFamiliar_campo: new FormControl('', Validators.required),
+          fs_ahorros_campo: new FormControl('', Validators.required),
+          fs_cesantias_campo  : new FormControl('', Validators.required),
+
         });
     } // fin initializeFormulario
 
@@ -171,6 +175,9 @@ export class Cotizador_personalComponent implements OnInit {
         return this.regFormPaso1.controls;
     }
 
+    get f2() {
+        return this.regFormPaso2.controls;
+    }
 
 
     handleSuccess_recaptcha2(event){
@@ -216,9 +223,14 @@ export class Cotizador_personalComponent implements OnInit {
     } //fin onSubmit
 
 
-    onSubmit_paso2() {
+        onSubmit_paso2() {
 
-    }
+        }
+
+
+            onSubmit_paso3() {
+
+            }
 
 
     onSeleccion_tipo_documento_lista() {}
