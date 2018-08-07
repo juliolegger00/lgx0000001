@@ -13,9 +13,12 @@ import { take  } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
+
 @Component({
     selector: 'app-cotizador_personal',
-    templateUrl: './cotizador_personal.component.html' ,
+    templateUrl: './cotizador_personal.component.html'
+
 })
 
 export class Cotizador_personalComponent implements OnInit {
@@ -52,18 +55,22 @@ export class Cotizador_personalComponent implements OnInit {
     fs_galeria_imagenes_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
     fs_galeria_iamgenes_lista$: Observable < any > = this.fs_galeria_imagenes_lista_obsArray.asObservable();
 
+
+
     constructor(
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
         private formBuilder: FormBuilder,
-        private router: Router
+        private router: Router,
     ) {
         this.initializeFormularioPaso1();
         this.initializeFormularioPaso2(); // paso2
+
     } //fin constructor
 
     ngOnInit() {
         this.initializeData();
+
     } //fin metodo ngOnInit
 
     public initializeFormularioPaso1() {
@@ -171,6 +178,18 @@ export class Cotizador_personalComponent implements OnInit {
             ///cargar galeria_imagenes
             if (this.proyecto_vivienda_seleccionado.id > 0) {
                 this.removeRoomAll_galeria_imagenes_lista();
+
+                ///desfaul
+                let data_imagen: any = {
+                    "id":"0",
+                    "dir_imagen": this.proyecto_vivienda_seleccionado.srcFotos,
+                    "leyenda": "",
+                    "alt_text":this.proyecto_vivienda_seleccionado.altFotos,
+                };
+
+                this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+                ///defau
+
                 this.http.get(CONFIG.api_lista_galeria_imagenes).pipe(delay(0)).subscribe(data => {
 
                     let data_lst: any = {};
@@ -185,13 +204,16 @@ export class Cotizador_personalComponent implements OnInit {
 
                                 let data_lst00: any = {};
                                 data_lst00 = data00;
-                                let data_imagen: any = {
-                                    "dir_imagen": data_lst00.guid.rendered,
-                                    "leyenda": data_lst00.caption.rendered,
-                                    "alt_text": data_lst00.alt_text,
-                                };
 
-                                this.addElementToObservableArray_como_se_entero_lista(data_imagen);
+                                  let data_imagen: any = {
+                                      "id":data_lst00.id,
+                                      "dir_imagen": data_lst00.guid.rendered,
+                                      "leyenda": data_lst00.caption.rendered,
+                                      "alt_text": data_lst00.alt_text,
+                                  };
+
+                                  this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+
 
                             });
                             // buscar info media
@@ -335,13 +357,15 @@ export class Cotizador_personalComponent implements OnInit {
                                     let data_lst00: any = {};
                                     data_lst00 = data00;
 
-                                    let data_imagen: any = {
-                                        "dir_imagen": data_lst00.guid.rendered,
-                                        "leyenda": data_lst00.caption.rendered,
-                                        "alt_text": data_lst00.alt_text,
-                                    };
+                                      let data_imagen: any = {
+                                          "id":data_lst00.id,
+                                          "dir_imagen": data_lst00.guid.rendered,
+                                          "leyenda": data_lst00.caption.rendered,
+                                          "alt_text": data_lst00.alt_text,
+                                      };
 
-                                    this.addElementToObservableArray_como_se_entero_lista(data_imagen);
+                                      this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+
 
                                 });
                                 // buscar info media

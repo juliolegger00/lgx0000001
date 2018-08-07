@@ -5,6 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="header-category-template columns small-12">
+              <!--
                 <div class="video-image-container v_line hide-for-small show-for-large">
                     <div class="shadow_thumbnail">
                         <div class="image-container">
@@ -12,8 +13,23 @@
                         </div>
                     </div>
                 </div>
+              -->
                 <div class="copy-container">
                     <h1 class="main_title_header title_line">
+
+                      <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+                        <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
+                          <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
+                          <div class="carousel-caption">
+                               {{image.leyenda}}
+                          </div>
+                        </ng-template>
+                           </ngb-carousel>
+
+
+
+
+
                         <img src="assets/ico_vivienda.png" alt="icono de vivienda">
                         <span class="title">{{proyecto_vivienda_seleccionado.proyecto}}</span>
                     </h1>

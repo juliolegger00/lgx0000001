@@ -17,6 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgxCaptchaModule } from 'ngx-captcha';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+
+
 //servicios
 
 
@@ -24,7 +28,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 const appRoutes: Routes = [
-    {path:'', component: Cotizador_personalComponent}, 
+    {path:'', component: Cotizador_personalComponent},
 ];
 
 @NgModule({
@@ -36,6 +40,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes) ,
     Ng4LoadingSpinnerModule.forRoot() ,
     // import HttpClientModule after BrowserModule.
