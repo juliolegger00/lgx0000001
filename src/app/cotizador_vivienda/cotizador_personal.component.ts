@@ -24,7 +24,7 @@ export class Cotizador_personalComponent implements OnInit {
     regFormPaso1: FormGroup;
     regFormPaso2: FormGroup;
     submitted = false;
-    recaptcha2_valido=false;
+    recaptcha2_valido = false;
     hidden_paso1 = false;
     hidden_paso2 = true;
     hidden_paso3 = true;
@@ -49,6 +49,9 @@ export class Cotizador_personalComponent implements OnInit {
     fs_tipo_documento_lista$: Observable < any > = this.fs_tipo_documento_lista_obsArray.asObservable();
     data_lst_tipo_documento: any = {};
 
+    fs_galeria_imagenes_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_galeria_iamgenes_lista$: Observable < any > = this.fs_galeria_imagenes_lista_obsArray.asObservable();
+
     constructor(
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
@@ -56,7 +59,7 @@ export class Cotizador_personalComponent implements OnInit {
         private router: Router
     ) {
         this.initializeFormularioPaso1();
-        this.initializeFormularioPaso2();// paso2
+        this.initializeFormularioPaso2(); // paso2
     } //fin constructor
 
     ngOnInit() {
@@ -83,42 +86,42 @@ export class Cotizador_personalComponent implements OnInit {
     public initializeFormularioPaso2() {
 
         this.regFormPaso2 = new FormGroup({
-          fs_ingresosGrupoFamiliar_campo: new FormControl('', Validators.required),
-          fs_ahorros_campo: new FormControl('', Validators.required),
-          fs_cesantias_campo  : new FormControl('', Validators.required),
+            fs_ingresosGrupoFamiliar_campo: new FormControl('', Validators.required),
+            fs_ahorros_campo: new FormControl('', Validators.required),
+            fs_cesantias_campo: new FormControl('', Validators.required),
 
         });
     } // fin initializeFormulario
 
 
-        get fs(){
+    get fs() {
 
-          let nombre_tipo_documento:string="";
-          this.data_lst_tipo_documento.forEach((item, index) => {
-            if(this.f.fs_tipo_documento_campo.value.indexOf(item.id_tipo_documento)>-1){
-              nombre_tipo_documento=item.title.rendered;
+        let nombre_tipo_documento: string = "";
+        this.data_lst_tipo_documento.forEach((item, index) => {
+            if (this.f.fs_tipo_documento_campo.value.indexOf(item.id_tipo_documento) > -1) {
+                nombre_tipo_documento = item.title.rendered;
             }
-          });
+        });
 
-          let fs_formulario = {
-                  "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
-                  "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
-                  "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
-                  "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
-                  "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
-                  "fs_nombre_documento_campo": nombre_tipo_documento,
-                  "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
-                  "fs_nombres_campo": this.f.fs_nombres_campo.value,
-                  "fs_email_campo": this.f.fs_email_campo.value,
-                  "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
-                  "fs_celular_campo": this.f.fs_celular_campo.value,
-                  "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
-                  "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado,
-                  "texto_cotizacion_persona": this.texto_cotizacion_persona,
-          };
+        let fs_formulario = {
+            "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
+            "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
+            "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
+            "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
+            "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
+            "fs_nombre_documento_campo": nombre_tipo_documento,
+            "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
+            "fs_nombres_campo": this.f.fs_nombres_campo.value,
+            "fs_email_campo": this.f.fs_email_campo.value,
+            "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
+            "fs_celular_campo": this.f.fs_celular_campo.value,
+            "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
+            "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado,
+            "texto_cotizacion_persona": this.texto_cotizacion_persona,
+        };
 
-          return fs_formulario;
-        }
+        return fs_formulario;
+    }
 
     public initializeData() {
 
@@ -142,13 +145,19 @@ export class Cotizador_personalComponent implements OnInit {
 
 
         this.spinnerService.show();
-        this.addElementToObservableArray_tipo_documento_lista({"id":CONFIG.lang_seleccione ,"tipo_documento":CONFIG.lang_seleccione});
+        this.addElementToObservableArray_tipo_documento_lista({
+            "id": CONFIG.lang_seleccione,
+            "tipo_documento": CONFIG.lang_seleccione
+        });
         this.http.get(CONFIG.api_lista_tipo_documento).pipe(delay(0)).subscribe(data => {
 
             this.data_lst_tipo_documento = data;
 
             this.data_lst_tipo_documento.forEach((item, index) => {
-                  let item_t: any = {"id":item.id_tipo_documento ,"tipo_documento":item.title.rendered};
+                let item_t: any = {
+                    "id": item.id_tipo_documento,
+                    "tipo_documento": item.title.rendered
+                };
                 this.addElementToObservableArray_tipo_documento_lista(item_t);
             });
 
@@ -158,6 +167,41 @@ export class Cotizador_personalComponent implements OnInit {
         this.http.get(CONFIG.api_lista_proyectos_vivienda).pipe(delay(0)).subscribe(data => {
             this.proyecto_vivienda_lista = data;
             this.proyecto_vivienda_seleccionado = data[0];
+
+            ///cargar galeria_imagenes
+            if (this.proyecto_vivienda_seleccionado.id > 0) {
+                this.removeRoomAll_galeria_imagenes_lista();
+                this.http.get(CONFIG.api_lista_galeria_imagenes).pipe(delay(0)).subscribe(data => {
+
+                    let data_lst: any = {};
+                    data_lst = data;
+
+                    data_lst.forEach((item, index) => {
+                        if (this.proyecto_vivienda_seleccionado.proyecto.indexOf(item.ubicacion_galeria) > -1) {
+                            // buscar info media
+
+                            this.http.get(CONFIG.api_lista_media + item.campo_imagen + "/").pipe(delay(0)).subscribe(data00 => {
+
+
+                                let data_lst00: any = {};
+                                data_lst00 = data00;
+                                let data_imagen: any = {
+                                    "dir_imagen": data_lst00.guid.rendered,
+                                    "leyenda": data_lst00.caption.rendered,
+                                    "alt_text": data_lst00.alt_text,
+                                };
+
+                                this.addElementToObservableArray_como_se_entero_lista(data_imagen);
+
+                            });
+                            // buscar info media
+                        }
+                    }); // for lista de images
+
+                }); //http lista de images
+            }
+            ///cargar galeria_imagenes
+
             this.getListaCiudades();
             this.spinnerService.hide();
         });
@@ -180,25 +224,25 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
-    handleSuccess_recaptcha2(event){
-      //console.log(event);
-      this.recaptcha2_valido=true;
+    handleSuccess_recaptcha2(event) {
+        //console.log(event);
+        this.recaptcha2_valido = true;
     }
 
 
 
-    regresarPaso1(){
+    regresarPaso1() {
 
-              this.hidden_paso2 = true;
-              this.hidden_paso1 = false;
-              return;
+        this.hidden_paso2 = true;
+        this.hidden_paso1 = false;
+        return;
     }
 
     onSubmit_paso1() {
 
         // stop here if form is invalid
         if (this.regFormPaso1.invalid) {
-          this.hidden_paso1 = false;
+            this.hidden_paso1 = false;
             return;
         }
 
@@ -223,18 +267,18 @@ export class Cotizador_personalComponent implements OnInit {
     } //fin onSubmit
 
 
-        onSubmit_paso2() {
+    onSubmit_paso2() {
 
-          this.hidden_paso1 = true;
-          this.hidden_paso2 = false;
-          this.hidden_paso3 = true;
-          return;
-        }
+        this.hidden_paso1 = true;
+        this.hidden_paso2 = false;
+        this.hidden_paso3 = true;
+        return;
+    }
 
 
-            onSubmit_paso3() {
+    onSubmit_paso3() {
 
-            }
+    }
 
 
     onSeleccion_tipo_documento_lista() {}
@@ -273,6 +317,41 @@ export class Cotizador_personalComponent implements OnInit {
                 (this.f.fs_proyectosTamano_filtro.value.indexOf(this.proyecto_vivienda_lista[i].area_construida) > -1)
             ) {
                 this.proyecto_vivienda_seleccionado = this.proyecto_vivienda_lista[i];
+
+                ///cargar galeria_imagenes
+                if (this.proyecto_vivienda_seleccionado.id > 0) {
+                    this.removeRoomAll_galeria_imagenes_lista();
+                    this.http.get(CONFIG.api_lista_galeria_imagenes).pipe(delay(0)).subscribe(data => {
+
+                        let data_lst: any = {};
+                        data_lst = data;
+
+                        data_lst.forEach((item, index) => {
+                            if (this.proyecto_vivienda_seleccionado.proyecto.indexOf(item.ubicacion_galeria) > -1) {
+                                // buscar info media
+
+                                this.http.get(CONFIG.api_lista_media + item.campo_imagen + "/").pipe(delay(0)).subscribe(data00 => {
+
+                                    let data_lst00: any = {};
+                                    data_lst00 = data00;
+
+                                    let data_imagen: any = {
+                                        "dir_imagen": data_lst00.guid.rendered,
+                                        "leyenda": data_lst00.caption.rendered,
+                                        "alt_text": data_lst00.alt_text,
+                                    };
+
+                                    this.addElementToObservableArray_como_se_entero_lista(data_imagen);
+
+                                });
+                                // buscar info media
+                            }
+                        }); // for lista de images
+
+                    }); //http lista de images
+                }
+                ///cargar galeria_imagenes
+
             }
         }
 
@@ -359,16 +438,34 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
-        //tipo_documento
-        //tipo_documento
-        addElementToObservableArray_tipo_documento_lista(item) {
-            this.fs_tipo_documento_lista$.pipe(take(1)).subscribe(val => {
-                const newArr = [...val, item];
-                this.fs_tipo_documento_lista_obsArray.next(newArr);
-            })
-        }
-        //tipo_documento
-        //tipo_documento
+
+    //tipo_documento
+    //tipo_documento
+    addElementToObservableArray_galeria_imagenes_lista(item) {
+        this.fs_galeria_iamgenes_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_galeria_imagenes_lista_obsArray.next(newArr);
+        })
+    }
+
+    removeRoomAll_galeria_imagenes_lista() {
+        let roomArr: any[] = this.fs_galeria_imagenes_lista_obsArray.getValue();
+        roomArr.splice(0, roomArr.length);
+        this.fs_galeria_imagenes_lista_obsArray.next(roomArr);
+    }
+    //tipo_documento
+    //tipo_documento
+
+    //tipo_documento
+    //tipo_documento
+    addElementToObservableArray_tipo_documento_lista(item) {
+        this.fs_tipo_documento_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_tipo_documento_lista_obsArray.next(newArr);
+        })
+    }
+    //tipo_documento
+    //tipo_documento
 
     //como_se_entero
     //como_se_entero

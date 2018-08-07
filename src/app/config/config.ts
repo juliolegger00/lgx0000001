@@ -7,7 +7,8 @@ export class CONFIG {
     public static api_lista_proyectos_vivienda= CONFIG.api_wp_json+"proyectos_vivienda/";
     public static api_lista_como_se_entero= CONFIG.api_wp_json+"datocomo_entero/";
     public static api_lista_tipo_documento= CONFIG.api_wp_json+"tipo_documento/";
-
+    public static api_lista_galeria_imagenes= CONFIG.api_wp_json+"galeria_imagenes/";
+    public static api_lista_media= CONFIG.api_wp_json+"media/"; 
 
 
     public static lang_seleccione="Selecciona";

@@ -2225,6 +2225,170 @@ if(function_exists("register_field_group"))
 
 
 
+/*SERVICIOS DE galeria_imagnes*/
+/*SERVICIOS DE galeria_imagnes*/
+
+
+
+add_action( 'init', 'add_role_galeria_imagenes' );
+ function add_role_galeria_imagenes(){
+    remove_role('galeria_imagenes');
+    add_role(
+        'galeria_imagenes',
+        'galeria_imagenes',
+        [
+            'read'                  => true,
+            'edit_post'             => true,
+            'upload_files'          => true,
+            'publish_posts'         => true,
+            // 'delete_posts'          => true,
+            'edit_published_posts'  => true,
+        ]
+        );
+}
+
+
+
+add_action( 'init', 'galeria_imageness_init' );
+function galeria_imageness_init() {
+    $labels = array(
+        'name'              => _x( 'galeria_imageness', 'post type general name', 'your-plugin-textdomain' ),
+        'singular_name'     => _x( 'galeria_imageness', 'post type general name', 'your-plugin-textdomain' ),
+        'menu_name'         => _x( 'Mis galeria_imageness', 'admin menu', 'your-plugin-textdomain' ),
+        'name_admin_bar'    => _x( 'galeria_imageness', 'add new on admin bar', 'your-plugin-textdomain' ),
+        'add_new'           => _x( 'Añadir nuevo', 'galeria_imagenes', 'your-plugin-textdomain' ),
+        'add_new_item'      => __( 'Añadir nuevo galeria_imagenes', 'your-plugin-textdomain' ),
+        'new_item'          => __( 'Nuevo galeria_imagenes', 'your-plugin-textdomain' ),
+        'edit_item'         => __( 'Editar galeria_imagenes', 'your-plugin-textdomain' ),
+        'view_item'         => __( 'Ver galeria_imagenes', 'your-plugin-textdomain' ),
+        'all_items'         => __( 'Todos los galeria_imageness', 'your-plugin-textdomain' ),
+        'search_items'      => __( 'Buscar galeria_imageness', 'your-plugin-textdomain' ),
+        'parent_item_colon' => __( 'galeria_imageness padre', 'your-plugin-textdomain' ),
+        'not_found'         => __( 'No hemos encontrado galeria_imageness.', 'your-plugin-textdomain' ),
+        'not_found_in_trash'=> __( 'No hemos encontrado galeria_imageness en la papelera', 'your-plugin-textdomain' ),
+    );
+
+    $args = array(
+        'labels'            => $labels,
+        'description'       => __('Description', 'your-plugin-textdomain'),
+        'public'            => true,
+        'public_queryable'  => true,
+        'show_ui'           => true,
+        'show_in_menu'      => true,
+        'show_in_rest'      => true,
+        'query_var'         => true,
+        'rewrite'           => array( 'slug' => 'galeria_imagenes' ),
+        'capability_type'   => 'post',
+        'has_archive'       => true,
+        'hierarchical'      => false,
+        'menu_position'     => null,
+        'menu_icon'         => 'dashicons-admin-multisite',
+        'supports'          => array( 'title', 'editor', 'author', 'thumbnail' )
+    );
+
+    register_post_type( 'galeria_imagenes', $args );
+}
+
+
+
+
+
+add_action('rest_api_init', 'register_custom_fields_galeria_imagenes');
+function register_custom_fields_galeria_imagenes()
+{
+
+    register_rest_field(
+        'galeria_imagenes','campo_imagen',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+		    register_rest_field(
+		        'galeria_imagenes','ubicacion_galeria',
+		        array(
+		            'get_callback' => 'show_fields'
+		        )
+		    );
+
+				    register_rest_field(
+				        'galeria_imagenes','ocultar',
+				        array(
+				            'get_callback' => 'show_fields'
+				        )
+				    );
+
+}
+
+if(function_exists("register_field_group"))
+{
+	register_field_group(array (
+		'id' => 'acf_galeria_imagenes',
+		'title' => 'galeria_imagenes',
+		'fields' => array (
+			array (
+				'key' => 'field_5b69af7e2df39',
+				'label' => 'campo_imagen',
+				'name' => 'campo_imagen',
+				'type' => 'image',
+				'save_format' => 'url',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+			),
+			array (
+				'key' => 'field_5b69b03c2df3a',
+				'label' => 'ubicacion_galeria',
+				'name' => 'ubicacion_galeria',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
+				'key' => 'field_5b69b0612df3b',
+				'label' => 'ocultar',
+				'name' => 'ocultar',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'galeria_imagenes',
+					'order_no' => 0,
+					'group_no' => 0,
+				),
+			),
+		),
+		'options' => array (
+			'position' => 'normal',
+			'layout' => 'no_box',
+			'hide_on_screen' => array (
+			),
+		),
+		'menu_order' => 0,
+	));
+}
+
+
+/*SERVICIOS DE galeria_imagnes*/
+/*SERVICIOS DE galeria_imagnes*/
+
+
+
+
+
 
 
 
