@@ -12,8 +12,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { AppComponent } from './app.component';
 import {Cotizador_personalComponent} from "./cotizador_vivienda/cotizador_personal.component";
 
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 import { NgxCaptchaModule } from 'ngx-captcha';
 

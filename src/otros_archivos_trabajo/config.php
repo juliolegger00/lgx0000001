@@ -1089,6 +1089,44 @@ function register_custom_fields_proyectos_vivienda()
         )
     );
 
+    register_rest_field(
+        'proyectos_vivienda','galeria_1',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'proyectos_vivienda','galeria_2',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'proyectos_vivienda','galeria_3',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'proyectos_vivienda','galeria_4',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+    register_rest_field(
+        'proyectos_vivienda','galeria_5',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+
+
+
 }
 
 
@@ -1409,6 +1447,69 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
+
+
+
+//ima g
+
+
+array (
+	'key' => 'field_5b69db0b3ae4a',
+	'label' => 'galeria 1',
+	'name' => 'galeria_1',
+	'type' => 'image',
+	'instructions' => 'Agregar imágenes 1380 x 842',
+	'save_format' => 'url',
+	'preview_size' => 'medium',
+	'library' => 'all',
+),
+array (
+	'key' => 'field_5b69db5e3ae4b',
+	'label' => 'galeria 2',
+	'name' => 'galeria_2',
+	'type' => 'image',
+	'instructions' => 'Agregar imágenes 1380 x 842',
+	'save_format' => 'url',
+	'preview_size' => 'medium',
+	'library' => 'all',
+),
+array (
+	'key' => 'field_5b69db813ae4c',
+	'label' => 'galeria 3',
+	'name' => 'galeria_3',
+	'type' => 'image',
+	'instructions' => 'Agregar imágenes 1380 x 842',
+	'save_format' => 'url',
+	'preview_size' => 'medium',
+	'library' => 'all',
+),
+array (
+	'key' => 'field_5b69db943ae4d',
+	'label' => 'galeria 4',
+	'name' => 'galeria_4',
+	'type' => 'image',
+	'instructions' => 'Agregar imágenes 1380 x 842',
+	'save_format' => 'url',
+	'preview_size' => 'medium',
+	'library' => 'all',
+),
+array (
+	'key' => 'field_5b69dbce3ae4e',
+	'label' => 'galeria 5',
+	'name' => 'galeria_5',
+	'type' => 'image',
+	'instructions' => 'Agregar imágenes 1380 x 842',
+	'save_format' => 'url',
+	'preview_size' => 'medium',
+	'library' => 'all',
+),
+
+//ima g
+
+
+
+
+
 
 
 		),
@@ -1743,6 +1844,7 @@ function register_custom_fields_info_texto_vivienda()
 
 
 }
+
 
 
 

@@ -179,48 +179,40 @@ export class Cotizador_personalComponent implements OnInit {
             if (this.proyecto_vivienda_seleccionado.id > 0) {
                 this.removeRoomAll_galeria_imagenes_lista();
 
-                ///desfaul
-                let data_imagen: any = {
-                    "id":"0",
-                    "dir_imagen": this.proyecto_vivienda_seleccionado.srcFotos,
-                    "leyenda": "",
-                    "alt_text":this.proyecto_vivienda_seleccionado.altFotos,
-                };
 
-                this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
-                ///defau
-
-                this.http.get(CONFIG.api_lista_galeria_imagenes).pipe(delay(0)).subscribe(data => {
-
-                    let data_lst: any = {};
-                    data_lst = data;
-
-                    data_lst.forEach((item, index) => {
-                        if (this.proyecto_vivienda_seleccionado.proyecto.indexOf(item.ubicacion_galeria) > -1) {
-                            // buscar info media
-
-                            this.http.get(CONFIG.api_lista_media + item.campo_imagen + "/").pipe(delay(0)).subscribe(data00 => {
+                let galeria_ima: any = [
+                    this.proyecto_vivienda_seleccionado.galeria_1,
+                    this.proyecto_vivienda_seleccionado.galeria_2,
+                    this.proyecto_vivienda_seleccionado.galeria_3,
+                    this.proyecto_vivienda_seleccionado.galeria_4,
+                    this.proyecto_vivienda_seleccionado.galeria_5
+                ]
 
 
-                                let data_lst00: any = {};
-                                data_lst00 = data00;
+                for (var _i = 0; _i < galeria_ima.length; _i++) {
+                    let item = galeria_ima[_i];
 
-                                  let data_imagen: any = {
-                                      "id":data_lst00.id,
-                                      "dir_imagen": data_lst00.guid.rendered,
-                                      "leyenda": data_lst00.caption.rendered,
-                                      "alt_text": data_lst00.alt_text,
-                                  };
-
-                                  this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+                    this.http.get(CONFIG.api_lista_media + item + "/").pipe(delay(0)).subscribe(data00 => {
 
 
-                            });
-                            // buscar info media
-                        }
-                    }); // for lista de images
+                        let data_lst00: any = {};
+                        data_lst00 = data00;
 
-                }); //http lista de images
+                        let data_imagen: any = {
+                            "id": data_lst00.id,
+                            "dir_imagen": data_lst00.guid.rendered,
+                            "leyenda": data_lst00.caption.rendered,
+                            "alt_text": data_lst00.alt_text,
+                        };
+
+                        this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+
+
+                    });
+                    // buscar info media
+                } // for lista de images
+
+
             }
             ///cargar galeria_imagenes
 
@@ -343,36 +335,41 @@ export class Cotizador_personalComponent implements OnInit {
                 ///cargar galeria_imagenes
                 if (this.proyecto_vivienda_seleccionado.id > 0) {
                     this.removeRoomAll_galeria_imagenes_lista();
-                    this.http.get(CONFIG.api_lista_galeria_imagenes).pipe(delay(0)).subscribe(data => {
-
-                        let data_lst: any = {};
-                        data_lst = data;
-
-                        data_lst.forEach((item, index) => {
-                            if (this.proyecto_vivienda_seleccionado.proyecto.indexOf(item.ubicacion_galeria) > -1) {
-                                // buscar info media
-
-                                this.http.get(CONFIG.api_lista_media + item.campo_imagen + "/").pipe(delay(0)).subscribe(data00 => {
-
-                                    let data_lst00: any = {};
-                                    data_lst00 = data00;
-
-                                      let data_imagen: any = {
-                                          "id":data_lst00.id,
-                                          "dir_imagen": data_lst00.guid.rendered,
-                                          "leyenda": data_lst00.caption.rendered,
-                                          "alt_text": data_lst00.alt_text,
-                                      };
-
-                                      this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
 
 
-                                });
-                                // buscar info media
-                            }
-                        }); // for lista de images
+                    let galeria_ima: any = [
+                        this.proyecto_vivienda_seleccionado.galeria_1,
+                        this.proyecto_vivienda_seleccionado.galeria_2,
+                        this.proyecto_vivienda_seleccionado.galeria_3,
+                        this.proyecto_vivienda_seleccionado.galeria_4,
+                        this.proyecto_vivienda_seleccionado.galeria_5
+                    ]
 
-                    }); //http lista de images
+
+                    for (var _i = 0; _i < galeria_ima.length; _i++) {
+                        let item = galeria_ima[_i];
+
+                        this.http.get(CONFIG.api_lista_media + item + "/").pipe(delay(0)).subscribe(data00 => {
+
+
+                            let data_lst00: any = {};
+                            data_lst00 = data00;
+
+                            let data_imagen: any = {
+                                "id": data_lst00.id,
+                                "dir_imagen": data_lst00.guid.rendered,
+                                "leyenda": data_lst00.caption.rendered,
+                                "alt_text": data_lst00.alt_text,
+                            };
+
+                            this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+
+
+                        });
+                        // buscar info media
+                    } // for lista de images
+
+
                 }
                 ///cargar galeria_imagenes
 
