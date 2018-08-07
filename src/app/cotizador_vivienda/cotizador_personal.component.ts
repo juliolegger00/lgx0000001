@@ -25,9 +25,9 @@ export class Cotizador_personalComponent implements OnInit {
     regFormPaso2: FormGroup;
     submitted = false;
     recaptcha2_valido=false;
-    hidden_paso1 = true;
+    hidden_paso1 = false;
     hidden_paso2 = true;
-    hidden_paso3 = false;
+    hidden_paso3 = true;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
