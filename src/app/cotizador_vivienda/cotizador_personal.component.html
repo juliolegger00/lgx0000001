@@ -89,13 +89,13 @@
                       <div class="form-group" [formGroup]="regFormPaso1">
                           <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
 
-                          <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_ciudad_filtro.errors }">
+                          <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_ciudad_filtro.errors }">
 
                               <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
                                   {{ciudad}}
                               </option>
                           </select>
-                          <div *ngIf="submitted && f.fs_ciudad_filtro.errors" class="invalid-feedback">
+                          <div *ngIf="submitted1 && f.fs_ciudad_filtro.errors" class="invalid-feedback">
                               <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
                           </div>
                       </div>
@@ -106,13 +106,13 @@
                       <div class="form-group" [formGroup]="regFormPaso1">
                           <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
 
-                          <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyecto_filtro.errors }">
+                          <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyecto_filtro.errors }">
 
                               <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
                                   {{proyecto}}
                               </option>
                           </select>
-                          <div *ngIf="submitted && f.fs_proyecto_filtro.errors" class="invalid-feedback">
+                          <div *ngIf="submitted1 && f.fs_proyecto_filtro.errors" class="invalid-feedback">
                               <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
                           </div>
                       </div>
@@ -126,13 +126,13 @@
                       <div class="form-group" [formGroup]="regFormPaso1">
                           <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
 
-                          <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_proyectosTamano_filtro.errors }">
+                          <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyectosTamano_filtro.errors }">
 
                               <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
                                   {{proyectosTamano}}
                               </option>
                           </select>
-                          <div *ngIf="submitted && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
+                          <div *ngIf="submitted1 && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
                               <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
                           </div>
                       </div>
@@ -146,13 +146,13 @@
                       <div class="form-group" [formGroup]="regFormPaso1">
                           <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
 
-                          <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fs_como_se_entero_filtro.errors }">
+                          <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_como_se_entero_filtro.errors }">
 
                               <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
                                   {{como_se_entero}}
                               </option>
                           </select>
-                          <div *ngIf="submitted && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
+                          <div *ngIf="submitted1 && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
                               <div *ngIf="f.fs_como_se_entero_filtro.errors.required">Campo necesario</div>
                           </div>
                       </div>
@@ -212,14 +212,14 @@
 
                         <select formControlName="fs_tipo_documento_campo"
                         (ngModelChange)="onSeleccion_tipo_documento_lista()" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f.fs_tipo_documento_campo.errors }">
+                        [ngClass]="{ 'is-invalid': submitted1 && f.fs_tipo_documento_campo.errors }">
 
                             <option *ngFor="let tipo_documento of (fs_tipo_documento_lista$ | async); let i = index"
                             [value]="tipo_documento.id" [selected]="i == 0">
                                 {{tipo_documento.tipo_documento}}
                             </option>
                         </select>
-                        <div *ngIf="submitted && f.fs_tipo_documento_campo.errors" class="invalid-feedback">
+                        <div *ngIf="submitted1 && f.fs_tipo_documento_campo.errors" class="invalid-feedback">
                             <div *ngIf="f.fs_tipo_documento_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
@@ -228,8 +228,8 @@
                       <div class="form-group" [formGroup]="regFormPaso1">
                           <label>{{texto_cotizacion_persona.tituloNombres}}</label>
                           <input type="text" formControlName="fs_nombres_campo" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted && f.fs_nombres_campo.errors }" />
-                          <div *ngIf="submitted && f.fs_nombres_campo.errors" class="invalid-feedback">
+                           [ngClass]="{ 'is-invalid': submitted1 && f.fs_nombres_campo.errors }" />
+                          <div *ngIf="submitted1 && f.fs_nombres_campo.errors" class="invalid-feedback">
                               <div *ngIf="f.fs_nombres_campo.errors.required">Campo necesario</div>
                           </div>
                       </div>
@@ -242,14 +242,23 @@
                                   <div class="col-12">
 
                                         <input type="checkbox" formControlName="fs_abeasdata_campo" class="form-control"
-                                       [ngClass]="{ 'is-invalid': submitted && f.fs_abeasdata_campo.errors }" />
-                                      <div *ngIf="submitted && f.fs_abeasdata_campo.errors" class="invalid-feedback">
+                                       [ngClass]="{ 'is-invalid': submitted1 && f.fs_abeasdata_campo.errors }" />
+                                      <div *ngIf="submitted1 && f.fs_abeasdata_campo.errors" class="invalid-feedback">
                                           <div *ngIf="f.fs_abeasdata_campo.errors.required">Campo necesario</div>
                                       </div>
 
-                                      <label style="margin-top:0px;" class="form-check-label" for="exampleCheck1">{{texto_cotizacion_persona.tituloAutorizaDatos}}</label>
-                                      <br /><a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlTratamientoDatos}}"> {{texto_cotizacion_persona.tituloTratamientoDatos}}</a>
-                                      <br /><a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}"> {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
+                                      <label style="margin-top:0px;" class="form-check-label" for="exampleCheck1">
+                                        {{texto_cotizacion_persona.tituloAutorizaDatos}}
+                                      </label>
+                                      <br />
+                                      <a target="_blank" class="link_legal"
+                                      href="{{texto_cotizacion_persona.urlTratamientoDatos}}">
+                                      {{texto_cotizacion_persona.tituloTratamientoDatos}}
+                                      </a>
+                                      <br />
+                                      <a target="_blank" class="link_legal"
+                                      href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}">
+                                      {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
                                   </div>
                               </div>
                           </div>
@@ -263,8 +272,8 @@
                     <div class="form-group" [formGroup]="regFormPaso1">
                         <label>{{texto_cotizacion_persona.titulonumeroDocumento}}</label>
                         <input type="number" formControlName="fs_numeroDocumento_campo" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f.fs_numeroDocumento_campo.errors }" />
-                        <div *ngIf="submitted && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
+                         [ngClass]="{ 'is-invalid': submitted1 && f.fs_numeroDocumento_campo.errors }" />
+                        <div *ngIf="submitted1 && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
                             <div *ngIf="f.fs_numeroDocumento_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
@@ -273,13 +282,14 @@
                   <div class="form-group" [formGroup]="regFormPaso1">
                       <label>{{texto_cotizacion_persona.tituloEmail}}</label>
                       <input type="email" formControlName="fs_email_campo" class="form-control"
-                       [ngClass]="{ 'is-invalid': submitted && f.fs_email_campo.errors }" />
-                      <div *ngIf="submitted && f.fs_email_campo.errors" class="invalid-feedback">
+                       [ngClass]="{ 'is-invalid': submitted1 && f.fs_email_campo.errors }" />
+                      <div *ngIf="submitted1 && f.fs_email_campo.errors" class="invalid-feedback">
                           <div *ngIf="f.fs_email_campo.errors.required">Campo necesario</div>
+                     <div *ngIf="f.fs_email_campo.errors.pattern">email incorrecto </div>
                       </div>
                   </div>
 
-                    <!--
+
                       <div class="form-group">
                         <ngx-recaptcha2
                           [size]="size"
@@ -289,7 +299,7 @@
                           (success)="handleSuccess_recaptcha2($event)">>
                         </ngx-recaptcha2>
                       </div>
-                    -->
+                     
                   </div>
 
                   <div class="col-sm-12 col-md-4 col-lg-4">
@@ -301,12 +311,12 @@
 
                         <select formControlName="fs_afiliadoColsubsidio_campo"
                          class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f.fs_afiliadoColsubsidio_campo.errors }">
+                        [ngClass]="{ 'is-invalid': submitted1 && f.fs_afiliadoColsubsidio_campo.errors }">
                         <option value="">Selecciona</option>
                         <option value="si">Si</option>
                         <option value="no">No</option>
                         </select>
-                        <div *ngIf="submitted && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
+                        <div *ngIf="submitted1 && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
                             <div *ngIf="f.fs_afiliadoColsubsidio_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
@@ -317,8 +327,8 @@
                     <div class="form-group" [formGroup]="regFormPaso1">
                         <label>{{texto_cotizacion_persona.tituloCelular}}</label>
                         <input type="number" formControlName="fs_celular_campo" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f.fs_celular_campo.errors }" />
-                        <div *ngIf="submitted && f.fs_celular_campo.errors" class="invalid-feedback">
+                         [ngClass]="{ 'is-invalid': submitted1 && f.fs_celular_campo.errors }" />
+                        <div *ngIf="submitted1 && f.fs_celular_campo.errors" class="invalid-feedback">
                             <div *ngIf="f.fs_celular_campo.errors.required">Campo necesario</div>
                         </div>
                     </div>
@@ -339,8 +349,9 @@
                       <div class="form-group paddin40">
                           <div class="button-wrapper">
 
+<!--   [disabled]="regFormPaso1.pristine || regFormPaso1.invalid" -->
                             <button type="submit"
-                                         [disabled]="regFormPaso1.pristine || regFormPaso1.invalid" class="btn btn-success">
+                                       class="btn btn-success">
                                          Siguiente
                                      </button>
 
@@ -372,8 +383,8 @@
                 <div class="form-group" [formGroup]="regFormPaso2">
                     <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
                     <input type="number" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
-                     [ngClass]="{ 'is-invalid': submitted && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
-                    <div *ngIf="submitted && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
+                     [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
+                    <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
                         <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
                     </div>
                 </div>
@@ -386,8 +397,8 @@
                         <div class="form-group" [formGroup]="regFormPaso2">
                             <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
                             <input type="number" formControlName="fs_ahorros_campo" class="form-control"
-                             [ngClass]="{ 'is-invalid': submitted && f2.fs_ahorros_campo.errors }" />
-                            <div *ngIf="submitted && f2.fs_ahorros_campo.errors" class="invalid-feedback">
+                             [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
+                            <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
                                 <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
                             </div>
                         </div>
@@ -400,8 +411,8 @@
                         <div class="form-group" [formGroup]="regFormPaso2">
                             <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
                             <input type="number" formControlName="fs_cesantias_campo" class="form-control"
-                             [ngClass]="{ 'is-invalid': submitted && f2.fs_cesantias_campo.errors }" />
-                            <div *ngIf="submitted && f2.fs_cesantias_campo.errors" class="invalid-feedback">
+                             [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
+                            <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
                                 <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
                             </div>
                         </div>
@@ -514,9 +525,9 @@
               <div class="col-sm-12 col-md-4 col-lg-4">
                   <div class="form-group">
                       <div class="button-wrapper">
-
+                        <!--  [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" -->
                   <button type="submit"
-                               [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" class="btn btn-success">
+                               class="btn btn-success">
                                Siguiente
                            </button>
                       </div>

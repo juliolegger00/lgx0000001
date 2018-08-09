@@ -26,7 +26,8 @@ export class Cotizador_personalComponent implements OnInit {
 
     regFormPaso1: FormGroup;
     regFormPaso2: FormGroup;
-    submitted = false;
+    submitted1 = false;
+    submitted2 = false;
     recaptcha2_valido = false;
     hidden_paso1 = false;
     hidden_paso2 = true;
@@ -136,10 +137,11 @@ export class Cotizador_personalComponent implements OnInit {
             fs_tipo_documento_campo: new FormControl('', Validators.required),
             fs_nombres_campo: new FormControl('', Validators.required),
             fs_numeroDocumento_campo: new FormControl('', Validators.required),
-            fs_email_campo: new FormControl('', Validators.required),
+            fs_email_campo: new FormControl('',[ Validators.required,
+                                              Validators.pattern("[^ @]*@[^ @]*") ]),
             fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
             fs_celular_campo: new FormControl('', Validators.required),
-            fs_abeasdata_campo: new FormControl('', Validators.required),
+            fs_abeasdata_campo: new FormControl('', Validators.requiredTrue),
         });
     } // fin initializeFormulario
 
@@ -308,6 +310,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     onSubmit_paso1() {
 
+      this.submitted1=true;
         // stop here if form is invalid
         if (this.regFormPaso1.invalid) {
             this.hidden_paso1 = false;
@@ -340,6 +343,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     onSubmit_paso2() {
 
+      this.submitted2=true;
         // stop here if form is invalid
         if (this.regFormPaso1.invalid) {
             this.hidden_paso1 = true;
