@@ -56,6 +56,59 @@ export class Cotizador_personalComponent implements OnInit {
     fs_galeria_iamgenes_lista$: Observable < any > = this.fs_galeria_imagenes_lista_obsArray.asObservable();
 
 
+    //var CONDICIONES DE VENTA
+
+
+    condiciones_venta = {
+        sinacabados: {
+            valordelinmueble: 0,
+            cuotainicial: 0,
+            separacion: 0,
+            subsidioaproximado: 0,
+            ingresosgrupofamiliar: 0,
+            ahorros: 0,
+            cesantias: 0,
+            saldodecuotainicial: 0,
+            numerocuotasmensuales: 0,
+            cuotasmensuales: 0,
+            creditorequerido: 0,
+            cuotauvr_10: 0,
+            cuotauvr_15: 0,
+            cuotauvr_20: 0,
+            cuotapesos_10: 0,
+            cuotapesos_15: 0,
+            cuotapesos_20: 0,
+        },
+        conacabados: {
+            valordelinmueble: 0,
+            cuotainicial: 0,
+            separacion: 0,
+            subsidioaproximado: 0,
+            ingresosgrupofamiliar: 0,
+            ahorros: 0,
+            cesantias: 0,
+            saldodecuotainicial: 0,
+            numerocuotasmensuales: 0,
+            cuotasmensuales: 0,
+            creditorequerido: 0,
+            cuotauvr_10: 0,
+            cuotauvr_15: 0,
+            cuotauvr_20: 0,
+            cuotapesos_10: 0,
+            cuotapesos_15: 0,
+            cuotapesos_20: 0,
+        },
+    };
+
+    tabla_uvr = {
+        ANOS_20: 7243,
+        ANOS_15: 8518,
+        ANOS_10: 11185,
+        ANOS_5: 19437,
+    };
+
+    //var CONDICIONES DE VENTA
+
 
     constructor(
         private http: HttpClient,
@@ -247,8 +300,9 @@ export class Cotizador_personalComponent implements OnInit {
 
     regresarPaso1() {
 
-        this.hidden_paso2 = true;
         this.hidden_paso1 = false;
+        this.hidden_paso2 = true;
+        this.hidden_paso3 = true;
         return;
     }
 
@@ -257,6 +311,8 @@ export class Cotizador_personalComponent implements OnInit {
         // stop here if form is invalid
         if (this.regFormPaso1.invalid) {
             this.hidden_paso1 = false;
+            this.hidden_paso2 = true;
+            this.hidden_paso3 = true;
             return;
         }
 
@@ -269,6 +325,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.hidden_paso1 = true;
         this.hidden_paso2 = false;
+        this.hidden_paso3 = true;
         return;
 
         //alert('SUCCESS!! :-)')
@@ -283,9 +340,20 @@ export class Cotizador_personalComponent implements OnInit {
 
     onSubmit_paso2() {
 
+        // stop here if form is invalid
+        if (this.regFormPaso1.invalid) {
+            this.hidden_paso1 = true;
+            this.hidden_paso2 = false;
+            this.hidden_paso3 = true;
+            return;
+        }
+
+
+        this.crear_calculos_paso3_sinacabados();
+        this.crear_calculos_paso3_conacabados();
         this.hidden_paso1 = true;
-        this.hidden_paso2 = false;
-        this.hidden_paso3 = true;
+        this.hidden_paso2 = true;
+        this.hidden_paso3 = false;
         return;
     }
 
@@ -294,6 +362,224 @@ export class Cotizador_personalComponent implements OnInit {
 
     }
 
+
+
+    public crear_calculos_paso3_conacabados() {
+
+        this.condiciones_venta.conacabados.numerocuotasmensuales=11;
+        this.condiciones_venta.conacabados.ingresosgrupofamiliar = parseInt(this.f2.fs_ingresosGrupoFamiliar_campo.value);
+        this.condiciones_venta.conacabados.ahorros = parseInt(this.f2.fs_ahorros_campo.value);
+        this.condiciones_venta.conacabados.cesantias = parseInt(this.f2.fs_cesantias_campo.value);
+        this.condiciones_venta.conacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
+        this.condiciones_venta.conacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
+        this.condiciones_venta.conacabados.cuotainicial = (this.condiciones_venta.conacabados.valordelinmueble * 30 / 100);
+
+        debugger
+
+        let subsidioaproximado = (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
+            (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
+                (this.condiciones_venta.conacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
+        this.condiciones_venta.conacabados.subsidioaproximado = subsidioaproximado;
+
+        let saldodecuotainicial = (this.condiciones_venta.conacabados.separacion +
+            this.condiciones_venta.conacabados.subsidioaproximado +
+            this.condiciones_venta.conacabados.ahorros +
+            this.condiciones_venta.conacabados.cesantias > this.condiciones_venta.conacabados.cuotainicial ? 0 :
+            this.condiciones_venta.conacabados.cuotainicial -
+            this.condiciones_venta.conacabados.separacion -
+            this.condiciones_venta.conacabados.subsidioaproximado -
+            this.condiciones_venta.conacabados.ahorros -
+            this.condiciones_venta.conacabados.cesantias);
+        this.condiciones_venta.conacabados.saldodecuotainicial = saldodecuotainicial;
+
+        if (this.condiciones_venta.conacabados.numerocuotasmensuales > 0) {
+            this.condiciones_venta.conacabados.cuotasmensuales =
+                this.condiciones_venta.conacabados.saldodecuotainicial /
+                this.condiciones_venta.conacabados.numerocuotasmensuales;
+        } else {
+            this.condiciones_venta.conacabados.cuotasmensuales = 0;
+        }
+
+        let creditorequerido = (this.condiciones_venta.conacabados.separacion +
+            this.condiciones_venta.conacabados.ingresosgrupofamiliar +
+            this.condiciones_venta.conacabados.subsidioaproximado +
+            this.condiciones_venta.conacabados.ahorros +
+            this.condiciones_venta.conacabados.cesantias > this.condiciones_venta.conacabados.cuotainicial ?
+            this.condiciones_venta.conacabados.valordelinmueble -
+            this.condiciones_venta.conacabados.separacion -
+            this.condiciones_venta.conacabados.ingresosgrupofamiliar -
+            this.condiciones_venta.conacabados.subsidioaproximado -
+            this.condiciones_venta.conacabados.ahorros -
+            this.condiciones_venta.conacabados.cesantias :
+            this.condiciones_venta.conacabados.valordelinmueble -
+            this.condiciones_venta.conacabados.cuotainicial);
+        this.condiciones_venta.conacabados.creditorequerido = creditorequerido;
+
+        this.condiciones_venta.conacabados.cuotauvr_10 =
+            (this.tabla_uvr.ANOS_10 * this.condiciones_venta.conacabados.creditorequerido / 1000000) + 27000;
+        this.condiciones_venta.conacabados.cuotauvr_15 =
+            (this.tabla_uvr.ANOS_15 * this.condiciones_venta.conacabados.creditorequerido / 1000000) + 27000;
+        this.condiciones_venta.conacabados.cuotauvr_20 =
+            (this.tabla_uvr.ANOS_20 * this.condiciones_venta.conacabados.creditorequerido / 1000000) + 27000;
+
+
+        //cuotapesos_10
+
+        let fv = 0;
+        let pv = -1 * (this.condiciones_venta.conacabados.creditorequerido);
+        let rate = 0.011;
+        let nper = 12 * 10; //años
+        let type = 1;
+
+        let PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+        let cuotapesos_10 = PMT ;//+ 100000;
+
+        this.condiciones_venta.conacabados.cuotapesos_10 = cuotapesos_10;
+
+        //cuotapesos_10
+
+        //cuotapesos_15
+
+        fv = 0;
+        pv = -1 * (this.condiciones_venta.conacabados.creditorequerido);
+        rate = 0.011;
+        nper = 12 * 15; //años
+        type = 1;
+
+        PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+        let cuotapesos_15 = PMT ;// + 100000;
+
+        this.condiciones_venta.conacabados.cuotapesos_15 = cuotapesos_15;
+
+        //cuotapesos_15
+
+        //cuotapesos_20
+
+        fv = 0;
+        pv = -1 * (this.condiciones_venta.conacabados.creditorequerido);
+        rate = 0.011;
+        nper = 12 * 20; //años
+        type = 1;
+
+        PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+        let cuotapesos_20 = PMT ;//+ 100000;
+
+        this.condiciones_venta.conacabados.cuotapesos_20 = cuotapesos_20;
+
+        //cuotapesos_20
+
+    }
+
+
+
+
+      public  crear_calculos_paso3_sinacabados() {
+
+            this.condiciones_venta.sinacabados.numerocuotasmensuales=11;
+            this.condiciones_venta.sinacabados.ingresosgrupofamiliar = parseInt(this.f2.fs_ingresosGrupoFamiliar_campo.value);
+            this.condiciones_venta.sinacabados.ahorros = parseInt(this.f2.fs_ahorros_campo.value);
+            this.condiciones_venta.sinacabados.cesantias = parseInt(this.f2.fs_cesantias_campo.value);
+            this.condiciones_venta.sinacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
+            this.condiciones_venta.sinacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
+            this.condiciones_venta.sinacabados.cuotainicial = (this.condiciones_venta.sinacabados.valordelinmueble * 30 / 100);
+
+            let subsidioaproximado = (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
+                (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
+                    (this.condiciones_venta.sinacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
+            this.condiciones_venta.sinacabados.subsidioaproximado = subsidioaproximado;
+
+            let saldodecuotainicial = (this.condiciones_venta.sinacabados.separacion +
+                this.condiciones_venta.sinacabados.subsidioaproximado +
+                this.condiciones_venta.sinacabados.ahorros +
+                this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ? 0 :
+                this.condiciones_venta.sinacabados.cuotainicial -
+                this.condiciones_venta.sinacabados.separacion -
+                this.condiciones_venta.sinacabados.subsidioaproximado -
+                this.condiciones_venta.sinacabados.ahorros -
+                this.condiciones_venta.sinacabados.cesantias);
+            this.condiciones_venta.sinacabados.saldodecuotainicial = saldodecuotainicial;
+
+            if (this.condiciones_venta.sinacabados.numerocuotasmensuales > 0) {
+                this.condiciones_venta.sinacabados.cuotasmensuales =
+                    this.condiciones_venta.sinacabados.saldodecuotainicial /
+                    this.condiciones_venta.sinacabados.numerocuotasmensuales;
+            } else {
+                this.condiciones_venta.sinacabados.cuotasmensuales = 0;
+            }
+
+            let creditorequerido = (this.condiciones_venta.sinacabados.separacion +
+                this.condiciones_venta.sinacabados.ingresosgrupofamiliar +
+                this.condiciones_venta.sinacabados.subsidioaproximado +
+                this.condiciones_venta.sinacabados.ahorros +
+                this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ?
+                this.condiciones_venta.sinacabados.valordelinmueble -
+                this.condiciones_venta.sinacabados.separacion -
+                this.condiciones_venta.sinacabados.ingresosgrupofamiliar -
+                this.condiciones_venta.sinacabados.subsidioaproximado -
+                this.condiciones_venta.sinacabados.ahorros -
+                this.condiciones_venta.sinacabados.cesantias :
+                this.condiciones_venta.sinacabados.valordelinmueble -
+                this.condiciones_venta.sinacabados.cuotainicial);
+            this.condiciones_venta.sinacabados.creditorequerido = creditorequerido;
+
+            this.condiciones_venta.sinacabados.cuotauvr_10 =
+                (this.tabla_uvr.ANOS_10 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
+            this.condiciones_venta.sinacabados.cuotauvr_15 =
+                (this.tabla_uvr.ANOS_15 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
+            this.condiciones_venta.sinacabados.cuotauvr_20 =
+                (this.tabla_uvr.ANOS_20 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
+
+
+            //cuotapesos_10
+
+            let fv = 0;
+            let pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
+            let rate = 0.011;
+            let nper = 12 * 10; //años
+            let type = 1;
+
+            let PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+            let cuotapesos_10 = PMT ;//+ 100000;
+
+            this.condiciones_venta.sinacabados.cuotapesos_10 = cuotapesos_10;
+
+            //cuotapesos_10
+
+            //cuotapesos_15
+
+            fv = 0;
+            pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
+            rate = 0.011;
+            nper = 12 * 15; //años
+            type = 1;
+
+            PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+            let cuotapesos_15 = PMT ;// + 100000;
+
+            this.condiciones_venta.sinacabados.cuotapesos_15 = cuotapesos_15;
+
+            //cuotapesos_15
+
+            //cuotapesos_20
+
+            fv = 0;
+            pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
+            rate = 0.011;
+            nper = 12 * 20; //años
+            type = 1;
+
+            PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+            let cuotapesos_20 = PMT ;//+ 100000;
+
+            this.condiciones_venta.sinacabados.cuotapesos_20 = cuotapesos_20;
+
+            //cuotapesos_20
+
+
+
+
+
+        }
 
     onSeleccion_tipo_documento_lista() {}
     onSeleccion_como_se_entero_lista() {}

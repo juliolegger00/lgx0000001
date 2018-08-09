@@ -644,17 +644,17 @@
                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
                                 {{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}
                                 <br />
-                                <strong>$ {{f2.fs_ingresosGrupoFamiliar_campo}}</strong>
+                                <strong>$ {{f2.fs_ingresosGrupoFamiliar_campo.value}}</strong>
                             </div>
                              <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
                                 {{texto_cotizacion_persona.tituloAhorros}}
                                 <br />
-                                <strong>$ {{f2.fs_ahorros_campo}}</strong>
+                                <strong>$ {{f2.fs_ahorros_campo.value}}</strong>
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
                                 {{texto_cotizacion_persona.tituloCesantias}}
                                 <br />
-                                <strong>$ {{f2.fs_cesantias_campo}}</strong>
+                                <strong>$ {{f2.fs_cesantias_campo.value}}</strong>
                             </div>
                             <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
 
@@ -680,48 +680,48 @@
                               </tr>
                               <tr>
                                 <td >Valor del inmueble</td>
-                                <td >$ 89.900.000</td>
-                                <td >$ 97.900.000</td>
+                                <td >$ {{condiciones_venta.sinacabados.valordelinmueble}}</td>
+                                <td >$ {{condiciones_venta.conacabados.valordelinmueble}}</td>
                               </tr>
                               <tr>
                                 <td >Cuota inicial 30%</td>
-                                <td >$ 26.970.000</td>
-                                <td >$ 29.370.000</td>
+                                <td >$ {{condiciones_venta.sinacabados.cuotainicial}}</td>
+                                <td >$ {{condiciones_venta.conacabados.cuotainicial}}</td>
                               </tr>
                               <tr>
                                 <td >Separación</td>
-                                <td >$ 1.000.000</td>
-                                <td >$ 1.000.000</td>
+                                <td >$ {{condiciones_venta.sinacabados.separacion}}</td>
+                                <td >$ {{condiciones_venta.conacabados.separacion}}</td>
                               </tr>
                               <tr>
                                 <td >Ingresos grupo familiar</td>
-                                <td >$ 3.000.000</td>
-                                <td >$ 3.000.000</td>
+                                <td >$ {{condiciones_venta.sinacabados.ingresosgrupofamiliar}}</td>
+                                <td >$ {{condiciones_venta.conacabados.ingresosgrupofamiliar}}</td>
                               </tr>
                               <tr>
                                 <td >Subsidio aproximado</td>
-                                <td >$ 15.624.840</td>
-                                <td >$ 15.624.840</td>
+                                <td >$ {{condiciones_venta.sinacabados.subsidioaproximado}}</td>
+                                <td >$ {{condiciones_venta.conacabados.subsidioaproximado}}</td>
                               </tr>
                               <tr>
                                 <td >Ahorros</td>
-                                <td >$ 500.000</td>
-                                <td >$ 500.000</td>
+                                <td >$ {{condiciones_venta.sinacabados.ahorros}}</td>
+                                <td >$ {{condiciones_venta.conacabados.ahorros}}</td>
                               </tr>
                               <tr>
                                 <td >Cesantías</td>
-                                <td >$ 3.000.000</td>
-                                <td >$ 3.000.000</td>
+                                <td >$ {{condiciones_venta.sinacabados.cesantias}}</td>
+                                <td >$ {{condiciones_venta.conacabados.cesantias}}</td>
                               </tr>
                               <tr>
                                 <td >Saldo en cuota inicial</td>
-                                <td >$ 6.845.160</td>
-                                <td >$ 9.245.160</td>
+                                <td >$ {{condiciones_venta.sinacabados.saldodecuotainicial}}</td>
+                                <td >$ {{condiciones_venta.conacabados.saldodecuotainicial}}</td>
                               </tr>
                               <tr>
                                 <td>11 Cuotas mensuales</td>
-                                <td >$ 622.287</td>
-                                <td >$ 840.469</td>
+                                <td >$ {{condiciones_venta.sinacabados.cuotasmensuales}}</td>
+                                <td >$ {{condiciones_venta.conacabados.cuotasmensuales}}</td>
                               </tr>
                             </table>
                         </div>
@@ -743,8 +743,8 @@
                                   </tr>
                                 <tr>
                                     <td colspan='1'>Crédito requerido</td>
-                                    <td colspan='2'>$ 62.930.000</td>
-                                    <td colspan='2'>$ 68.530.000</td>
+                                    <td colspan='2'>$ {{condiciones_venta.sinacabados.creditorequerido}}</td>
+                                    <td colspan='2'>$ {{condiciones_venta.conacabados.creditorequerido}}</td>
                                 </tr>
                                   <tr>
                                     <td >Plazo (Aprox)</td>
@@ -756,27 +756,27 @@
                                   </tr>
                                   <tr>
                                     <td >10 años</td>
-                                    <td >$ 482.802</td>
-                                    <td >$ 936.746</td>
+                                    <td >$ {{condiciones_venta.sinacabados.cuotauvr_10}}</td>
+                                    <td >$ {{condiciones_venta.sinacabados.cuotapesos_10}}</td>
 
-                                    <td >$ 523.363</td>
-                                    <td >$ 1.020.105</td>
+                                    <td >$ {{condiciones_venta.conacabados.cuotauvr_10}}</td>
+                                    <td >$ {{condiciones_venta.conacabados.cuotapesos_10}}</td>
                                   </tr>
                                   <tr>
                                     <td >15 años</td>
-                                    <td >$ 563.038</td>
-                                    <td >$ 795.763</td>
+                                    <td >$ {{condiciones_venta.sinacabados.cuotauvr_15}}</td>
+                                    <td >$ {{condiciones_venta.sinacabados.cuotapesos_15}}</td>
 
-                                    <td >$ 610.739</td>
-                                    <td >$ 866.576</td>
+                                    <td >$ {{condiciones_venta.conacabados.cuotauvr_15}}</td>
+                                    <td >$ {{condiciones_venta.conacabados.cuotapesos_15}}</td>
                                   </tr>
                                   <tr>
                                     <td >20 años</td>
-                                    <td >$ 730.872</td>
-                                    <td >$ 738.138</td>
+                                    <td >$ {{condiciones_venta.sinacabados.cuotauvr_20}}</td>
+                                    <td >$ {{condiciones_venta.sinacabados.cuotapesos_20}}</td>
 
-                                    <td >$ 793.508</td>
-                                    <td >$ 803.823</td>
+                                    <td >$ {{condiciones_venta.conacabados.cuotauvr_20}}</td>
+                                    <td >$ {{condiciones_venta.conacabados.cuotapesos_20}}</td>
                                   </tr>
                             </table>
                       	</div>
@@ -787,13 +787,13 @@
                		<li class="list-group-item">
                         <div class="row">
                         	<div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                                Fecha de entrega: (aprox)<br /><strong>Junio 30 de 2018</strong>
+                                Fecha de entrega: (aprox)<br /><strong>{{this.proyecto_vivienda_seleccionado.trimestre_entrega}}</strong>
                             </div>
                              <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                                Gastos de escrituración:(aprox)<br /><strong>$ 11.600.000</strong>
+                                Gastos de escrituración:(aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion}}</strong>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-4">
-                                Valor administración (aprox)<br /><strong>$ 40.000 </strong>
+                                Valor administración (aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_administracion}} </strong>
                             </div>
                         </div>
                     </li>
