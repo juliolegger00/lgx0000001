@@ -2501,8 +2501,23 @@ add_action( 'rest_api_init', function () {
 
 function lg_add_cotizacion_persona( WP_REST_Request $request ) {
 	$parameters = $request->get_body_params();//post y json
-	$manage = json_decode($parameters["json"]);
-	print_r($manage);
+	//$manage = json_decode($parameters["json"]);
+	//print_r($manage);
+
+	global $wpdb; 
+
+	$table_name = $wpdb->prefix . 'cotizaciones_personales';
+
+	$wpdb->insert(
+		$table_name,
+		array(
+			'created' => current_time( 'mysql' ),
+			'updated' => current_time( 'mysql' ),
+			'json_cotizacion' => $parameters["json"],
+		)
+	);
+
+
 	return "ok";
 }
 

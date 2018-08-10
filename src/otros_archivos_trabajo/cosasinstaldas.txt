@@ -25,3 +25,19 @@ sudo ng serve --host 0.0.0.0
 ng build --base-href
 firebase init
 firebase deploy
+
+
+
+
+
+
+
+
+
+CREATE TABLE `wp_cotizaciones_personales` ( 
+`id` int(11) NOT NULL AUTO_INCREMENT,
+     json_cotizacion text NOT NULL,
+`created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Created Datetime',
+`updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Updated Datetime',
+PRIMARY KEY(`id`)  )
+ENGINE=MyISAM DEFAULT CHARSET=utf8;
