@@ -2,7 +2,7 @@
 import {Component,   HostListener } from '@angular/core';
 import {OnInit } from "@angular/core";
 import {CONFIG } from "../config/config";
-import {HttpClient,   HttpParams } from '@angular/common/http';
+import {HttpClient,   HttpParams, HttpHeaders } from '@angular/common/http';
 import {delay } from 'rxjs/internal/operators/delay';
 
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -178,8 +178,11 @@ export class Cotizador_personalComponent implements OnInit {
             "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
             "fs_celular_campo": this.f.fs_celular_campo.value,
             "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
-            "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado,
-            "texto_cotizacion_persona": this.texto_cotizacion_persona,
+            "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado.proyecto,
+            //"texto_cotizacion_persona": this.texto_cotizacion_persona,
+            "fs_ingresosGrupoFamiliar_campo" : this.f2.fs_ingresosGrupoFamiliar_campo.value,
+            "fs_ahorros_campo": this.f2.fs_ahorros_campo.value,
+            "fs_cesantias_campo": this.f2.fs_cesantias_campo.value,
         };
 
         return fs_formulario;
@@ -309,6 +312,33 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
     onSubmit_paso1() {
+
+
+      ////////test add///
+
+      this.spinnerService.show();
+
+
+     let  guardar_cotizacion = {
+          formulario:this.fs,
+          condiciones_venta: this.condiciones_venta,
+        }
+
+      let json = JSON.stringify(guardar_cotizacion);
+      let params = "json="+json;
+      let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+
+      this.http.post(CONFIG.api_add_cotizacion_persona, params, {headers: headers}).pipe(delay(0)).subscribe(data => {
+
+          let data_lst: any = {};
+          data_lst = data;
+          console.log(data_lst);
+
+          this.spinnerService.hide();
+
+      });
+
+      ////////test add///
 
       this.submitted1=true;
         // stop here if form is invalid

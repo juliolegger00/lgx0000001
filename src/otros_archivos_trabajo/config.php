@@ -2489,7 +2489,51 @@ if(function_exists("register_field_group"))
 
 
 
+//////////funciones especializadas
 
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/add_cotizacion_persona/(?P<id>\d+)', array(
+    'methods' => 'POST',
+    'callback' => 'lg_add_cotizacion_persona',
+  ) );
+} );
+
+
+function lg_add_cotizacion_persona( WP_REST_Request $request ) {
+	$parameters = $request->get_body_params();//post y json
+	$manage = json_decode($parameters["json"]);
+	print_r($manage);
+	return "ok";
+}
+
+//ejemplo
+function my_awesome_func( WP_REST_Request $request ) {
+  // You can access parameters via direct array access on the object:
+  //$param = $request['some_param'];
+
+  // Or via the helper method:
+  //$param = $request->get_param( 'some_param' );
+
+  // You can get the combined, merged set of parameters:
+  //$parameters = $request->get_params();
+
+  // The individual sets of parameters are also available, if needed:
+  //$parameters = $request->get_url_params();//GET
+  //$parameters = $request->get_query_params();
+  $parameters = $request->get_body_params();//POST
+  //$parameters = $request->get_json_params();
+  //$parameters = $request->get_default_params();
+
+	print_r($parameters);
+
+  // Uploads aren't merged in, but can be accessed separately:
+  //$parameters = $request->get_file_params();
+	return "lala";
+}
+
+
+
+///////////funciones especializadas
 
 
 
