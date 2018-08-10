@@ -2,6 +2,7 @@
 import {Component,   HostListener } from '@angular/core';
 import {OnInit } from "@angular/core";
 import {CONFIG } from "../config/config";
+import {ViewChild, ElementRef } from  "@angular/core";
 import {HttpClient,   HttpParams, HttpHeaders } from '@angular/common/http';
 import {delay } from 'rxjs/internal/operators/delay';
 
@@ -13,6 +14,9 @@ import { take  } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import * as jspDF from 'jspdf';
+
+import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -314,31 +318,6 @@ export class Cotizador_personalComponent implements OnInit {
     onSubmit_paso1() {
 
 
-      ////////test add///
-
-      this.spinnerService.show();
-
-
-     let  guardar_cotizacion = {
-          formulario:this.fs,
-          condiciones_venta: this.condiciones_venta,
-        }
-
-      let json = JSON.stringify(guardar_cotizacion);
-      let params = "json="+json;
-      let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-
-      this.http.post(CONFIG.api_add_cotizacion_persona, params, {headers: headers}).pipe(delay(0)).subscribe(data => {
-
-          let data_lst: any = {};
-          data_lst = data;
-          console.log(data_lst);
-
-          this.spinnerService.hide();
-
-      });
-
-      ////////test add///
 
       this.submitted1=true;
         // stop here if form is invalid
@@ -385,15 +364,46 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.crear_calculos_paso3_sinacabados();
         this.crear_calculos_paso3_conacabados();
-        this.hidden_paso1 = true;
-        this.hidden_paso2 = true;
-        this.hidden_paso3 = false;
+
+
+        ////////test add///
+
+        this.spinnerService.show();
+
+
+       let  guardar_cotizacion = {
+            formulario:this.fs,
+            condiciones_venta: this.condiciones_venta,
+          }
+
+        let json = JSON.stringify(guardar_cotizacion);
+        let params = "json="+json;
+        let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+
+        this.http.post(CONFIG.api_add_cotizacion_persona, params, {headers: headers}).pipe(delay(0)).subscribe(data => {
+
+            let data_lst: any = {};
+            data_lst = data;
+            console.log(data_lst);
+
+            this.hidden_paso1 = true;
+            this.hidden_paso2 = true;
+            this.hidden_paso3 = false;
+
+            this.spinnerService.hide();
+
+        });
+
+        ////////test add///
+
         return;
     }
 
 
-    onSubmit_paso3() {
-
+    onSubmit_regresarpaso2() {
+      this.hidden_paso1 = true;
+      this.hidden_paso2 = false;
+      this.hidden_paso3 = true;
     }
 
 
@@ -408,7 +418,6 @@ export class Cotizador_personalComponent implements OnInit {
         this.condiciones_venta.conacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
         this.condiciones_venta.conacabados.cuotainicial = (this.condiciones_venta.conacabados.valordelinmueble * 30 / 100);
 
-        debugger
 
         let subsidioaproximado = (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
             (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
@@ -778,6 +787,50 @@ export class Cotizador_personalComponent implements OnInit {
     } // fin metodo getListaCiudades
 
 
+
+
+
+    public downloadPDF(){
+      var data = document.getElementById('contentok');
+      html2canvas(data, {
+      //  width: 595,
+      //  height: 842,
+          //scale:0.8
+      }).then(canvas => {
+
+/*
+  var a = document.createElement('a');
+  a.href = canvas.toDataURL("image/png");
+  a.download = 'myfile.png';
+  a.click();
+*/
+
+         const contentDataURL = canvas.toDataURL('image/png')
+         let pdf = new jspDF('p', 'mm', 'a4'); // A4 size page of PDF
+         let position = 10;
+         let width = 10;
+         let height = 10;
+
+
+         let porcentaje = 30;
+         height =270;// canvas.height * porcentaje / 100;
+         width =170;// canvas.width * porcentaje / 100;
+         //console.log(height)
+
+
+         pdf.addImage(contentDataURL, 'PNG', 20, position, width, height)
+         pdf.save('MYPdf.pdf'); // Generated PDF
+
+
+
+
+
+
+
+       });
+
+
+    }
 
 
     //tipo_documento

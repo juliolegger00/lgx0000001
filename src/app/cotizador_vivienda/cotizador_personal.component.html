@@ -349,7 +349,7 @@
                       <div class="form-group paddin40">
                           <div class="button-wrapper">
 
-<!--   [disabled]="regFormPaso1.pristine || regFormPaso1.invalid" -->
+                             <!--   [disabled]="regFormPaso1.pristine || regFormPaso1.invalid" -->
                             <button type="submit"
                                        class="btn btn-success">
                                          Siguiente
@@ -550,8 +550,8 @@
     <div [hidden]="hidden_paso3">
       <form   (ngSubmit)="onSubmit_paso3()" >
 
-        <div class="container seccion_titulos">
-        	<div class="ingreso center-block info_pasada">
+        <div class="container seccion_titulos"  id="contentok">
+        	<div class="ingreso center-block info_pasada"  >
                <br />
                <div class="row" style="text-align:left !important; color:#333;">
                    <div class="col-sm-12 col-md-12 col-lg-12">
@@ -568,9 +568,6 @@
 
                  <li class="list-group-item">
                      <div class="row">
-                       <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                           Valor Venta <strong><br />$ 90.000.000</strong>
-                       </div>
 
                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
                              {{texto_cotizacion_persona.tituloValorProyecto}}
@@ -644,14 +641,14 @@
                   </li>
                 </ul>
                 <br />
-                <div class="row" style="text-align:left !important; color:#333;">
+                <div class="row" style="text-align:left !important; color:#333;" >
                     <div class="col-sm-12 col-md-12 col-lg-12">
                 		<strong>Forma de pago</strong>
                     </div>
                 </div>
                 <ul class="list-group">
                		<li class="list-group-item">
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
                                 {{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}
                                 <br />
@@ -680,9 +677,10 @@
                 <ul class="list-group">
                		<li class="list-group-item">
                         <div class="row">
-                            <table cellspacing='0' cellpadding='0' width='100%'>
+                            <table cellspacing='0' cellpadding='0' width='100%' >
                               <tr>
-                                <td colspan='3'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>Proyecto   preferencial para afiliados a Colsubsidio</td>
+                                <td colspan='3'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
+                                  Proyecto   preferencial para afiliados a Colsubsidio</td>
                               </tr>
                               <tr>
                                 <td  width='250'  bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
@@ -742,10 +740,12 @@
                 <br />
                 <ul class="list-group">
                		<li class="list-group-item">
-                        <div class="row">
-                            <table cellspacing='0' cellpadding='0' width='100%'>
+                        <div class="row" >
+                            <table cellspacing='0' cellpadding='0' width='100%' >
                                 <tr>
-                                    <td colspan='5'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>Información Crédito hipotecario Colsubsidio</td>
+                                    <td colspan='5'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
+                                      Información Crédito hipotecario Colsubsidio
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan='1' width='250'  bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
@@ -839,7 +839,9 @@
             	<div class="col-sm-12 col-md-4 col-lg-4">
                 	<div class="form-group paddin40">
                  		<div class="button-wrapper">
-                     		<button class="form-btn" type="submit" id="btnSubmit">
+                     		<button class="form-btn" type="button"
+                           (click)="onSubmit_regresarpaso2()"
+                            id="btnSubmit">
                         		<span class="text">Anterior</span> <span class="icon"></span>
                        		</button>
                     	</div>
@@ -848,9 +850,9 @@
             	<div class="col-sm-12 col-md-4 col-lg-4">
                 	<div class="form-group paddin40">
                  		<div class="button-wrapper">
-                     		<button class="form-btn" type="submit" id="btnSubmit">
-                        		<span class="text">Imprimir Cotización</span> <span class="icon"></span>
-                       		</button>
+                      <button (click)="downloadPDF()">
+                         Imprimir Cotización
+                        </button>
                     	</div>
                		</div>
                 </div>
