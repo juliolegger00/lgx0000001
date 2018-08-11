@@ -1,6 +1,6 @@
 export class CONFIG {
 
-    public static modo_http="http://";
+    public static modo_http="https://";
     public static api_wp_json =    CONFIG.modo_http+"leggercolombia.com/wordpress/wp-json/wp/v2/" ;
     public static api_jwt_auth =   CONFIG.modo_http+"leggercolombia.com/wordpress/wp-json/jwt-auth/v1/token" ;
     public static api_wp_legger=   CONFIG.modo_http+"leggercolombia.com/wordpress/wp-json/legger/v1/";
