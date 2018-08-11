@@ -1120,12 +1120,16 @@ label{
 	background-image: url(assets/cortes-05.png);
 }
 .paso_proceso span{
-	background-repeat:no-repeat;
-	background-position:top;
-	width:57px;
-	height:57px;
 	float:left;
-}
+	background-color: #011f5a;
+    color: #FFF;
+    border-radius: 50%;
+    padding: 11px 12px;
+    font-size: 25px;
+    font-weight: bold;
+    height: 40px;
+    width: 40px;
+}/*
 .ico_proceso1 span{
 	background-image: url(assets/cortes-01.png);
 }
@@ -1137,13 +1141,12 @@ label{
 }
 .ico_proceso4 span{
 	background-image: url(assets/cortes-04.png);
-}
+}*/
 .paso_proceso strong{
 	float:left;
 	display:block;
-	margin-top:18px;
-	background-color:#f7faff;
-	padding-right:30px;
+	margin-top:12px;
+	padding-left:10px;
 }
 .paso_proceso:hover span{
 	background-position: bottom;
@@ -1192,10 +1195,10 @@ label{
 
 
 .spinner img {
-	height: 50% !important;
-    width: 50% !important;
-    top: 26% !important;
-    left: 24% !important;
+	height: 50px !important;
+    width: 50px !important;
+    top: 40% !important;
+    left: 40% !important;
 }
 .clear{
 	clear: both;

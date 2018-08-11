@@ -241,7 +241,9 @@
                               <div class="row">
                                   <div class="col-12">
 
-                                        <input type="checkbox" formControlName="fs_abeasdata_campo" class="form-control"
+                                        <input type="checkbox"
+                                        style="width:40px !important; float:left;"
+                                        formControlName="fs_abeasdata_campo" class="form-control"
                                        [ngClass]="{ 'is-invalid': submitted1 && f.fs_abeasdata_campo.errors }" />
                                       <div *ngIf="submitted1 && f.fs_abeasdata_campo.errors" class="invalid-feedback">
                                           <div *ngIf="f.fs_abeasdata_campo.errors.required">Campo necesario</div>
@@ -251,19 +253,27 @@
                                         {{texto_cotizacion_persona.tituloAutorizaDatos}}
                                       </label>
                                       <br />
-                                      <a target="_blank" class="link_legal"
-                                      href="{{texto_cotizacion_persona.urlTratamientoDatos}}">
-                                      {{texto_cotizacion_persona.tituloTratamientoDatos}}
-                                      </a>
-                                      <br />
-                                      <a target="_blank" class="link_legal"
-                                      href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}">
-                                      {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
+
                                   </div>
                               </div>
                           </div>
                       </div>
 
+
+                      <div class="form-group">
+                        <ngx-recaptcha2
+                          [size]="size"
+                          [hl]="lang"
+                          [theme]="theme"
+                          [type]="type"
+                          (success)="handleSuccess_recaptcha2($event)">>
+                        </ngx-recaptcha2>
+                      </div>
+                      <br />
+                      <br />
+                      <p>
+                          {{texto_cotizacion_persona.textoObligatorio}}
+                      </p>
                   </div>
 
                   <div class="col-sm-12 col-md-4 col-lg-4">
@@ -288,18 +298,15 @@
                      <div *ngIf="f.fs_email_campo.errors.pattern">email incorrecto </div>
                       </div>
                   </div>
+                    <br />
+
+                  <a target="_blank" class="link_legal"
+                  href="{{texto_cotizacion_persona.urlTratamientoDatos}}">
+                  {{texto_cotizacion_persona.tituloTratamientoDatos}}
+                  </a>
 
 
-                      <div class="form-group">
-                        <ngx-recaptcha2
-                          [size]="size"
-                          [hl]="lang"
-                          [theme]="theme"
-                          [type]="type"
-                          (success)="handleSuccess_recaptcha2($event)">>
-                        </ngx-recaptcha2>
-                      </div>
-                   
+
                   </div>
 
                   <div class="col-sm-12 col-md-4 col-lg-4">
@@ -333,10 +340,13 @@
                         </div>
                     </div>
 
+                    <br />
+                    <a target="_blank" class="link_legal"
+                    href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}">
+                    {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
 
-                      <p>
-                          {{texto_cotizacion_persona.textoObligatorio}}
-                      </p>
+
+
 
                   </div>
               </div>

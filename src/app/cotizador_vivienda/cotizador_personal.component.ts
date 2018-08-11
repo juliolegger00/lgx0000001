@@ -144,7 +144,10 @@ export class Cotizador_personalComponent implements OnInit {
             fs_email_campo: new FormControl('',[ Validators.required,
                                               Validators.pattern("[^ @]*@[^ @]*") ]),
             fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
-            fs_celular_campo: new FormControl('', Validators.required),
+            fs_celular_campo: new FormControl('',[ Validators.required 
+                                                    , Validators.minLength(7)
+                                                    , Validators.maxLength(10)
+                                                  ]),
             fs_abeasdata_campo: new FormControl('', Validators.requiredTrue),
         });
     } // fin initializeFormulario
