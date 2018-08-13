@@ -15,6 +15,10 @@ npm install -g firebase-tools
 https://enngage.github.io/ngx-captcha/recaptcha2
 sudo npm install ngx-captcha
 
+https://www.npmjs.com/package/ngx-currency
+npm i ngx-currency
+
+
 https://ks89.github.io/angular-modal-gallery-2018.github.io/gettingStarted
 npm i --save angular-modal-gallery hammerjs mousetrap
 npm i --save @types/hammerjs @types/mousetrap
