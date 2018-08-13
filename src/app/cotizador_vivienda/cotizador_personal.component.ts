@@ -13,6 +13,7 @@ import { take  } from 'rxjs/operators';
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import * as jspDF from 'jspdf';
 
@@ -35,6 +36,8 @@ import {
 
 export class Cotizador_personalComponent implements OnInit {
 
+
+    id_proyecto_via_get=0;
 
     regFormPaso1: FormGroup;
     regFormPaso2: FormGroup;
@@ -137,10 +140,14 @@ export class Cotizador_personalComponent implements OnInit {
         private spinnerService: Ng4LoadingSpinnerService,
         private formBuilder: FormBuilder,
         private router: Router,
-        private galleryService: GalleryService
+        private galleryService: GalleryService,
+        private routeActive: ActivatedRoute
     ) {
         this.initializeFormularioPaso1();
         this.initializeFormularioPaso2(); // paso2
+
+        this.id_proyecto_via_get = this.routeActive.snapshot.params['id'];
+        //console.log( "proyecto_sele:" this.id_proyecto_via_get);
 
     } //fin constructor
 
@@ -274,6 +281,16 @@ export class Cotizador_personalComponent implements OnInit {
         this.http.get(CONFIG.api_lista_proyectos_vivienda).pipe(delay(0)).subscribe(data => {
             this.proyecto_vivienda_lista = data;
             this.proyecto_vivienda_seleccionado = data[0];
+
+            if(this.id_proyecto_via_get != null){
+              data.forEach((item, index) => {
+
+                  if (item.id == this.id_proyecto_via_get) {
+                      this.proyecto_vivienda_seleccionado  = item;
+                  }
+              });
+            }
+
 
             ///cargar galeria_imagenes
             if (this.proyecto_vivienda_seleccionado.id > 0) {
@@ -903,7 +920,7 @@ export class Cotizador_personalComponent implements OnInit {
             this.images_obsArray.next(newArr);
 
         })
-        debugger
+
     }
 
     removeRoomAll_imagenes_lista() {

@@ -32,6 +32,7 @@ import 'hammerjs';
 
 const appRoutes: Routes = [
     {path:'', component: Cotizador_personalComponent},
+    { path: 'proyecto/:id', component: Cotizador_personalComponent },
 ];
 
 @NgModule({
