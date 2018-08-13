@@ -15,6 +15,9 @@ npm install -g firebase-tools
 https://enngage.github.io/ngx-captcha/recaptcha2
 sudo npm install ngx-captcha
 
+https://github.com/igorlino/angular-fancybox-plus
+npm install angular-fancybox-plus
+
 
 como actualizar y corre en el servidor
 cd /opt/legger/test

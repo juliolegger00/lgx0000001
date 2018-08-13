@@ -119,7 +119,7 @@ export class Cotizador_personalComponent implements OnInit {
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
         private formBuilder: FormBuilder,
-        private router: Router,
+        private router: Router
     ) {
         this.initializeFormularioPaso1();
         this.initializeFormularioPaso2(); // paso2
@@ -144,7 +144,7 @@ export class Cotizador_personalComponent implements OnInit {
             fs_email_campo: new FormControl('',[ Validators.required,
                                               Validators.pattern("[^ @]*@[^ @]*") ]),
             fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
-            fs_celular_campo: new FormControl('',[ Validators.required 
+            fs_celular_campo: new FormControl('',[ Validators.required
                                                     , Validators.minLength(7)
                                                     , Validators.maxLength(10)
                                                   ]),

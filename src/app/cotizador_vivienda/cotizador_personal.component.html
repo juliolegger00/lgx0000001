@@ -1,445 +1,453 @@
 
 
 
-    <div class="container" style="padding:20px 0px;"></div>
-    <div class="container">
+<div class="container" style="padding:20px 0px;"></div>
+<div class="container">
+  <div class="row">
+    <div class="header-category-template columns small-12">
+      <!-- <div class="video-image-container v_line hide-for-small show-for-large">
+        <div class="shadow_thumbnail">
+          <div class="image-container">
+            <!--
+              <img class="img_proyecto" src="{{proyecto_vivienda_seleccionado.srcFotos}}" alt="{{proyecto_vivienda_seleccionado.altFotos}}" width="100%">
+            -->
+            <!--
+            <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+              <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
+                <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
+                  <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
+                </a>
+                <div class="carousel-caption">
+                  {{image.leyenda}}
+                </div>
+              </ng-template>
+            </ngb-carousel>
+          </div>
+        </div>
+      </div>
+      -->
+      <div class="copy-container">
+        <h1 class="main_title_header title_line">
+          <img src="assets/ico_vivienda.png" alt="icono de vivienda">
+          <span class="title">{{texto_cotizacion_persona.tituloCotizador}}</span>
+        </h1>
+        <!--DESCRIPCIÓN DE LA SECCIÓN-->
+        <div class="description">
+          Bienvenido al cotizador de proyectos de vivienda, sigue estos sencillos pasos y obtendrás una cotización de tu vivienda nueva.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- paso 1 -->
+<div [hidden]="hidden_paso1">
+<form   (ngSubmit)="onSubmit_paso1()" >
+<div class="container seccion_titulos">
+  <div class="ingreso center-block" style="padding:30px;">
+    <div class="row pasos">
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso1">
+          <span class="numm activo">1</span>
+          <span class="titupaso activo d-none d-md-block">{{texto_cotizacion_persona.tituloPaso1}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso2">
+          <span class="numm">2</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso2}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso3">
+          <span class="numm">3</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso3}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso4">
+          <span class="numm">4</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso4}}</span>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-12 col-md-3 col-lg-3">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
+            <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_ciudad_filtro.errors }">
+              <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
+                {{ciudad}}
+              </option>
+            </select>
+            <div *ngIf="submitted1 && f.fs_ciudad_filtro.errors" class="invalid-feedback">
+              <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 col-lg-3">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
+          <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyecto_filtro.errors }">
+            <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
+              {{proyecto}}
+            </option>
+          </select>
+          <div *ngIf="submitted1 && f.fs_proyecto_filtro.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 col-lg-3">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
+          <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyectosTamano_filtro.errors }">
+              <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
+                {{proyectosTamano}}
+              </option>
+          </select>
+          <div *ngIf="submitted1 && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
+              <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-3 col-lg-3">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
+          <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_como_se_entero_filtro.errors }">
+            <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
+              {{como_se_entero}}
+            </option>
+          </select>
+          <div *ngIf="submitted1 && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_como_se_entero_filtro.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row" style="text-align:left !important; color:#333;">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+          <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
+            <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
+              <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
+            </a>
+            <div class="carousel-caption">
+              {{image.leyenda}}
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-8 ">
+        <h2 class="main_title_header title_line">
+            <span class="title">{{proyecto_vivienda_seleccionado.proyecto}}</span>
+        </h2>
+        <!--DESCRIPCIÓN DE LA SECCIÓN-->
+        <div class="description">
+          {{proyecto_vivienda_seleccionado.descripcion}}
+          <br />
+          <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
+          <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
+          </div>
+      </div>
+    </div>
+    <br />
+    <ul class="list-group">
+      <li class="list-group-item">
         <div class="row">
-            <div class="header-category-template columns small-12">
-
-
-
-                        <div class="video-image-container v_line hide-for-small show-for-large">
-                            <div class="shadow_thumbnail">
-                                <div class="image-container">
-                                    <!--
-                                    <img class="img_proyecto" src="{{proyecto_vivienda_seleccionado.srcFotos}}" alt="{{proyecto_vivienda_seleccionado.altFotos}}" width="100%">
-                                  -->
-                                    <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
-                                      <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
-                                        <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
-                                        <div class="carousel-caption">
-                                             {{image.leyenda}}
-                                        </div>
-                                      </ng-template>
-                                    </ngb-carousel>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="copy-container">
-                            <h1 class="main_title_header title_line">
-
-                        <img src="assets/ico_vivienda.png" alt="icono de vivienda">
-                        <span class="title">{{proyecto_vivienda_seleccionado.proyecto}}</span>
-                    </h1>
-                    <!--DESCRIPCIÓN DE LA SECCIÓN-->
-                    <div class="description">
-                        {{proyecto_vivienda_seleccionado.descripcion}}
-                        <br />
-                        <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
-                        <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
-                    </div>
-                </div>
-            </div>
+          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+            {{texto_cotizacion_persona.tituloValorProyecto}}<br />
+            <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+          </div>
+          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+            {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}<br />
+            <strong>{{proyecto_vivienda_seleccionado.area_construida}}</strong>
+          </div>
+          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+            {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}<br />
+            <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
+          </div>
+          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+            {{texto_cotizacion_persona.titulohabitacionesProyecto}}<br />
+            <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
+          </div>
+          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+            {{texto_cotizacion_persona.titulodisponiblesProyecto}}<br />
+            <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
+          </div>
+          <div class="col-sm-12 col-md-1 col-lg-1 ">
+            {{texto_cotizacion_persona.titulobanosProyecto}}<br />
+            <strong>{{proyecto_vivienda_seleccionado.banosProyecto}} </strong>
+          </div>
         </div>
-    </div>
-    <div class="container">
-        <h2 class="main_title_header title_line auto_width">{{texto_cotizacion_persona.tituloCotizador}}</h2>
-    </div>
-
-    <div class="container seccion_titulos">
-        <div class="row pasos">
-            <div class="col-sm-12 col-md-3 col-lg-3">
-                <div class="paso_proceso ico_proceso1">
-                    <span class="activo"></span>
-                    <strong>{{texto_cotizacion_persona.tituloPaso1}}</strong>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3">
-                <div class="paso_proceso ico_proceso2">
-                    <span></span>
-                    <strong>{{texto_cotizacion_persona.tituloPaso2}}</strong>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3">
-                <div class="paso_proceso ico_proceso3">
-                    <span></span>
-                    <strong>{{texto_cotizacion_persona.tituloPaso3}}</strong>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3">
-                <div class="paso_proceso ico_proceso4">
-                    <span></span>
-                    <strong>{{texto_cotizacion_persona.tituloPaso4}}</strong>
-                </div>
-            </div>
+      </li>
+    </ul>
+    <br />
+    <div class="row">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloTipoDocumento}}</label>
+            <select formControlName="fs_tipo_documento_campo"
+              (ngModelChange)="onSeleccion_tipo_documento_lista()" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted1 && f.fs_tipo_documento_campo.errors }">
+              <option *ngFor="let tipo_documento of (fs_tipo_documento_lista$ | async); let i = index"
+                [value]="tipo_documento.id" [selected]="i == 0">
+                    {{tipo_documento.tipo_documento}}
+              </option>
+            </select>
+            <div *ngIf="submitted1 && f.fs_tipo_documento_campo.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_tipo_documento_campo.errors.required">Campo necesario</div>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.titulonumeroDocumento}}</label>
+          <input type="number" formControlName="fs_numeroDocumento_campo" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted1 && f.fs_numeroDocumento_campo.errors }" />
+          <div *ngIf="submitted1 && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_numeroDocumento_campo.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloafiliadoColsubsidio}}</label>
+          <select formControlName="fs_afiliadoColsubsidio_campo"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted1 && f.fs_afiliadoColsubsidio_campo.errors }">
+            <option value="">Selecciona</option>
+            <option value="si">Si</option>
+            <option value="no">No</option>
+          </select>
+          <div *ngIf="submitted1 && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_afiliadoColsubsidio_campo.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloNombres}}</label>
+          <input type="text" formControlName="fs_nombres_campo" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted1 && f.fs_nombres_campo.errors }" />
+          <div *ngIf="submitted1 && f.fs_nombres_campo.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_nombres_campo.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloEmail}}</label>
+          <input type="email" formControlName="fs_email_campo" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted1 && f.fs_email_campo.errors }" />
+          <div *ngIf="submitted1 && f.fs_email_campo.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_email_campo.errors.required">Campo necesario</div>
+              <div *ngIf="f.fs_email_campo.errors.pattern">email incorrecto </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso1">
+          <label>{{texto_cotizacion_persona.tituloCelular}}</label>
+          <input type="number" formControlName="fs_celular_campo" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted1 && f.fs_celular_campo.errors }" />
+          <div *ngIf="submitted1 && f.fs_celular_campo.errors" class="invalid-feedback">
+            <div *ngIf="f.fs_celular_campo.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- paso 1 -->
-    <div [hidden]="hidden_paso1">
-      <form   (ngSubmit)="onSubmit_paso1()" >
-      <div class="container seccion_titulos">
-          <div class="ingreso center-block" style="padding:30px;">
-              <div class="row">
-                  <div class="col-sm-12 col-md-3 col-lg-3">
-
-
-                      <div class="form-group" [formGroup]="regFormPaso1">
-                          <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
-
-                          <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_ciudad_filtro.errors }">
-
-                              <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
-                                  {{ciudad}}
-                              </option>
-                          </select>
-                          <div *ngIf="submitted1 && f.fs_ciudad_filtro.errors" class="invalid-feedback">
-                              <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-sm-12 col-md-3 col-lg-3">
-
-
-                      <div class="form-group" [formGroup]="regFormPaso1">
-                          <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
-
-                          <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyecto_filtro.errors }">
-
-                              <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
-                                  {{proyecto}}
-                              </option>
-                          </select>
-                          <div *ngIf="submitted1 && f.fs_proyecto_filtro.errors" class="invalid-feedback">
-                              <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
-                          </div>
-                      </div>
-
-                  </div>
-                  <div class="col-sm-12 col-md-3 col-lg-3">
-
-
-
-
-                      <div class="form-group" [formGroup]="regFormPaso1">
-                          <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
-
-                          <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyectosTamano_filtro.errors }">
-
-                              <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
-                                  {{proyectosTamano}}
-                              </option>
-                          </select>
-                          <div *ngIf="submitted1 && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
-                              <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
-                          </div>
-                      </div>
-
-
-
-                  </div>
-                  <div class="col-sm-12 col-md-3 col-lg-3">
-
-
-                      <div class="form-group" [formGroup]="regFormPaso1">
-                          <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
-
-                          <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_como_se_entero_filtro.errors }">
-
-                              <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
-                                  {{como_se_entero}}
-                              </option>
-                          </select>
-                          <div *ngIf="submitted1 && f.fs_como_se_entero_filtro.errors" class="invalid-feedback">
-                              <div *ngIf="f.fs_como_se_entero_filtro.errors.required">Campo necesario</div>
-                          </div>
-                      </div>
-
-
-
-
-
-                  </div>
-              </div>
-
-              <br />
-              <div class="row" style="text-align:left !important; color:#333;">
-                  <div class="col-sm-12 col-md-12 col-lg-12">
-                      <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
-                      <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
-                  </div>
-              </div>
-              <br />
-              <ul class="list-group">
-                  <li class="list-group-item">
-                      <div class="row">
-                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.tituloValorProyecto}}<br />
-                              <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}<br />
-                              <strong>{{proyecto_vivienda_seleccionado.area_construida}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}<br />
-                              <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.titulohabitacionesProyecto}}<br />
-                              <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                              {{texto_cotizacion_persona.titulodisponiblesProyecto}}<br />
-                              <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-1 col-lg-1 ">
-                              {{texto_cotizacion_persona.titulobanosProyecto}}<br />
-                              <strong>{{proyecto_vivienda_seleccionado.banosProyecto}} </strong>
-                          </div>
-                      </div>
-                  </li>
-              </ul>
-              <br />
-              <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-                    <div class="form-group" [formGroup]="regFormPaso1">
-                        <label>{{texto_cotizacion_persona.tituloTipoDocumento}}</label>
-
-                        <select formControlName="fs_tipo_documento_campo"
-                        (ngModelChange)="onSeleccion_tipo_documento_lista()" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted1 && f.fs_tipo_documento_campo.errors }">
-
-                            <option *ngFor="let tipo_documento of (fs_tipo_documento_lista$ | async); let i = index"
-                            [value]="tipo_documento.id" [selected]="i == 0">
-                                {{tipo_documento.tipo_documento}}
-                            </option>
-                        </select>
-                        <div *ngIf="submitted1 && f.fs_tipo_documento_campo.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_tipo_documento_campo.errors.required">Campo necesario</div>
-                        </div>
-                    </div>
-
-
-                      <div class="form-group" [formGroup]="regFormPaso1">
-                          <label>{{texto_cotizacion_persona.tituloNombres}}</label>
-                          <input type="text" formControlName="fs_nombres_campo" class="form-control"
-                           [ngClass]="{ 'is-invalid': submitted1 && f.fs_nombres_campo.errors }" />
-                          <div *ngIf="submitted1 && f.fs_nombres_campo.errors" class="invalid-feedback">
-                              <div *ngIf="f.fs_nombres_campo.errors.required">Campo necesario</div>
-                          </div>
-                      </div>
-
-
-
-                      <div class="form-group" [formGroup]="regFormPaso1">
-                          <div class="form-check">
-                              <div class="row">
-                                  <div class="col-12">
-
-                                        <input type="checkbox"
-                                        style="width:40px !important; float:left;"
-                                        formControlName="fs_abeasdata_campo" class="form-control"
-                                       [ngClass]="{ 'is-invalid': submitted1 && f.fs_abeasdata_campo.errors }" />
-                                      <div *ngIf="submitted1 && f.fs_abeasdata_campo.errors" class="invalid-feedback">
-                                          <div *ngIf="f.fs_abeasdata_campo.errors.required">Campo necesario</div>
-                                      </div>
-
-                                      <label style="margin-top:0px;" class="form-check-label" for="exampleCheck1">
-                                        {{texto_cotizacion_persona.tituloAutorizaDatos}}
-                                      </label>
-                                      <br />
-
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-
-                      <div class="form-group">
-                        <ngx-recaptcha2
-                          [size]="size"
-                          [hl]="lang"
-                          [theme]="theme"
-                          [type]="type"
-                          (success)="handleSuccess_recaptcha2($event)">>
-                        </ngx-recaptcha2>
-                      </div>
-                      <br />
-                      <br />
-                      <p>
-                          {{texto_cotizacion_persona.textoObligatorio}}
-                      </p>
-                  </div>
-
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-                    <div class="form-group" [formGroup]="regFormPaso1">
-                        <label>{{texto_cotizacion_persona.titulonumeroDocumento}}</label>
-                        <input type="number" formControlName="fs_numeroDocumento_campo" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted1 && f.fs_numeroDocumento_campo.errors }" />
-                        <div *ngIf="submitted1 && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_numeroDocumento_campo.errors.required">Campo necesario</div>
-                        </div>
-                    </div>
-
-
-                  <div class="form-group" [formGroup]="regFormPaso1">
-                      <label>{{texto_cotizacion_persona.tituloEmail}}</label>
-                      <input type="email" formControlName="fs_email_campo" class="form-control"
-                       [ngClass]="{ 'is-invalid': submitted1 && f.fs_email_campo.errors }" />
-                      <div *ngIf="submitted1 && f.fs_email_campo.errors" class="invalid-feedback">
-                          <div *ngIf="f.fs_email_campo.errors.required">Campo necesario</div>
-                     <div *ngIf="f.fs_email_campo.errors.pattern">email incorrecto </div>
-                      </div>
-                  </div>
-                    <br />
-
-                  <a target="_blank" class="link_legal"
-                  href="{{texto_cotizacion_persona.urlTratamientoDatos}}">
-                  {{texto_cotizacion_persona.tituloTratamientoDatos}}
-                  </a>
-
-
-
-                  </div>
-
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-
-                    <div class="form-group" [formGroup]="regFormPaso1">
-                        <label>{{texto_cotizacion_persona.tituloafiliadoColsubsidio}}</label>
-
-                        <select formControlName="fs_afiliadoColsubsidio_campo"
-                         class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted1 && f.fs_afiliadoColsubsidio_campo.errors }">
-                        <option value="">Selecciona</option>
-                        <option value="si">Si</option>
-                        <option value="no">No</option>
-                        </select>
-                        <div *ngIf="submitted1 && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_afiliadoColsubsidio_campo.errors.required">Campo necesario</div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="form-group" [formGroup]="regFormPaso1">
-                        <label>{{texto_cotizacion_persona.tituloCelular}}</label>
-                        <input type="number" formControlName="fs_celular_campo" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted1 && f.fs_celular_campo.errors }" />
-                        <div *ngIf="submitted1 && f.fs_celular_campo.errors" class="invalid-feedback">
-                            <div *ngIf="f.fs_celular_campo.errors.required">Campo necesario</div>
-                        </div>
-                    </div>
-
-                    <br />
-                    <a target="_blank" class="link_legal"
-                    href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}">
-                    {{texto_cotizacion_persona.tituloavisoPrivacidad}}</a>
-
-
-
-
-                  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4" style="margin-top:17px;">
+      <div class="form-group" [formGroup]="regFormPaso1">
+          <div class="form-check">
+              <input type="checkbox" style="margin-top:10px"
+                        formControlName="fs_abeasdata_campo" class="form-check-input"
+                       [ngClass]="{ 'is-invalid': submitted1 && f.fs_abeasdata_campo.errors }" />
+              <label class="form-check-label" for="exampleCheck1">
+                {{texto_cotizacion_persona.tituloAutorizaDatos}}
+              </label>
+              <div *ngIf="submitted1 && f.fs_abeasdata_campo.errors" class="invalid-feedback">
+                <div *ngIf="f.fs_abeasdata_campo.errors.required"></div>
               </div>
           </div>
       </div>
-      <div class="container">
-              <div class="row">
-                  <div class="col-9"></div>
-                  <div class="col-3">
-                      <div class="form-group paddin40">
-                          <div class="button-wrapper">
-
-                             <!--   [disabled]="regFormPaso1.pristine || regFormPaso1.invalid" -->
-                            <button type="submit"
-                                       class="btn btn-success">
-                                         Siguiente
-                                     </button>
-
-                          </div>
-                      </div>
-                  </div>
-              </div>
-      </div>
-      </form>
+        <a target="_blank" class="link_legal" href="{{texto_cotizacion_persona.urlTratamientoDatos}}">
+            {{texto_cotizacion_persona.tituloTratamientoDatos}}
+        </a>
+        <br />
+        <a target="_blank" class="link_legal"
+          href="{{texto_cotizacion_persona.urlAvisoPrivacidad}}">
+          {{texto_cotizacion_persona.tituloavisoPrivacidad}}
+        </a>
     </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 paddin40">
+        <ngx-recaptcha2
+          [size]="size"
+          [hl]="lang"
+          [theme]="theme"
+          [type]="type"
+          (success)="handleSuccess_recaptcha2($event)">>
+        </ngx-recaptcha2>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4">
+      <div class="form-group paddin40">
+        <div class="button-wrapper">
+          <!--   [disabled]="regFormPaso1.pristine || regFormPaso1.invalid" -->
+          <button type="submit"
+            class="btn btn-success">
+            Siguiente
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+</div>
+</form>
+</div>
+
     <!-- paso 1 -->
 
     <!-- paso 2 -->
-    <div [hidden]="hidden_paso2">
-      <form   (ngSubmit)="onSubmit_paso2()" >
-      <div class="container seccion_titulos">
-          <div class="ingreso center-block info_pasada">
-              <h2 class="category-section-title title_line auto_width">
-                {{texto_cotizacion_persona.tituloPaso2}}
-              </h2>
-              <br style="clear:both;" />
-              <div class="row">
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-
-
-
-                <div class="form-group" [formGroup]="regFormPaso2">
-                    <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
-                    <input type="number" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
-                     [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
-                    <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
-                        <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
-                    </div>
+<div [hidden]="hidden_paso2">
+<form   (ngSubmit)="onSubmit_paso2()" >
+<div class="container seccion_titulos">
+  <div class="ingreso center-block info_pasada">
+    <br />
+    <div class="row pasos">
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso1">
+          <span class="numm">1</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso1}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso2">
+          <span class="numm  activo">2</span>
+          <span class="titupaso activo d-none d-md-block">{{texto_cotizacion_persona.tituloPaso2}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso3">
+          <span class="numm">3</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso3}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso4">
+          <span class="numm">4</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso4}}</span>
+        </div>
+      </div>
+    </div>
+    <br />
+    <h2 class="category-section-title title_line auto_width">
+      {{texto_cotizacion_persona.tituloPaso2}}
+    </h2>
+    <br style="clear:both;" />
+    <div class="row">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso2">
+          <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
+          <input type="number" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
+            <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
+              <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso2">
+          <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
+          <input type="number" formControlName="fs_ahorros_campo" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
+          <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
+            <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group" [formGroup]="regFormPaso2">
+          <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
+          <input type="number" formControlName="fs_cesantias_campo" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
+            <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
+              <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4">
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="form-group">
+                <div class="button-wrapper">
+                    <button
+                     (click)="regresarPaso1($event)"
+                      class="form-btn" type="button" >
+                        <span class="icon reversa"></span><span class="text">Anterior</span>
+                    </button>
                 </div>
-
-
-                  </div>
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-                        <div class="form-group" [formGroup]="regFormPaso2">
-                            <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
-                            <input type="number" formControlName="fs_ahorros_campo" class="form-control"
-                             [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
-                            <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
-                                <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
-                            </div>
-                        </div>
-
-                  </div>
-
-                  <div class="col-sm-12 col-md-4 col-lg-4">
-
-
-                        <div class="form-group" [formGroup]="regFormPaso2">
-                            <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
-                            <input type="number" formControlName="fs_cesantias_campo" class="form-control"
-                             [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
-                            <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
-                                <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
-                            </div>
-                        </div>
-
-
-                  </div>
-              </div>
-
-              <div class="row" style="text-align:left !important; color:#333;">
-                  <div class="col-sm-12 col-md-12 col-lg-12">
-                      <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
-                      <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
-                  </div>
-              </div>
-              <br />
-              <ul class="list-group">
-                  <li class="list-group-item">
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4">
+            <div class="form-group">
+                <div class="button-wrapper">
+                  <!--  [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" -->
+                  <button type="submit"
+                         class="form-btn">
+                         <span class="text">Siguiente</span> <span class="icon"></span>
+                  </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <br />
+  <div class="ingreso center-block info_pasada">
+    <br />
+    <h2 class="category-section-title title_line auto_width">
+      Resumen
+    </h2>
+    <br style="clear:both;" />
+    <div class="row" style="text-align:left !important; color:#333;">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+          <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
+            <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
+              <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
+            </a>
+            <div class="carousel-caption">
+              {{image.leyenda}}
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-8 ">
+        <h2 class="main_title_header title_line">
+            <span class="title">{{proyecto_vivienda_seleccionado.proyecto}}</span>
+        </h2>
+        <!--DESCRIPCIÓN DE LA SECCIÓN-->
+        <div class="description">
+          {{proyecto_vivienda_seleccionado.descripcion}}
+          <br />
+          <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
+          <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
+          </div>
+      </div>
+    </div>
+    <br />
+    <ul class="list-group">
+      <li class="list-group-item">
                       <div class="row">
                           <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
                               {{texto_cotizacion_persona.tituloValorProyecto}}
@@ -472,14 +480,14 @@
                               <strong>{{proyecto_vivienda_seleccionado.banosProyecto}}</strong>
                           </div>
                       </div>
-                  </li>
-              </ul>
-              <br />
-              <div class="row" style="text-align:left !important; color:#333;">
-                  <div class="col-sm-12 col-md-12 col-lg-12">
-                      <strong>{{texto_cotizacion_persona.tituloPaso1}}</strong>
-                  </div>
-              </div>
+      </li>
+    </ul>
+    <br />
+    <div class="row" style="text-align:left !important; color:#333;">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <strong>{{texto_cotizacion_persona.tituloPaso1}}</strong>
+      </div>
+    </div>
               <ul class="list-group">
                   <li class="list-group-item">
                       <div class="row">
@@ -515,360 +523,370 @@
 
               <br />
           </div>
-      </div>
-      <div class="container seccion_titulos">
-          <div class="row">
-              <div class="col-sm-12 col-md-4 col-lg-4">
-              </div>
-              <div class="col-sm-12 col-md-4 col-lg-4">
-                  <div class="form-group">
-                      <div class="button-wrapper">
-                          <button
-                           (click)="regresarPaso1($event)"
-                            class="form-btn" type="button" >
-                              <span class="text">Anterior</span> <span class="icon"></span>
-                          </button>
-                      </div>
-                  </div>
-              </div>
-
-              <div class="col-sm-12 col-md-4 col-lg-4">
-                  <div class="form-group">
-                      <div class="button-wrapper">
-                        <!--  [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" -->
-                  <button type="submit"
-                               class="btn btn-success">
-                               Siguiente
-                           </button>
-                      </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <p>
-                      {{texto_cotizacion_persona.textoObligatorio}}
-                  </p>
-              </div>
-          </div>
-      </div>
-      </form>
-    </div>
+</div>
+</form>
+</div>
     <!-- paso 2 -->
 
 
 
 
     <!-- paso 3 -->
-    <div [hidden]="hidden_paso3">
-      <form   (ngSubmit)="onSubmit_paso3()" >
-
-        <div class="container seccion_titulos"  id="contentok">
-        	<div class="ingreso center-block info_pasada"  >
-               <br />
-               <div class="row" style="text-align:left !important; color:#333;">
-                   <div class="col-sm-12 col-md-12 col-lg-12">
-                     <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
-                     <br />
-                     {{proyecto_vivienda_seleccionado.InventarioProyecto}}
-                   </div>
-               </div>
-               <br />
-               <ul class="list-group">
-
-
-
-
-                 <li class="list-group-item">
-                     <div class="row">
-
-                         <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                             {{texto_cotizacion_persona.tituloValorProyecto}}
-                               <br />
-                               <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
-                         </div>
-                         <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                             {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
-                             <br />
-                             <strong>{{proyecto_vivienda_seleccionado.areaconstruidaProyecto}}</strong>
-                         </div>
-                         <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
-                             {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}
-                             <br />
-                             <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
-                         </div>
-                         <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                             {{texto_cotizacion_persona.titulohabitacionesProyecto}}
-                             <br />
-                             <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
-                         </div>
-                         <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                             {{texto_cotizacion_persona.titulodisponiblesProyecto}}
-                             <br />
-                             <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
-                         </div>
-                         <div class="col-sm-12 col-md-1 col-lg-1 ">
-                             {{texto_cotizacion_persona.titulobanosProyecto}}
-                             <br />
-                             <strong>{{proyecto_vivienda_seleccionado.banosProyecto}}</strong>
-                         </div>
-                     </div>
-                 </li>
-                </ul>
-                <br />
-                <div class="row" style="text-align:left !important; color:#333;">
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                		<strong>Información personal</strong>
-                    </div>
-                </div>
-                <ul class="list-group">
-                  <li class="list-group-item">
-                      <div class="row">
-                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.tituloDocumentoIdentidad}}
-                              <br />
-                              <strong>{{f.fs_nombre_documento_campo}}</strong>
-                              <strong>{{f.fs_numeroDocumento_campo.value}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                              {{texto_cotizacion_persona.tituloafiliadoColsubsidio}}
-                              <br />
-                              <strong>{{f.fs_afiliadoColsubsidio_campo.value}}</strong>
-                          </div>
-                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                              {{texto_cotizacion_persona.tituloNombresApellidos}}
-                              <br />
-                              <strong>{{f.fs_nombres_campo.value}} </strong>
-                          </div>
-                          <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                              {{texto_cotizacion_persona.tituloEmail}}
-                              <br />
-                              <strong>{{f.fs_email_campo.value}} </strong>
-                          </div>
-                          <div class="col-sm-12 col-md-2 col-lg-2">
-                              {{texto_cotizacion_persona.tituloCelular}}
-                              <br />
-                              <strong>{{f.fs_celular_campo.value}}</strong>
-                          </div>
-                      </div>
-                  </li>
-                </ul>
-                <br />
-                <div class="row" style="text-align:left !important; color:#333;" >
-                    <div class="col-sm-12 col-md-12 col-lg-12">
-                		<strong>Forma de pago</strong>
-                    </div>
-                </div>
-                <ul class="list-group">
-               		<li class="list-group-item">
-                        <div class="row" >
-                            <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                {{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}
-                                <br />
-                                <strong>$ {{f2.fs_ingresosGrupoFamiliar_campo.value}}</strong>
-                            </div>
-                             <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
-                                {{texto_cotizacion_persona.tituloAhorros}}
-                                <br />
-                                <strong>$ {{f2.fs_ahorros_campo.value}}</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-                                {{texto_cotizacion_persona.tituloCesantias}}
-                                <br />
-                                <strong>$ {{f2.fs_cesantias_campo.value}}</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
-
-                            </div>
-                            <div class="col-sm-12 col-md-2 col-lg-2">
-
-                            </div>
-                        </div>
-                  	</li>
-               	</ul>
-                <br />
-                <ul class="list-group">
-               		<li class="list-group-item">
-                        <div class="row">
-                            <table cellspacing='0' cellpadding='0' width='100%' >
-                              <tr>
-                                <td colspan='3'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
-                                  Proyecto   preferencial para afiliados a Colsubsidio</td>
-                              </tr>
-                              <tr>
-                                <td  width='250'  bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
-                                <td width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Sin acabados</td>
-                                <td width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Con acabados</td>
-                              </tr>
-                              <tr>
-                                <td >Valor del inmueble</td>
-                                <td >$ {{condiciones_venta.sinacabados.valordelinmueble}}</td>
-                                <td >$ {{condiciones_venta.conacabados.valordelinmueble}}</td>
-                              </tr>
-                              <tr>
-                                <td >Cuota inicial 30%</td>
-                                <td >$ {{condiciones_venta.sinacabados.cuotainicial}}</td>
-                                <td >$ {{condiciones_venta.conacabados.cuotainicial}}</td>
-                              </tr>
-                              <tr>
-                                <td >Separación</td>
-                                <td >$ {{condiciones_venta.sinacabados.separacion}}</td>
-                                <td >$ {{condiciones_venta.conacabados.separacion}}</td>
-                              </tr>
-                              <tr>
-                                <td >Ingresos grupo familiar</td>
-                                <td >$ {{condiciones_venta.sinacabados.ingresosgrupofamiliar}}</td>
-                                <td >$ {{condiciones_venta.conacabados.ingresosgrupofamiliar}}</td>
-                              </tr>
-                              <tr>
-                                <td >Subsidio aproximado</td>
-                                <td >$ {{condiciones_venta.sinacabados.subsidioaproximado}}</td>
-                                <td >$ {{condiciones_venta.conacabados.subsidioaproximado}}</td>
-                              </tr>
-                              <tr>
-                                <td >Ahorros</td>
-                                <td >$ {{condiciones_venta.sinacabados.ahorros}}</td>
-                                <td >$ {{condiciones_venta.conacabados.ahorros}}</td>
-                              </tr>
-                              <tr>
-                                <td >Cesantías</td>
-                                <td >$ {{condiciones_venta.sinacabados.cesantias}}</td>
-                                <td >$ {{condiciones_venta.conacabados.cesantias}}</td>
-                              </tr>
-                              <tr>
-                                <td >Saldo en cuota inicial</td>
-                                <td >$ {{condiciones_venta.sinacabados.saldodecuotainicial}}</td>
-                                <td >$ {{condiciones_venta.conacabados.saldodecuotainicial}}</td>
-                              </tr>
-                              <tr>
-                                <td>11 Cuotas mensuales</td>
-                                <td >$ {{condiciones_venta.sinacabados.cuotasmensuales}}</td>
-                                <td >$ {{condiciones_venta.conacabados.cuotasmensuales}}</td>
-                              </tr>
-                            </table>
-                        </div>
-                   </li>
-             	</ul>
-
-                <br />
-                <ul class="list-group">
-               		<li class="list-group-item">
-                        <div class="row" >
-                            <table cellspacing='0' cellpadding='0' width='100%' >
-                                <tr>
-                                    <td colspan='5'  align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
-                                      Información Crédito hipotecario Colsubsidio
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan='1' width='250'  bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
-                                    <td colspan='2' width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Sin acabados</td>
-                                    <td colspan='2' width='150'  bgcolor='#4674C1' style='color:#FFF !important;'>Con acabados</td>
-                                  </tr>
-                                <tr>
-                                    <td colspan='1'>Crédito requerido</td>
-                                    <td colspan='2'>$ {{condiciones_venta.sinacabados.creditorequerido}}</td>
-                                    <td colspan='2'>$ {{condiciones_venta.conacabados.creditorequerido}}</td>
-                                </tr>
-                                  <tr>
-                                    <td >Plazo (Aprox)</td>
-                                    <td >Cuota UVR </td>
-                                    <td >Cuota Pesos</td>
-
-                                    <td >Cuota UVR </td>
-                                    <td >Cuota Pesos</td>
-                                  </tr>
-                                  <tr>
-                                    <td >10 años</td>
-                                    <td >$ {{condiciones_venta.sinacabados.cuotauvr_10}}</td>
-                                    <td >$ {{condiciones_venta.sinacabados.cuotapesos_10}}</td>
-
-                                    <td >$ {{condiciones_venta.conacabados.cuotauvr_10}}</td>
-                                    <td >$ {{condiciones_venta.conacabados.cuotapesos_10}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td >15 años</td>
-                                    <td >$ {{condiciones_venta.sinacabados.cuotauvr_15}}</td>
-                                    <td >$ {{condiciones_venta.sinacabados.cuotapesos_15}}</td>
-
-                                    <td >$ {{condiciones_venta.conacabados.cuotauvr_15}}</td>
-                                    <td >$ {{condiciones_venta.conacabados.cuotapesos_15}}</td>
-                                  </tr>
-                                  <tr>
-                                    <td >20 años</td>
-                                    <td >$ {{condiciones_venta.sinacabados.cuotauvr_20}}</td>
-                                    <td >$ {{condiciones_venta.sinacabados.cuotapesos_20}}</td>
-
-                                    <td >$ {{condiciones_venta.conacabados.cuotauvr_20}}</td>
-                                    <td >$ {{condiciones_venta.conacabados.cuotapesos_20}}</td>
-                                  </tr>
-                            </table>
-                      	</div>
-                   	</li>
-               	</ul>
-                <br />
-                <ul class="list-group">
-               		<li class="list-group-item">
-                        <div class="row">
-                        	<div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                                Fecha de entrega: (aprox)<br /><strong>{{this.proyecto_vivienda_seleccionado.trimestre_entrega}}</strong>
-                            </div>
-                             <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                                Gastos de escrituración:(aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion}}</strong>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                Valor administración (aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_administracion}} </strong>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <br />
-                <ul class="list-group">
-               		<li class="list-group-item">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <ul style="padding-left:30px; text-align:left;">
-                                    <li>Esta cotización es válida por 8 días y sujeta a disponibilidad en el momento de entregar la documentación requerida.</li>
-                                    <li>La cuota del crédito hipotecario está sujeta a la tasa que esté vigente en la entidad a la fecha del desembolso.</li>
-                                    <li>Crédito Colsubsidio: Si eres afiliado categoría A o B, pregunta por nuestro Crédito Hipotecario, línea Tu hogar soñado.</li>
-                                    <li>El comprador no debe estar reportado negativamente en centrales de riesgo y debe mantener su capacidad de endeudamiento hasta el desembolso del crédito.</li>
-                                    <li>Los precios podrán ser modificados sin previo aviso, antes de la separación del inmueble.</li>
-                                    <li>El plazo para la cuota inicial no está asociado a la fecha de entrega.</li>
-                                    <li>El proyecto podrá ser desarrollado por etapas y ajustadas o modificadas por el Constructor, cumpliendo con las normas establecidas por las autoridades competentes.</li>
-                                    <li>Las características técnicas de los inmuebles estarán indicadas en el documento Especificaciones Técnicas y Acabados, podrán ser consultadas en la sala de ventas. Éste documento es entregado en el momento de la promesa de compraventa.</li>
-                                    <li>En el valor del inmueble no están incluidos los gastos de escrituración, registro ni estudio de títulos, avaluos o gastos por intereses de liquidación de crédito.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-               	</ul>
-        	</div>
+<div [hidden]="hidden_paso3">
+<form   (ngSubmit)="onSubmit_paso3()" >
+<div class="container seccion_titulos"  id="contentok">
+  <div class="ingreso center-block info_pasada"  >
+    <br />
+    <div class="row pasos">
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso1">
+          <span class="numm">1</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso1}}</span>
         </div>
-
-        <div class="container">
-        	<div class="row">
-            	<div class="col-sm-12 col-md-4 col-lg-4">
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso2">
+          <span class="numm">2</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso2}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso3">
+          <span class="numm activo">3</span>
+          <span class="titupaso activo d-none d-md-block">{{texto_cotizacion_persona.tituloPaso3}}</span>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-3 col-lg-3">
+        <div class="paso_proceso ico_proceso4">
+          <span class="numm">4</span>
+          <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso4}}</span>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row" style="text-align:left !important; color:#333;">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <strong>Información personal</strong>
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                    {{texto_cotizacion_persona.tituloDocumentoIdentidad}}
+                    <br />
+                    <strong>{{f.fs_nombre_documento_campo}}</strong>
+                    <strong>{{f.fs_numeroDocumento_campo.value}}</strong>
                 </div>
-            	<div class="col-sm-12 col-md-4 col-lg-4">
-                	<div class="form-group paddin40">
-                 		<div class="button-wrapper">
-                     		<button class="form-btn" type="button"
-                           (click)="onSubmit_regresarpaso2()"
-                            id="btnSubmit">
-                        		<span class="text">Anterior</span> <span class="icon"></span>
-                       		</button>
-                    	</div>
-               		</div>
+                <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                    {{texto_cotizacion_persona.tituloafiliadoColsubsidio}}
+                    <br />
+                    <strong>{{f.fs_afiliadoColsubsidio_campo.value}}</strong>
                 </div>
-            	<div class="col-sm-12 col-md-4 col-lg-4">
-                	<div class="form-group paddin40">
-                 		<div class="button-wrapper">
-                      <button (click)="downloadPDF()">
-                         Imprimir Cotización
-                        </button>
-                    	</div>
-               		</div>
+                <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                    {{texto_cotizacion_persona.tituloNombresApellidos}}
+                    <br />
+                    <strong>{{f.fs_nombres_campo.value}} </strong>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                    {{texto_cotizacion_persona.tituloEmail}}
+                    <br />
+                    <strong>{{f.fs_email_campo.value}} </strong>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-2">
+                    {{texto_cotizacion_persona.tituloCelular}}
+                    <br />
+                    <strong>{{f.fs_celular_campo.value}}</strong>
                 </div>
             </div>
-        </div>
-
-      </form>
+        </li>
+    </ul>
+    <br />
+    <div class="row" style="text-align:left !important; color:#333;">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+          <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
+            <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
+              <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
+            </a>
+            <div class="carousel-caption">
+              {{image.leyenda}}
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-sm-12 col-md-8 col-lg-8 ">
+        <h2 class="main_title_header title_line">
+            <span class="title">{{proyecto_vivienda_seleccionado.proyecto}}</span>
+        </h2>
+        <!--DESCRIPCIÓN DE LA SECCIÓN-->
+        <div class="description">
+          {{proyecto_vivienda_seleccionado.descripcion}}
+          <br />
+          <strong>{{texto_cotizacion_persona.tituloInventarioProyecto}}</strong>
+          <br /> {{proyecto_vivienda_seleccionado.InventarioProyecto}}
+          </div>
+      </div>
     </div>
+    <br />
+    <ul class="list-group">
+      <li class="list-group-item">
+          <div class="row">
+              <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                  {{texto_cotizacion_persona.tituloValorProyecto}}
+                  <br />
+                  <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                  {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
+                  <br />
+                  <strong>{{proyecto_vivienda_seleccionado.areaconstruidaProyecto}}</strong>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
+                  {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}
+                  <br />
+                  <strong>{{proyecto_vivienda_seleccionado.areaPrivadaproyecto}}</strong>
+              </div>
+              <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                  {{texto_cotizacion_persona.titulohabitacionesProyecto}}
+                  <br />
+                  <strong>{{proyecto_vivienda_seleccionado.habitacionesProyecto}}</strong>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                  {{texto_cotizacion_persona.titulodisponiblesProyecto}}
+                  <br />
+                  <strong>{{proyecto_vivienda_seleccionado.disponiblesProyecto}}</strong>
+              </div>
+              <div class="col-sm-12 col-md-1 col-lg-1 ">
+                  {{texto_cotizacion_persona.titulobanosProyecto}}
+                  <br />
+                  <strong>{{proyecto_vivienda_seleccionado.banosProyecto}}</strong>
+              </div>
+          </div>
+        </li>
+      </ul>
+      <br />
+      <div class="row text-left">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+              <strong>Forma de pago</strong>
+          </div>
+      </div>
+      <ul class="list-group">
+          <li class="list-group-item">
+              <div class="row text-left">
+                  <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                      {{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}
+                      <br />
+                      <strong>$ {{f2.fs_ingresosGrupoFamiliar_campo.value}}</strong>
+                  </div>
+                  <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+                      {{texto_cotizacion_persona.tituloAhorros}}
+                      <br />
+                      <strong>$ {{f2.fs_ahorros_campo.value}}</strong>
+                  </div>
+                  <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
+                      {{texto_cotizacion_persona.tituloCesantias}}
+                      <br />
+                      <strong>$ {{f2.fs_cesantias_campo.value}}</strong>
+                  </div>
+                  <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+
+                  </div>
+                  <div class="col-sm-12 col-md-2 col-lg-2">
+
+                  </div>
+              </div>
+          </li>
+      </ul>
+      <br />
+      <ul class="list-group">
+          <li class="list-group-item">
+              <div class="row text-left">
+                  <table cellspacing='0' cellpadding='0' width='100%'>
+                      <tr>
+                          <td colspan='3' align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
+                              Proyecto preferencial para afiliados a Colsubsidio</td>
+                      </tr>
+                      <tr>
+                          <td width='250' bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
+                          <td  width='150' bgcolor='#4674C1' style='color:#FFF !important;'>Sin acabados</td>
+                          <td width='150' bgcolor='#4674C1' style='color:#FFF !important;'>Con acabados</td>
+                      </tr>
+                      <tr>
+                          <td>Valor del inmueble</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.valordelinmueble}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.valordelinmueble}}</td>
+                      </tr>
+                      <tr>
+                          <td>Cuota inicial 30%</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotainicial}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotainicial}}</td>
+                      </tr>
+                      <tr>
+                          <td>Separación</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.separacion}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.separacion}}</td>
+                      </tr>
+                      <tr>
+                          <td>Ingresos grupo familiar</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.ingresosgrupofamiliar}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.ingresosgrupofamiliar}}</td>
+                      </tr>
+                      <tr>
+                          <td>Subsidio aproximado</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.subsidioaproximado}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.subsidioaproximado}}</td>
+                      </tr>
+                      <tr>
+                          <td>Ahorros</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.ahorros}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.ahorros}}</td>
+                      </tr>
+                      <tr>
+                          <td>Cesantías</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cesantias}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cesantias}}</td>
+                      </tr>
+                      <tr>
+                          <td>Saldo en cuota inicial</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.saldodecuotainicial}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.saldodecuotainicial}}</td>
+                      </tr>
+                      <tr>
+                          <td>11 Cuotas mensuales</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotasmensuales}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotasmensuales}}</td>
+                      </tr>
+                  </table>
+              </div>
+          </li>
+      </ul>
+
+      <br />
+      <ul class="list-group">
+          <li class="list-group-item">
+              <div class="row text-left">
+                  <table cellspacing='0' cellpadding='0' width='100%'>
+                      <tr>
+                          <td colspan='5' align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
+                              Información Crédito hipotecario Colsubsidio
+                          </td>
+                      </tr>
+                      <tr>
+                          <td colspan='1' width='250' bgcolor='#4674C1' style='color:#FFF !important;'>Condiciones de venta</td>
+                          <td colspan='2' width='150' bgcolor='#4674C1' style='color:#FFF !important;'>Sin acabados</td>
+                          <td colspan='2' width='150' bgcolor='#4674C1' style='color:#FFF !important;'>Con acabados</td>
+                      </tr>
+                      <tr>
+                          <td colspan='1'>Crédito requerido</td>
+                          <td colspan='2'>$ {{condiciones_venta.sinacabados.creditorequerido}}</td>
+                          <td colspan='2'>$ {{condiciones_venta.conacabados.creditorequerido}}</td>
+                      </tr>
+                      <tr>
+                          <td>Plazo (Aprox)</td>
+                          <td>Cuota UVR </td>
+                          <td>Cuota Pesos</td>
+
+                          <td>Cuota UVR </td>
+                          <td>Cuota Pesos</td>
+                      </tr>
+                      <tr>
+                          <td>10 años</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_10}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_10}}</td>
+
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_10}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_10}}</td>
+                      </tr>
+                      <tr>
+                          <td>15 años</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_15}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_15}}</td>
+
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_15}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_15}}</td>
+                      </tr>
+                      <tr>
+                          <td>20 años</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_20}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_20}}</td>
+
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_20}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_20}}</td>
+                      </tr>
+                  </table>
+              </div>
+          </li>
+      </ul>
+      <br />
+      <ul class="list-group">
+          <li class="list-group-item">
+              <div class="row">
+                  <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
+                      Fecha de entrega: (aprox)<br /><strong>{{this.proyecto_vivienda_seleccionado.trimestre_entrega}}</strong>
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
+                      Gastos de escrituración:(aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion}}</strong>
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                      Valor administración (aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_administracion}} </strong>
+                  </div>
+              </div>
+          </li>
+      </ul>
+      <br />
+      <ul class="list-group">
+          <li class="list-group-item">
+              <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                      <ul style="padding-left:30px; text-align:left;">
+                          <li>Esta cotización es válida por 8 días y sujeta a disponibilidad en el momento de entregar la documentación requerida.</li>
+                          <li>La cuota del crédito hipotecario está sujeta a la tasa que esté vigente en la entidad a la fecha del desembolso.</li>
+                          <li>Crédito Colsubsidio: Si eres afiliado categoría A o B, pregunta por nuestro Crédito Hipotecario, línea Tu hogar soñado.</li>
+                          <li>El comprador no debe estar reportado negativamente en centrales de riesgo y debe mantener su capacidad de endeudamiento hasta el desembolso del crédito.</li>
+                          <li>Los precios podrán ser modificados sin previo aviso, antes de la separación del inmueble.</li>
+                          <li>El plazo para la cuota inicial no está asociado a la fecha de entrega.</li>
+                          <li>El proyecto podrá ser desarrollado por etapas y ajustadas o modificadas por el Constructor, cumpliendo con las normas establecidas por las autoridades competentes.</li>
+                          <li>Las características técnicas de los inmuebles estarán indicadas en el documento Especificaciones Técnicas y Acabados, podrán ser consultadas en la sala de ventas. Éste documento es entregado en el momento de la promesa de compraventa.</li>
+                          <li>En el valor del inmueble no están incluidos los gastos de escrituración, registro ni estudio de títulos, avaluos o gastos por intereses de liquidación de crédito.</li>
+                      </ul>
+                  </div>
+              </div>
+          </li>
+      </ul>
+      <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group paddin40">
+                  <div class="button-wrapper">
+                      <button class="form-btn" type="button" (click)="onSubmit_regresarpaso2()" id="btnSubmit">
+                          <span class="icon reversa"></span><span class="text">Anterior</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-4">
+              <div class="form-group paddin40">
+                  <div class="button-wrapper">
+                      <button (click)="downloadPDF()">
+                          Imprimir Cotización
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+</form>
+</div>
     <!-- paso 3 -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <p style="font-size:11px; text-align:center;">
+        {{texto_cotizacion_persona.textoObligatorio}}
+      </p>
+    </div>
+  </div>
+</div>
