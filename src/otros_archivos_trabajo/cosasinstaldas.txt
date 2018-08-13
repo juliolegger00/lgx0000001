@@ -15,8 +15,9 @@ npm install -g firebase-tools
 https://enngage.github.io/ngx-captcha/recaptcha2
 sudo npm install ngx-captcha
 
-https://github.com/igorlino/angular-fancybox-plus
-npm install angular-fancybox-plus
+https://ks89.github.io/angular-modal-gallery-2018.github.io/gettingStarted
+npm i --save angular-modal-gallery hammerjs mousetrap
+npm i --save @types/hammerjs @types/mousetrap
 
 
 como actualizar y corre en el servidor

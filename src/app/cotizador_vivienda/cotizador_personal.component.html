@@ -40,6 +40,9 @@
   </div>
 </div>
 
+
+
+
 <!-- paso 1 -->
 <div [hidden]="hidden_paso1">
 <form   (ngSubmit)="onSubmit_paso1()" >
@@ -129,16 +132,26 @@
     <br />
     <div class="row" style="text-align:left !important; color:#333;">
       <div class="col-sm-12 col-md-4 col-lg-4">
+
+
         <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+
+
           <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
-            <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
+            <a (click)="openModalViaService(1,  1)" >
+
               <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
-            </a>
+
+              </a>
+
             <div class="carousel-caption">
               {{image.leyenda}}
             </div>
           </ng-template>
+
+
         </ngb-carousel>
+
       </div>
       <div class="col-sm-12 col-md-8 col-lg-8 ">
         <h2 class="main_title_header title_line">
@@ -159,7 +172,7 @@
         <div class="row">
           <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
             {{texto_cotizacion_persona.tituloValorProyecto}}<br />
-            <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+            <strong>{{proyecto_vivienda_seleccionado.valorProyecto|  number:'1.0-0':'es'}}</strong>
           </div>
           <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
             {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}<br />
@@ -356,30 +369,49 @@
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="form-group" [formGroup]="regFormPaso2">
           <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
-          <input type="number" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
-           [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
+
+
+          <input currencyMask [(ngModel)]="fs_ingresosGrupoFamiliar_value"
+          [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }"
+          formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }"
+          />
             <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
               <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
+              <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.min">mayor a cero</div>
             </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="form-group" [formGroup]="regFormPaso2">
           <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
-          <input type="number" formControlName="fs_ahorros_campo" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
+
+          <input currencyMask [(ngModel)]="fs_ahorros_value"
+          [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }"
+          formControlName="fs_ahorros_campo" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }"
+          />
+
           <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
             <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
+            <div *ngIf="f2.fs_ahorros_campo.errors.min">mayor a cero</div>
           </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="form-group" [formGroup]="regFormPaso2">
           <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
-          <input type="number" formControlName="fs_cesantias_campo" class="form-control"
-           [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
+
+
+           <input currencyMask [(ngModel)]="fs_cesantias_value"
+           [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }"
+           formControlName="fs_cesantias_campo" class="form-control"
+           [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }"
+           />
+
             <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
               <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
+              <div *ngIf="f2.fs_cesantias_campo.errors.min">mayor a cero</div>
             </div>
         </div>
       </div>
@@ -422,14 +454,17 @@
     <div class="row" style="text-align:left !important; color:#333;">
       <div class="col-sm-12 col-md-4 col-lg-4">
         <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+
+
+
           <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
-            <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
               <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
-            </a>
             <div class="carousel-caption">
               {{image.leyenda}}
             </div>
           </ng-template>
+
+
         </ngb-carousel>
       </div>
       <div class="col-sm-12 col-md-8 col-lg-8 ">
@@ -452,7 +487,7 @@
                           <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
                               {{texto_cotizacion_persona.tituloValorProyecto}}
                                 <br />
-                                <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+                                <strong>{{proyecto_vivienda_seleccionado.valorProyecto|  number:'1.0-0':'es'}}</strong>
                           </div>
                           <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
                               {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
@@ -604,16 +639,20 @@
     <br />
     <div class="row" style="text-align:left !important; color:#333;">
       <div class="col-sm-12 col-md-4 col-lg-4">
+
+
         <ngb-carousel *ngIf="fs_galeria_iamgenes_lista$ | async  ">
+
           <ng-template ngbSlide *ngFor="let image of fs_galeria_iamgenes_lista$ | async ">
-            <a class="fancyGalery" href="{{image.dir_imagen}}" rel="uno" >
               <img [src]="image.dir_imagen" alt="{{image.alt_text}}">
-            </a>
             <div class="carousel-caption">
               {{image.leyenda}}
             </div>
           </ng-template>
+
         </ngb-carousel>
+
+
       </div>
       <div class="col-sm-12 col-md-8 col-lg-8 ">
         <h2 class="main_title_header title_line">
@@ -635,7 +674,7 @@
               <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
                   {{texto_cotizacion_persona.tituloValorProyecto}}
                   <br />
-                  <strong>{{proyecto_vivienda_seleccionado.valorProyecto}}</strong>
+                  <strong>{{proyecto_vivienda_seleccionado.valorProyecto |  number:'1.0-0':'es'}}</strong>
               </div>
               <div class="col-sm-12 col-md-3 col-lg-2 borde_der">
                   {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
@@ -677,17 +716,17 @@
                   <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
                       {{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}
                       <br />
-                      <strong>$ {{f2.fs_ingresosGrupoFamiliar_campo.value}}</strong>
+                      <strong>$ {{fs_ingresosGrupoFamiliar_value|  number:'1.0-0':'es'}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
                       {{texto_cotizacion_persona.tituloAhorros}}
                       <br />
-                      <strong>$ {{f2.fs_ahorros_campo.value}}</strong>
+                      <strong>$ {{fs_ahorros_value|  number:'1.0-0':'es'}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-3 col-lg-3 borde_der">
                       {{texto_cotizacion_persona.tituloCesantias}}
                       <br />
-                      <strong>$ {{f2.fs_cesantias_campo.value}}</strong>
+                      <strong>$ {{fs_cesantias_value|  number:'1.0-0':'es'}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
 
@@ -714,48 +753,48 @@
                       </tr>
                       <tr>
                           <td>Valor del inmueble</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.valordelinmueble}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.valordelinmueble}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.valordelinmueble|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.valordelinmueble|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Cuota inicial 30%</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotainicial}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotainicial}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotainicial|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotainicial|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Separación</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.separacion}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.separacion}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.separacion|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.separacion|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Ingresos grupo familiar</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.ingresosgrupofamiliar}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.ingresosgrupofamiliar}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.ingresosgrupofamiliar|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.ingresosgrupofamiliar|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Subsidio aproximado</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.subsidioaproximado}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.subsidioaproximado}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Ahorros</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.ahorros}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.ahorros}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.ahorros|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.ahorros|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Cesantías</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cesantias}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cesantias}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cesantias|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cesantias|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Saldo en cuota inicial</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.saldodecuotainicial}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.saldodecuotainicial}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.saldodecuotainicial|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.saldodecuotainicial|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>11 Cuotas mensuales</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotasmensuales}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotasmensuales}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotasmensuales|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotasmensuales|  number:'1.0-0':'es'}}</td>
                       </tr>
                   </table>
               </div>
@@ -779,8 +818,8 @@
                       </tr>
                       <tr>
                           <td colspan='1'>Crédito requerido</td>
-                          <td colspan='2'>$ {{condiciones_venta.sinacabados.creditorequerido}}</td>
-                          <td colspan='2'>$ {{condiciones_venta.conacabados.creditorequerido}}</td>
+                          <td colspan='2'>$ {{condiciones_venta.sinacabados.creditorequerido|  number:'1.0-0':'es'}}</td>
+                          <td colspan='2'>$ {{condiciones_venta.conacabados.creditorequerido|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>Plazo (Aprox)</td>
@@ -792,27 +831,27 @@
                       </tr>
                       <tr>
                           <td>10 años</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_10}}</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_10}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_10|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_10|  number:'1.0-0':'es'}}</td>
 
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_10}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_10}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_10|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_10|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>15 años</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_15}}</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_15}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_15|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_15|  number:'1.0-0':'es'}}</td>
 
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_15}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_15}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_15|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_15|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
                           <td>20 años</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_20}}</td>
-                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_20}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotauvr_20|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.sinacabados.cuotapesos_20|  number:'1.0-0':'es'}}</td>
 
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_20}}</td>
-                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_20}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotauvr_20|  number:'1.0-0':'es'}}</td>
+                          <td class="text-right">$ {{condiciones_venta.conacabados.cuotapesos_20|  number:'1.0-0':'es'}}</td>
                       </tr>
                   </table>
               </div>
@@ -826,10 +865,10 @@
                       Fecha de entrega: (aprox)<br /><strong>{{this.proyecto_vivienda_seleccionado.trimestre_entrega}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                      Gastos de escrituración:(aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion}}</strong>
+                      Gastos de escrituración:(aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion|  number:'1.0-0':'es'}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-4">
-                      Valor administración (aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_administracion}} </strong>
+                      Valor administración (aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_administracion|  number:'1.0-0':'es'}} </strong>
                   </div>
               </div>
           </li>
@@ -890,3 +929,7 @@
     </div>
   </div>
 </div>
+ 
+<ks-modal-gallery [id]="1" [modalImages]="images$  | async"
+                  [plainGalleryConfig]="plainGalleryRow">
+</ks-modal-gallery>
