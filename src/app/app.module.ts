@@ -31,7 +31,7 @@ import 'hammerjs';
 
 
 const appRoutes: Routes = [
-    {path:'', component: Cotizador_personalComponent},
+    {path:'', component: Cotizador_personalComponent, pathMatch: 'full'},
     { path: 'proyecto/:id', component: Cotizador_personalComponent },
 ];
 
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes) ,
+    RouterModule.forRoot(appRoutes, { useHash: true }) ,
     Ng4LoadingSpinnerModule.forRoot() ,
     ModalGalleryModule.forRoot(),
     NgxCurrencyModule,
