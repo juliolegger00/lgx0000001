@@ -283,7 +283,7 @@ export class Cotizador_personalComponent implements OnInit {
             this.proyecto_vivienda_seleccionado = data[0];
 
             if(this.id_proyecto_via_get != null){
-              data.forEach((item, index) => {
+              this.proyecto_vivienda_lista.forEach((item, index) => {
 
                   if (item.id == this.id_proyecto_via_get) {
                       this.proyecto_vivienda_seleccionado  = item;
