@@ -11,6 +11,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { AppComponent } from './app.component';
 import {Cotizador_personalComponent} from "./cotizador_vivienda/cotizador_personal.component";
+import {LoginComponent} from "./login/login.component";
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -33,12 +34,14 @@ import 'hammerjs';
 const appRoutes: Routes = [
     {path:'', component: Cotizador_personalComponent, pathMatch: 'full'},
     { path: 'proyecto/:id', component: Cotizador_personalComponent },
+    { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    Cotizador_personalComponent
+    Cotizador_personalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
