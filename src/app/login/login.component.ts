@@ -31,22 +31,32 @@ export class LoginComponent {
           this.http.post(CONFIG.api_jwt_auth,{
                                               username: this.infoLogin.email,
                                               password: this.infoLogin.password
-                                            }).subscribe(data_token => {
+                                            }).toPromise()
+                                            .then(data_token => {
 
                             //console.log(data);
 
                             if(sessionStorage.getItem(CONFIG.ss_token)){
                               sessionStorage.removeItem(CONFIG.ss_token);
+                              sessionStorage.removeItem(CONFIG.ss_token_val);
                             }
 
                             sessionStorage.setItem(CONFIG.ss_token, JSON.stringify(data_token));
+                            sessionStorage.setItem(CONFIG.ss_token_val, "ok");
+                            let data_token_t:any={};
+                            data_token_t=data_token;
                             this.spinnerService.hide();
-                            if(data_token.ok != "false")
-                            this.router.navigate(['/']);
+
+
+                            //console.log( data_token_t);
+                            //console.log("aca ok");
+                            let uri = '/cotizador' ;
+                            window.location.href = uri ;
+
+
 
                           },error=>{   console.log('error login: ',error);  this.spinnerService.hide(); }
                         );
-
 
 
 

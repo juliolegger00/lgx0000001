@@ -33,6 +33,8 @@ sudo cp -rf lgx0000001-lgcolx000001/src/* /opt/legger/colsubsidio/src/
 cd /opt/legger/colsubsidio/
 sudo ng serve --host 0.0.0.0
 
+npm install -g firebase-tools
+
 
 ng build --base-href
 firebase init
