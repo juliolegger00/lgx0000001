@@ -55,3 +55,11 @@ CREATE TABLE `wp_cotizaciones_personales` (
 `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Updated Datetime',
 PRIMARY KEY(`id`)  )
 ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+
+
+https://colsubsidio00.appspot.com/#/proyecto/118
+https://colsubsidio00.appspot.com/#/login
+https://colsubsidio00.appspot.com/#/cotizador
