@@ -50,7 +50,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes  ) ,//, { useHash: true }
+    RouterModule.forRoot(appRoutes, { useHash: true }  ) ,//, { useHash: true }
     Ng4LoadingSpinnerModule.forRoot() ,
     ModalGalleryModule.forRoot(),
     NgxCurrencyModule,

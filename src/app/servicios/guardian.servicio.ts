@@ -11,7 +11,7 @@ export class Guardian implements CanActivate{
     tokenValido=true;
 
     constructor( private http: HttpClient,private router:Router){
-
+      //console.log("guardian ");
       let var_token= sessionStorage.getItem(CONFIG.ss_token_val);
       if(var_token=="ok")this.tokenValido=true;
       else this.tokenValido=false;
@@ -20,13 +20,26 @@ export class Guardian implements CanActivate{
           this.loggedIn = true;
       }else{
           this.loggedIn = false;
-          this.router.navigate(['login']);
+          let uri = '#/' ;
+          window.location.href = uri ;
       }
 
     }//constructor
 
 
     canActivate(){
+        //console.log("guardian canActivate.");
+        let var_token= sessionStorage.getItem(CONFIG.ss_token_val);
+        if(var_token=="ok")this.tokenValido=true;
+        else this.tokenValido=false;
+
+        if(this.tokenValido ){
+            this.loggedIn = true;
+        }else{
+            this.loggedIn = false;
+            let uri = '#/' ;
+            window.location.href = uri ;
+        }
         return this.loggedIn;
     }//canActivate
 

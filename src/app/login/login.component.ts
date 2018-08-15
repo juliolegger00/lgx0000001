@@ -20,7 +20,9 @@ export class LoginComponent {
         private http: HttpClient,
         private spinnerService: Ng4LoadingSpinnerService,
         private router: Router,
-        private routeActive: ActivatedRoute) {}
+        private routeActive: ActivatedRoute) {
+          sessionStorage.setItem(CONFIG.ss_token_val, "-");
+        }
 
 
         public realizarLogin(){
@@ -36,10 +38,10 @@ export class LoginComponent {
 
                             //console.log(data);
 
-                            if(sessionStorage.getItem(CONFIG.ss_token)){
+                            /*if(false){
                               sessionStorage.removeItem(CONFIG.ss_token);
                               sessionStorage.removeItem(CONFIG.ss_token_val);
-                            }
+                            }*/
 
                             sessionStorage.setItem(CONFIG.ss_token, JSON.stringify(data_token));
                             sessionStorage.setItem(CONFIG.ss_token_val, "ok");
@@ -50,7 +52,7 @@ export class LoginComponent {
 
                             //console.log( data_token_t);
                             //console.log("aca ok");
-                            let uri = '/cotizador' ;
+                            let uri = '/#/cotizador' ;
                             window.location.href = uri ;
 
 
