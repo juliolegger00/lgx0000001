@@ -1,5 +1,6 @@
 
 
+<ng-container *ngIf="tokenValido">
 <div class="container">
 
     <div class="row">
@@ -14,14 +15,14 @@
           <h1><a routerLink="/login">Login</a> </h1>
           <p>Ingreso para asesores</p>
         </ng-container>
-          <ng-container *ngIf="tokenValido">
+
             <h1>{{tokenNameUser}} </h1>
             <a (click)="cerrar_session()" ><p>cerrar</p></a>
-          </ng-container>
+
       </div>
     </div>
   </div>
-
+  </ng-container>
 
 
 
