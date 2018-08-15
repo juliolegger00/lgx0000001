@@ -80,6 +80,8 @@ export class Cotizador_personalComponent implements OnInit {
     fs_ahorros_value: any;
     fs_cesantias_value: any;
 
+    tokenValido=false;
+    tokenNameUser:string="";
 
     //var CONDICIONES DE VENTA
 
@@ -146,6 +148,8 @@ export class Cotizador_personalComponent implements OnInit {
         this.initializeFormularioPaso1();
         this.initializeFormularioPaso2(); // paso2
 
+        if(this.router.url =="/cotizador")this.acciones_si_esta_logeeado();
+
         this.id_proyecto_via_get = this.routeActive.snapshot.params['id'];
         //console.log( "proyecto_sele:" this.id_proyecto_via_get);
 
@@ -202,6 +206,27 @@ export class Cotizador_personalComponent implements OnInit {
    console.log('opening gallery with index ' + index);
    this.galleryService.openGallery(id, index);
  }
+
+
+public acciones_si_esta_logeeado(){
+  //console.log("acciones_si_esta_logeeado");
+
+  let var_token= sessionStorage.getItem(CONFIG.ss_token_val);
+  if(var_token=="ok"){
+    this.tokenValido=true;
+    let var_token_t= JSON.parse(sessionStorage.getItem(CONFIG.ss_token));
+    this.tokenNameUser=var_token_t.user_display_name;
+  }
+  else {this.tokenValido=false;this.tokenNameUser="";}
+
+}
+
+public cerrar_session(){
+  sessionStorage.removeItem(CONFIG.ss_token);
+  sessionStorage.setItem(CONFIG.ss_token_val, "-");
+  let uri = '/' ;
+  window.location.href = uri ;
+}
 
 
 
@@ -438,10 +463,12 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.spinnerService.show();
 
+       let info_session_usuario=  JSON.parse(sessionStorage.getItem(CONFIG.ss_token));
 
        let  guardar_cotizacion = {
             formulario:this.fs,
             condiciones_venta: this.condiciones_venta,
+            "info_session_usuario":info_session_usuario,
           }
 
         let json = JSON.stringify(guardar_cotizacion);

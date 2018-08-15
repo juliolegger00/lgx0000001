@@ -1,5 +1,30 @@
 
 
+<div class="container">
+
+    <div class="row">
+      <div class="col-lg-4"  style="background-color:#aaa">
+
+      </div>
+      <div class="col-lg-4"  style="background-color:#bbb">
+
+      </div>
+      <div class="col-lg-4"  style="background-color:#ccc">
+        <ng-container *ngIf="!tokenValido">
+          <h1><a routerLink="/login">Login</a> </h1>
+          <p>Ingreso para asesores</p>
+        </ng-container>
+          <ng-container *ngIf="tokenValido">
+            <h1>{{tokenNameUser}} </h1>
+            <a (click)="cerrar_session()" ><p>cerrar</p></a>
+          </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
 <div class="container" style="padding:20px 0px;"></div>
 <div class="container">
@@ -929,7 +954,7 @@
     </div>
   </div>
 </div>
- 
+
 <ks-modal-gallery [id]="1" [modalImages]="images$  | async"
                   [plainGalleryConfig]="plainGalleryRow">
 </ks-modal-gallery>
