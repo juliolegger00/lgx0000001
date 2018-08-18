@@ -96,7 +96,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     Cuotainicial_asesor=30;
     Cuotasmensuales_asesor=11;
-    Subsidio_asesor=true;
+    Subsidio_asesor=true; 
 
     //var CONDICIONES DE VENTA
 
