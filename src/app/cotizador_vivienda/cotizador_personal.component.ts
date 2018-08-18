@@ -187,7 +187,7 @@ export class Cotizador_personalComponent implements OnInit {
             fs_proyecto_filtro: new FormControl('',[]),
             fs_proyectosTamano_filtro: new FormControl('', []),
             fs_como_se_entero_filtro: new FormControl('', Validators.required),
-            fs_tipo_documento_campo: new FormControl('', Validators.required),
+            fs_tipo_documento_campo: new FormControl('', []),
             fs_nombres_campo: new FormControl('', Validators.required),
             fs_numeroDocumento_campo: new FormControl('', Validators.required),
             fs_email_campo: new FormControl('',[ Validators.required,
@@ -319,10 +319,12 @@ public cerrar_session(){
 
 
         this.spinnerService.show();
+
         this.addElementToObservableArray_tipo_documento_lista({
             "id": CONFIG.lang_seleccione,
             "tipo_documento": CONFIG.lang_seleccione
         });
+
         this.http.get(CONFIG.api_lista_tipo_documento).pipe(delay(0)).subscribe(data => {
 
             this.data_lst_tipo_documento = data;
@@ -333,9 +335,15 @@ public cerrar_session(){
                     "tipo_documento": item.title.rendered
                 };
                 this.addElementToObservableArray_tipo_documento_lista(item_t);
+                if(item_t.id.indexOf("ECI")>-1){
+                  this.idtipo_documentoPre=index+1;
+                  this.f.fs_tipo_documento_campo.setValue(item_t.id);
+                }
             });
 
         });
+
+
 
         this.spinnerService.show();
         this.http.get(CONFIG.api_lista_proyectos_vivienda).pipe(delay(0)).subscribe(data => {
