@@ -38,6 +38,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     id_proyecto_via_get=0;
+    id_proyecto_via_validar=false;
 
     regFormPaso1: FormGroup;
     regFormPaso2: FormGroup;
@@ -82,6 +83,15 @@ export class Cotizador_personalComponent implements OnInit {
 
     tokenValido=false;
     tokenNameUser:string="";
+
+    idListaCiudadesPre=0;
+
+    ListaCiudades_validar=false;
+    ListaProyectos_validar=false;
+    ListaproyectosTamano_validar=false;
+    ListaCiudades_via_get="";
+    ListaProyectos_via_get="";
+    ListaproyectosTamano_via_get="";
 
     //var CONDICIONES DE VENTA
 
@@ -145,13 +155,21 @@ export class Cotizador_personalComponent implements OnInit {
         private galleryService: GalleryService,
         private routeActive: ActivatedRoute
     ) {
-        this.initializeFormularioPaso1();
-        this.initializeFormularioPaso2(); // paso2
 
         if(this.router.url =="/cotizador")this.acciones_si_esta_logeeado();
 
         this.id_proyecto_via_get = this.routeActive.snapshot.params['id'];
+
+        if(this.id_proyecto_via_get != null){
+          this.id_proyecto_via_validar=true;
+        }
+
         //console.log( "proyecto_sele:" this.id_proyecto_via_get);
+
+
+
+            this.initializeFormularioPaso1();
+            this.initializeFormularioPaso2(); // paso2
 
     } //fin constructor
 
@@ -164,9 +182,9 @@ export class Cotizador_personalComponent implements OnInit {
     public initializeFormularioPaso1() {
 
         this.regFormPaso1 = new FormGroup({
-            fs_ciudad_filtro: new FormControl('', Validators.required),
-            fs_proyecto_filtro: new FormControl('', Validators.required),
-            fs_proyectosTamano_filtro: new FormControl('', Validators.required),
+            fs_ciudad_filtro: new FormControl('', []),
+            fs_proyecto_filtro: new FormControl('',[]),
+            fs_proyectosTamano_filtro: new FormControl('', []),
             fs_como_se_entero_filtro: new FormControl('', Validators.required),
             fs_tipo_documento_campo: new FormControl('', Validators.required),
             fs_nombres_campo: new FormControl('', Validators.required),
@@ -180,6 +198,13 @@ export class Cotizador_personalComponent implements OnInit {
                                                   ]),
             fs_abeasdata_campo: new FormControl('', Validators.requiredTrue),
         });
+
+
+
+
+
+
+
     } // fin initializeFormulario
 
 
@@ -312,6 +337,10 @@ public cerrar_session(){
 
                   if (item.id == this.id_proyecto_via_get) {
                       this.proyecto_vivienda_seleccionado  = item;
+                      this.addElementToObservableArray_proyectos_lista(this.proyecto_vivienda_seleccionado.proyecto);
+                      this.addElementToObservableArray_proyectosTamano_lista(this.proyecto_vivienda_seleccionado.area_construida);
+                      this.ListaProyectos_via_get=this.proyecto_vivienda_seleccionado.proyecto;
+                      this.ListaproyectosTamano_via_get=this.proyecto_vivienda_seleccionado.area_construida;
                   }
               });
             }
@@ -411,8 +440,34 @@ public cerrar_session(){
     onSubmit_paso1() {
 
 
-
       this.submitted1=true;
+
+      if(this.id_proyecto_via_get == null){
+            let validar_filtros=false;
+
+            if(this.f.fs_ciudad_filtro.value.length<=0){
+              this.ListaCiudades_validar=true;
+              validar_filtros=true;
+            }else this.ListaCiudades_validar=false;
+
+            if(this.f.fs_proyecto_filtro.value.length<=0){
+              this.ListaProyectos_validar=true;
+              validar_filtros=true;
+            }else this.ListaProyectos_validar=false;
+
+            if(this.f.fs_proyectosTamano_filtro.value.length<=0){
+              this.ListaproyectosTamano_validar=true;
+              validar_filtros=true;
+            }else this.ListaproyectosTamano_validar=false;
+
+            if(validar_filtros)return;
+
+          }else{
+            this.ListaCiudades_validar=false;
+            this.ListaProyectos_validar=false;
+            this.ListaproyectosTamano_validar=false;
+          }
+
         // stop here if form is invalid
         if (this.regFormPaso1.invalid) {
             this.hidden_paso1 = false;
@@ -730,6 +785,17 @@ public cerrar_session(){
         this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
         this.getListaProyectos();
         this.spinnerService.hide();
+
+        if(this.f.fs_ciudad_filtro.value.length<=0){
+          this.ListaCiudades_validar=true;
+        }else this.ListaCiudades_validar=false;
+
+
+        this.ListaProyectos_validar=false;
+        this.ListaproyectosTamano_validar=false;
+        this.id_proyecto_via_get=null;
+
+
     }
 
     public onSeleccion_proyectos_lista() {
@@ -739,6 +805,9 @@ public cerrar_session(){
         this.getListaproyectosTamano();
         this.spinnerService.hide();
 
+        if(this.f.fs_proyecto_filtro.value.length<=0){
+          this.ListaProyectos_validar=true;
+        }else this.ListaProyectos_validar=false;
 
     }
 
@@ -811,6 +880,18 @@ public cerrar_session(){
         }
 
         this.spinnerService.hide();
+
+
+
+
+        if(this.f.fs_proyectosTamano_filtro.value.length<=0){
+          this.ListaproyectosTamano_validar=true;
+        }else this.ListaproyectosTamano_validar=false;
+
+
+
+
+
     } //onSeleccion_proyectosTamano_lista
 
     public getListaproyectosTamano() {
@@ -857,6 +938,14 @@ public cerrar_session(){
         //this.addElementToObservableArray_ciudades_lista("Selecciona");
         for (i = 0; i < temp_ciudades_lista.length; i++) {
             this.addElementToObservableArray_ciudades_lista(temp_ciudades_lista[i]);
+
+            if(this.id_proyecto_via_get != null){
+                if(this.proyecto_vivienda_seleccionado.ubicacion==temp_ciudades_lista[i]){
+                    this.idListaCiudadesPre=i;
+                    this.ListaCiudades_via_get=temp_ciudades_lista[i]
+                }
+            }
+
         }
 
     } // fin metodo getListaCiudades

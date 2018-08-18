@@ -105,39 +105,49 @@
       <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="form-group" [formGroup]="regFormPaso1">
           <label>{{texto_cotizacion_persona.tituloFiltroCiudad}}</label>
-            <select formControlName="fs_ciudad_filtro" (ngModelChange)="onSeleccion_ciudades_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_ciudad_filtro.errors }">
-              <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index" [value]="ciudad" [selected]="i == 0">
+            <select formControlName="fs_ciudad_filtro"
+            (ngModelChange)="onSeleccion_ciudades_lista()"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted1 && ListaCiudades_validar }">
+              <option *ngFor="let ciudad of (fs_ciudades_lista$ | async); let i = index"
+              [value]="ciudad" [selected]="i == idListaCiudadesPre">
                 {{ciudad}}
               </option>
             </select>
-            <div *ngIf="submitted1 && f.fs_ciudad_filtro.errors" class="invalid-feedback">
-              <div *ngIf="f.fs_ciudad_filtro.errors.required">Campo necesario</div>
+            <div *ngIf="submitted1 && ListaCiudades_validar" class="invalid-feedback">
+              <div *ngIf="ListaCiudades_validar">Campo necesario</div>
             </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="form-group" [formGroup]="regFormPaso1">
           <label>{{texto_cotizacion_persona.tituloFiltroProyectos}}</label>
-          <select formControlName="fs_proyecto_filtro" (ngModelChange)="onSeleccion_proyectos_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyecto_filtro.errors }">
+          <select formControlName="fs_proyecto_filtro"
+           (ngModelChange)="onSeleccion_proyectos_lista()"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted1 && ListaProyectos_validar }">
             <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
               {{proyecto}}
             </option>
           </select>
-          <div *ngIf="submitted1 && f.fs_proyecto_filtro.errors" class="invalid-feedback">
-            <div *ngIf="f.fs_proyecto_filtro.errors.required">Campo necesario</div>
+          <div *ngIf="submitted1 && ListaProyectos_validar" class="invalid-feedback">
+            <div *ngIf="ListaProyectos_validar">Campo necesario</div>
           </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="form-group" [formGroup]="regFormPaso1">
           <label>{{texto_cotizacion_persona.tituloFiltroTamano}}</label>
-          <select formControlName="fs_proyectosTamano_filtro" (ngModelChange)="onSeleccion_proyectosTamano_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_proyectosTamano_filtro.errors }">
+          <select formControlName="fs_proyectosTamano_filtro"
+          (ngModelChange)="onSeleccion_proyectosTamano_lista()"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted1 && ListaproyectosTamano_validar }">
               <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
                 {{proyectosTamano}}
               </option>
           </select>
-          <div *ngIf="submitted1 && f.fs_proyectosTamano_filtro.errors" class="invalid-feedback">
-              <div *ngIf="f.fs_proyectosTamano_filtro.errors.required">Campo necesario</div>
+          <div *ngIf="submitted1 && ListaproyectosTamano_validar" class="invalid-feedback">
+              <div *ngIf="ListaproyectosTamano_validar">Campo necesario</div>
           </div>
         </div>
       </div>
