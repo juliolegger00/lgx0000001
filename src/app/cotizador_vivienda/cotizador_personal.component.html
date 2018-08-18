@@ -795,8 +795,13 @@
                       </tr>
                       <tr>
                           <td>
-                            Cuota inicial
-                            <input style="width:60px" type="number" value="{{Cuotainicial_asesor}}"/> %
+                          <div style="float: left;display: inline-block">  Cuota inicial</div>
+                          <div style="float: left;display: inline-block">
+                            <input style="width:60px" type="text"
+                            [value]="Cuotainicial_asesor"
+                             (keyup)="onChangeCoutaInicial($event)"   />
+                            </div>
+                            <div style="float: left;display: inline-block">   %  </div>
                           </td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.cuotainicial|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.cuotainicial|  number:'1.0-0':'es'}}</td>
@@ -815,7 +820,10 @@
                           <td>
 
 
-                              <input type="checkbox"    [value]="Subsidio_asesor"  >
+                              <input type="checkbox"
+                              [value]="Subsidio_asesor"
+                               (change)="onChangeSubsidio_asesor($event)"
+                              >{{Subsidio_asesor}}
                             Subsidio aproximado</td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
@@ -837,8 +845,14 @@
                       </tr>
                       <tr>
                           <td>
-                            <input style="width:60px"  type="number" value="{{Cuotasmensuales_asesor}}" />
+                            <div style="float: left;display: inline-block">
+                            <input style="width:60px" type="text" [value]="Cuotasmensuales_asesor"
+                             (keyup)="onChangeCuotasmensuales($event)"
+                          />
+                          </div>
+                          <div style="float: left;display: inline-block">
                             Cuotas mensuales
+                          </div>
                           </td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.cuotasmensuales|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.cuotasmensuales|  number:'1.0-0':'es'}}</td>

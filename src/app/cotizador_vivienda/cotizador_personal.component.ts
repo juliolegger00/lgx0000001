@@ -149,6 +149,20 @@ export class Cotizador_personalComponent implements OnInit {
         ANOS_5: 19437,
     };
 
+
+        onChangeCuotasmensuales(event: any){
+          console.log(event.target.value)
+        }
+        onChangeCoutaInicial(event: any){
+          console.log(event.target.value)
+        }
+
+        onChangeSubsidio_asesor(event: any){
+         
+          console.log(event.target.checked)
+
+        }
+
     //var CONDICIONES DE VENTA
 
 
