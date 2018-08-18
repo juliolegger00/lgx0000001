@@ -264,10 +264,19 @@ public cerrar_session(){
             }
         });
 
+        if(this.ListaCiudades_via_get=="")
+        this.ListaCiudades_via_get= this.f.fs_ciudad_filtro.value;
+
+        if(this.ListaProyectos_via_get=="")
+        this.ListaProyectos_via_get= this.f.fs_proyecto_filtro.value;
+
+        if(this.ListaproyectosTamano_via_get=="")
+        this.ListaproyectosTamano_via_get= this.f.fs_proyectosTamano_filtro.value;
+
         let fs_formulario = {
-            "fs_ciudad_filtro": this.f.fs_ciudad_filtro.value,
-            "fs_proyecto_filtro": this.f.fs_proyecto_filtro.value,
-            "fs_proyectosTamano_filtro": this.f.fs_proyectosTamano_filtro.value,
+            "fs_ciudad_filtro": this.ListaCiudades_via_get,
+            "fs_proyecto_filtro": this.ListaProyectos_via_get,
+            "fs_proyectosTamano_filtro": this.ListaproyectosTamano_via_get,
             "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
             "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
             "fs_nombre_documento_campo": nombre_tipo_documento,
@@ -788,11 +797,16 @@ public cerrar_session(){
 
         if(this.f.fs_ciudad_filtro.value.length<=0){
           this.ListaCiudades_validar=true;
-        }else this.ListaCiudades_validar=false;
+        }else{
+          this.ListaCiudades_validar=false;
+        }
 
 
         this.ListaProyectos_validar=false;
         this.ListaproyectosTamano_validar=false;
+        this.ListaCiudades_via_get="";
+        this.ListaProyectos_via_get="";
+        this.ListaproyectosTamano_via_get="";
         this.id_proyecto_via_get=null;
 
 
