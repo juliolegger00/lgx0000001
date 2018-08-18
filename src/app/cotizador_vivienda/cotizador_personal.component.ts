@@ -45,9 +45,9 @@ export class Cotizador_personalComponent implements OnInit {
     submitted1 = false;
     submitted2 = false;
     recaptcha2_valido = false;
-    hidden_paso1 = true;
+    hidden_paso1 = false;
     hidden_paso2 = true;
-    hidden_paso3 = false;
+    hidden_paso3 = true;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -150,18 +150,6 @@ export class Cotizador_personalComponent implements OnInit {
     };
 
 
-        onChangeCuotasmensuales(event: any){
-          console.log(event.target.value)
-        }
-        onChangeCoutaInicial(event: any){
-          console.log(event.target.value)
-        }
-
-        onChangeSubsidio_asesor(event: any){
-         
-          console.log(event.target.checked)
-
-        }
 
     //var CONDICIONES DE VENTA
 
@@ -586,6 +574,36 @@ public cerrar_session(){
     }
 
 
+
+            onChangeCuotasmensuales(event: any){
+              //console.log(event.target.value)
+              if(event.target.value.length>0)this.Cuotasmensuales_asesor=event.target.value;
+
+                      this.crear_calculos_paso3_sinacabados();
+                      this.crear_calculos_paso3_conacabados();
+
+
+            }
+            onChangeCoutaInicial(event: any){
+              //console.log(event.target.value)
+              if(event.target.value.length>0)this.Cuotainicial_asesor=event.target.value;
+
+                      this.crear_calculos_paso3_sinacabados();
+                      this.crear_calculos_paso3_conacabados();
+
+            }
+
+            onChangeSubsidio_asesor(event: any){
+
+              //console.log(event.target.checked)
+              this.Subsidio_asesor=event.target.checked;
+
+                      this.crear_calculos_paso3_sinacabados();
+                      this.crear_calculos_paso3_conacabados();
+
+
+            }
+
     onSubmit_regresarpaso2() {
       this.hidden_paso1 = true;
       this.hidden_paso2 = false;
@@ -596,18 +614,21 @@ public cerrar_session(){
 
     public crear_calculos_paso3_conacabados() {
 
-        this.condiciones_venta.conacabados.numerocuotasmensuales=11;
+        this.condiciones_venta.conacabados.numerocuotasmensuales=this.Cuotasmensuales_asesor;
         this.condiciones_venta.conacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.conacabados.ahorros = this.fs_ahorros_value;
         this.condiciones_venta.conacabados.cesantias = this.fs_cesantias_value;
         this.condiciones_venta.conacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
         this.condiciones_venta.conacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
-        this.condiciones_venta.conacabados.cuotainicial = (this.condiciones_venta.conacabados.valordelinmueble * 30 / 100);
+        this.condiciones_venta.conacabados.cuotainicial = (this.condiciones_venta.conacabados.valordelinmueble * this.Cuotainicial_asesor / 100);
 
 
         let subsidioaproximado = (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
             (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
                 (this.condiciones_venta.conacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
+
+        if(!this.Subsidio_asesor)subsidioaproximado=0;
+
         this.condiciones_venta.conacabados.subsidioaproximado = subsidioaproximado;
 
         let saldodecuotainicial = (this.condiciones_venta.conacabados.separacion +
@@ -704,17 +725,20 @@ public cerrar_session(){
 
       public  crear_calculos_paso3_sinacabados() {
 
-            this.condiciones_venta.sinacabados.numerocuotasmensuales=11;
+            this.condiciones_venta.sinacabados.numerocuotasmensuales=this.Cuotasmensuales_asesor;
             this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
             this.condiciones_venta.sinacabados.ahorros = this.fs_ahorros_value;
             this.condiciones_venta.sinacabados.cesantias = this.fs_cesantias_value;
             this.condiciones_venta.sinacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
             this.condiciones_venta.sinacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
-            this.condiciones_venta.sinacabados.cuotainicial = (this.condiciones_venta.sinacabados.valordelinmueble * 30 / 100);
+            this.condiciones_venta.sinacabados.cuotainicial = (this.condiciones_venta.sinacabados.valordelinmueble * this.Cuotainicial_asesor / 100);
 
             let subsidioaproximado = (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
                 (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
                     (this.condiciones_venta.sinacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
+
+            if(!this.Subsidio_asesor)subsidioaproximado=0;
+
             this.condiciones_venta.sinacabados.subsidioaproximado = subsidioaproximado;
 
             let saldodecuotainicial = (this.condiciones_venta.sinacabados.separacion +
