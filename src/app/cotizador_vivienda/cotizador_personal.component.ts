@@ -84,7 +84,8 @@ export class Cotizador_personalComponent implements OnInit {
     tokenValido=false;
     tokenNameUser:string="";
 
-    idListaCiudadesPre=0;
+        idListaCiudadesPre=0;
+            idtipo_documentoPre=0;
 
     ListaCiudades_validar=false;
     ListaProyectos_validar=false;

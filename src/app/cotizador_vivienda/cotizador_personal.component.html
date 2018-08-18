@@ -242,7 +242,7 @@
               (ngModelChange)="onSeleccion_tipo_documento_lista()" class="form-control"
               [ngClass]="{ 'is-invalid': submitted1 && f.fs_tipo_documento_campo.errors }">
               <option *ngFor="let tipo_documento of (fs_tipo_documento_lista$ | async); let i = index"
-                [value]="tipo_documento.id" [selected]="i == 0">
+                [value]="tipo_documento.id" [selected]="i == idtipo_documentoPre">
                     {{tipo_documento.tipo_documento}}
               </option>
             </select>
