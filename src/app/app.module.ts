@@ -22,9 +22,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { NgxCurrencyModule } from "ngx-currency";
 
-import 'hammerjs';
-        import 'mousetrap';
-        import {ModalGalleryModule} from 'angular-modal-gallery';
+//import 'hammerjs';
+        //import 'mousetrap';
+        //import {ModalGalleryModule} from 'angular-modal-gallery';
 
 //servicios
 
@@ -52,7 +52,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes, { useHash: true }  ) ,//, { useHash: true }
     Ng4LoadingSpinnerModule.forRoot() ,
-    ModalGalleryModule.forRoot(),
+    //ModalGalleryModule.forRoot(),
     NgxCurrencyModule,
     // import HttpClientModule after BrowserModule.
     HttpClientModule,

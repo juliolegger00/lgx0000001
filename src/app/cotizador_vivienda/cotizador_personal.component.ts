@@ -22,11 +22,12 @@ import html2canvas from 'html2canvas';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 
-
+/*
 import {
   AccessibilityConfig, Action, AdvancedLayout, ButtonEvent, ButtonsConfig, ButtonsStrategy, ButtonType, Description, DescriptionStrategy, GalleryService,
   DotsConfig, GridLayout, Image, ImageModalEvent, LineLayout, PlainGalleryConfig, PlainGalleryStrategy, PreviewConfig
 } from 'angular-modal-gallery';
+*/
 
 @Component({
     selector: 'app-cotizador_personal',
@@ -73,7 +74,10 @@ export class Cotizador_personalComponent implements OnInit {
     fs_galeria_iamgenes_lista$: Observable < any > = this.fs_galeria_imagenes_lista_obsArray.asObservable();
 
 
-    images_obsArray: BehaviorSubject < Image[] > = new BehaviorSubject < Image[] > ([]);
+    //images_obsArray: BehaviorSubject < Image[] > =  new BehaviorSubject < Image[] > ([]);
+    //images$: Observable < any > = this.images_obsArray.asObservable();
+
+    images_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
     images$: Observable < any > = this.images_obsArray.asObservable();
     i_pos_gal_ima=0;
 
@@ -159,7 +163,7 @@ export class Cotizador_personalComponent implements OnInit {
         private spinnerService: Ng4LoadingSpinnerService,
         private formBuilder: FormBuilder,
         private router: Router,
-        private galleryService: GalleryService,
+        //private galleryService: GalleryService,
         private routeActive: ActivatedRoute
     ) {
 
@@ -229,10 +233,10 @@ export class Cotizador_personalComponent implements OnInit {
     } // fin initializeFormulario
 
 
-    plainGalleryRow: PlainGalleryConfig = {
+    /*plainGalleryRow: PlainGalleryConfig = {
     strategy: PlainGalleryStrategy.ROW,
     layout: new LineLayout({ width: '80px', height: '80px' }, { length: 0, wrap: true }, 'flex-start')
-  };
+  };*/
 
   openModalViaService(id: number | undefined, index: number) {
    //console.log('opening gallery with index ' + index);
@@ -403,13 +407,14 @@ public cerrar_session(){
 
 
 
-                      let data_imagen2: any  = new Image(
+                      let data_imagen2: any  ={}
+                      /* new Image(
                               this.i_pos_gal_ima,
                               { // modal
                                 img:  data_lst00.guid.rendered,
                                 extUrl: data_lst00.guid.rendered,
                               }
-                            );
+                            );*/
                          this.i_pos_gal_ima++;
 
                         this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
@@ -920,13 +925,13 @@ public cerrar_session(){
                                 "alt_text": data_lst00.alt_text,
                             };
 
-                            let data_imagen2: any = new Image(
+                            let data_imagen2: any ={} /*new Image(
                                     this.i_pos_gal_ima,
                                     { // modal
                                       img:  data_lst00.guid.rendered,
                                       extUrl: data_lst00.guid.rendered,
                                     }
-                                  );
+                                  );*/
                                this.i_pos_gal_ima++;
 
                             this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
