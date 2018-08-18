@@ -96,7 +96,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     Cuotainicial_asesor=30;
     Cuotasmensuales_asesor=11;
-    Subsidio_asesor=true; 
+    Subsidio_asesor=true;
 
     //var CONDICIONES DE VENTA
 
@@ -235,8 +235,8 @@ export class Cotizador_personalComponent implements OnInit {
   };
 
   openModalViaService(id: number | undefined, index: number) {
-   console.log('opening gallery with index ' + index);
-   this.galleryService.openGallery(id, index);
+   //console.log('opening gallery with index ' + index);
+   //this.galleryService.openGallery(id, index);
  }
 
 
