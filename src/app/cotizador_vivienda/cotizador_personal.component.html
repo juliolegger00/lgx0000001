@@ -797,9 +797,16 @@
                           <td>
                           <div style="float: left;display: inline-block">  Cuota inicial</div>
                           <div style="float: left;display: inline-block">
+                            <ng-container *ngIf="tokenValido">
                             <input style="width:60px" type="text"
                             [value]="Cuotainicial_asesor"
                              (keyup)="onChangeCoutaInicial($event)"   />
+
+                           </ng-container>
+                             <ng-container *ngIf="!tokenValido">
+                               {{Cuotainicial_asesor}}
+                               </ng-container>
+
                             </div>
                             <div style="float: left;display: inline-block">   %  </div>
                           </td>
@@ -819,11 +826,13 @@
                       <tr>
                           <td>
 
-
+                            <ng-container *ngIf="tokenValido">
                               <input type="checkbox"
                               [value]="Subsidio_asesor"
                                (change)="onChangeSubsidio_asesor($event)"
-                              >{{Subsidio_asesor}}
+                              >
+                            </ng-container>
+
                             Subsidio aproximado</td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
@@ -846,9 +855,15 @@
                       <tr>
                           <td>
                             <div style="float: left;display: inline-block">
-                            <input style="width:60px" type="text" [value]="Cuotasmensuales_asesor"
-                             (keyup)="onChangeCuotasmensuales($event)"
-                          />
+                             <ng-container *ngIf="tokenValido">
+                                <input style="width:60px" type="text" [value]="Cuotasmensuales_asesor"
+                                 (keyup)="onChangeCuotasmensuales($event)"
+                                 />
+                          </ng-container>
+                            <ng-container *ngIf="!tokenValido">
+                              {{Cuotasmensuales_asesor}}
+                              </ng-container>
+
                           </div>
                           <div style="float: left;display: inline-block">
                             Cuotas mensuales
