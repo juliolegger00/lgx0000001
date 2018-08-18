@@ -45,9 +45,9 @@ export class Cotizador_personalComponent implements OnInit {
     submitted1 = false;
     submitted2 = false;
     recaptcha2_valido = false;
-    hidden_paso1 = false;
+    hidden_paso1 = true;
     hidden_paso2 = true;
-    hidden_paso3 = true;
+    hidden_paso3 = false;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -93,6 +93,10 @@ export class Cotizador_personalComponent implements OnInit {
     ListaCiudades_via_get="";
     ListaProyectos_via_get="";
     ListaproyectosTamano_via_get="";
+
+    Cuotainicial_asesor=30;
+    Cuotasmensuales_asesor=11;
+    Subsidio_asesor=true;
 
     //var CONDICIONES DE VENTA
 

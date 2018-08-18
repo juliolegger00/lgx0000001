@@ -569,6 +569,7 @@
                               <strong>{{f.fs_numeroDocumento_campo.value}}</strong>
                           </div>
                           <div class="col-sm-12 col-md-2 col-lg-2 borde_der">
+
                               {{texto_cotizacion_persona.tituloafiliadoColsubsidio}}
                               <br />
                               <strong>{{f.fs_afiliadoColsubsidio_campo.value}}</strong>
@@ -793,7 +794,10 @@
                           <td class="text-right">$ {{condiciones_venta.conacabados.valordelinmueble|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
-                          <td>Cuota inicial 30%</td>
+                          <td>
+                            Cuota inicial
+                            <input style="width:60px" type="number" value="{{Cuotainicial_asesor}}"/> %
+                          </td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.cuotainicial|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.cuotainicial|  number:'1.0-0':'es'}}</td>
                       </tr>
@@ -808,7 +812,11 @@
                           <td class="text-right">$ {{condiciones_venta.conacabados.ingresosgrupofamiliar|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
-                          <td>Subsidio aproximado</td>
+                          <td>
+
+
+                              <input type="checkbox"    [value]="Subsidio_asesor"  >
+                            Subsidio aproximado</td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.subsidioaproximado|  number:'1.0-0':'es'}}</td>
                       </tr>
@@ -828,7 +836,10 @@
                           <td class="text-right">$ {{condiciones_venta.conacabados.saldodecuotainicial|  number:'1.0-0':'es'}}</td>
                       </tr>
                       <tr>
-                          <td>11 Cuotas mensuales</td>
+                          <td>
+                            <input style="width:60px"  type="number" value="{{Cuotasmensuales_asesor}}" />
+                            Cuotas mensuales
+                          </td>
                           <td class="text-right">$ {{condiciones_venta.sinacabados.cuotasmensuales|  number:'1.0-0':'es'}}</td>
                           <td class="text-right">$ {{condiciones_venta.conacabados.cuotasmensuales|  number:'1.0-0':'es'}}</td>
                       </tr>
