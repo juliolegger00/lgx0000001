@@ -898,13 +898,13 @@
           <li class="list-group-item">
               <div class="row">
                   <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                      Fecha de entrega: (aprox)<br /><strong>{{this.proyecto_vivienda_seleccionado.trimestre_entrega}}</strong>
+                      Fecha de entrega: (aprox)<br /><strong>{{proyecto_vivienda_seleccionado.trimestre_entrega}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-4 borde_der">
-                      Gastos de escrituración:(aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion|  number:'1.0-0':'es'}}</strong>
+                      Gastos de escrituración:(aprox)<br /><strong>$ {{proyecto_vivienda_seleccionado.vr_gastos_escrituracion|  number:'1.0-0':'es'}}</strong>
                   </div>
                   <div class="col-sm-12 col-md-4 col-lg-4">
-                      Valor administración (aprox)<br /><strong>$ {{this.proyecto_vivienda_seleccionado.vr_administracion|  number:'1.0-0':'es'}} </strong>
+                      Valor administración (aprox)<br /><strong>$ {{proyecto_vivienda_seleccionado.vr_administracion|  number:'1.0-0':'es'}} </strong>
                   </div>
               </div>
           </li>
@@ -929,6 +929,15 @@
               </div>
           </li>
       </ul>
+
+      <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4">
+           telefono proyecto:  {{proyecto_vivienda_seleccionado.telefono}}
+           email proyecto:  {{proyecto_vivienda_seleccionado.descripcion}}
+          </div>
+      </div>
+
+
       <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-4">
           </div>
