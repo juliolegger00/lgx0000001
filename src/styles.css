@@ -372,7 +372,7 @@ h1{
     display: block;
     position: absolute;
     right: 17px;
-    top: 11px;
+    top: 18px;
     transition: right .5s ease;
 }
 .button-wrapper button:hover .icon {
@@ -446,13 +446,16 @@ h4{
 	border-bottom-right-radius: 2px;
 	border-bottom-left-radius: 2px;
 }
+.form-check-input.is-invalid~.form-check-label a, .was-validated .form-check-input:invalid~.form-check-label a {
+    color: #dc3545;
+}
 
 /*PASOS*/
 .pasos{
 	background-image: url(assets/cortes-05.png);
 }
-.pasos .col-xl-3{
-	max-width: 25%;
+.pasos .col-xl-4{
+	max-width: 33%;
 }
 .paso_proceso .numm{
 	float:left;

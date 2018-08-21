@@ -35,11 +35,12 @@ import {
 
 })
 
+
 export class Cotizador_personalComponent implements OnInit {
 
 
-    id_proyecto_via_get=0;
-    id_proyecto_via_validar=false;
+    id_proyecto_via_get = 0;
+    id_proyecto_via_validar = false;
 
     regFormPaso1: FormGroup;
     regFormPaso2: FormGroup;
@@ -79,28 +80,32 @@ export class Cotizador_personalComponent implements OnInit {
 
     images_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
     images$: Observable < any > = this.images_obsArray.asObservable();
-    i_pos_gal_ima=0;
+    i_pos_gal_ima = 0;
 
     fs_ingresosGrupoFamiliar_value: any;
     fs_ahorros_value: any;
     fs_cesantias_value: any;
 
-    tokenValido=false;
-    tokenNameUser:string="";
+    tokenValido = false;
+    tokenNameUser: string = "";
 
-        idListaCiudadesPre=0;
-            idtipo_documentoPre=0;
+    idListaCiudadesPre = 0;
+    idtipo_documentoPre = 0;
 
-    ListaCiudades_validar=false;
-    ListaProyectos_validar=false;
-    ListaproyectosTamano_validar=false;
-    ListaCiudades_via_get="";
-    ListaProyectos_via_get="";
-    ListaproyectosTamano_via_get="";
+    ListaCiudades_validar = false;
+    ListaProyectos_validar = false;
+    ListaproyectosTamano_validar = false;
+    ListaCiudades_via_get = "";
+    ListaProyectos_via_get = "";
+    ListaproyectosTamano_via_get = "";
 
-    Cuotainicial_asesor=30;
-    Cuotasmensuales_asesor=11;
-    Subsidio_asesor=true;
+    Cuotainicial_asesor = 30;
+    Cuotasmensuales_asesor = 11;
+    Subsidio_asesor = true;
+    imagen_principal = "";
+
+    afiliadoColsubsidio_valido=true;
+
 
     //var CONDICIONES DE VENTA
 
@@ -167,25 +172,25 @@ export class Cotizador_personalComponent implements OnInit {
         private routeActive: ActivatedRoute
     ) {
 
-        if(this.router.url =="/cotizador")this.acciones_si_esta_logeeado();
+        if (this.router.url == "/cotizador") this.acciones_si_esta_logeeado();
 
         this.id_proyecto_via_get = this.routeActive.snapshot.params['id'];
 
-        if(this.id_proyecto_via_get != null){
-          this.id_proyecto_via_validar=true;
+        if (this.id_proyecto_via_get != null) {
+            this.id_proyecto_via_validar = true;
         }
 
         //console.log( "proyecto_sele:" this.id_proyecto_via_get);
 
 
 
-            this.initializeFormularioPaso1();
-            this.initializeFormularioPaso2(); // paso2
+        this.initializeFormularioPaso1();
+        this.initializeFormularioPaso2(); // paso2
 
     } //fin constructor
 
     ngOnInit() {
-      registerLocaleData( es );
+        registerLocaleData(es);
         this.initializeData();
 
     } //fin metodo ngOnInit
@@ -194,24 +199,19 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.regFormPaso1 = new FormGroup({
             fs_ciudad_filtro: new FormControl('', []),
-            fs_proyecto_filtro: new FormControl('',[]),
+            fs_proyecto_filtro: new FormControl('', []),
             fs_proyectosTamano_filtro: new FormControl('', []),
             fs_como_se_entero_filtro: new FormControl('', Validators.required),
             fs_tipo_documento_campo: new FormControl('', []),
             fs_nombres_campo: new FormControl('', Validators.required),
             fs_numeroDocumento_campo: new FormControl('', Validators.required),
-            fs_email_campo: new FormControl('',[ Validators.required,
-                                              Validators.pattern("[^ @]*@[^ @]*") ]),
+            fs_email_campo: new FormControl('', [Validators.required,
+                Validators.pattern("[^ @]*@[^ @]*")
+            ]),
             fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
-            fs_celular_campo: new FormControl('',[ Validators.required
-                                                    , Validators.minLength(7)
-                                                    , Validators.maxLength(10)
-                                                  ]),
+            fs_celular_campo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]),
             fs_abeasdata_campo: new FormControl('', Validators.requiredTrue),
         });
-
-
-
 
 
 
@@ -222,12 +222,9 @@ export class Cotizador_personalComponent implements OnInit {
     public initializeFormularioPaso2() {
 
         this.regFormPaso2 = new FormGroup({
-            fs_ingresosGrupoFamiliar_campo: new FormControl('',[ Validators.required
-                                                              , Validators.min(1)]),
-            fs_ahorros_campo: new FormControl('',[ Validators.required
-                                                              , Validators.min(1)]),
-            fs_cesantias_campo: new FormControl('',[ Validators.required
-                                                              , Validators.min(1)]),
+            fs_ingresosGrupoFamiliar_campo: new FormControl('', [Validators.required, Validators.min(1)]),
+            fs_ahorros_campo: new FormControl('', [Validators.required, Validators.min(1)]),
+            fs_cesantias_campo: new FormControl('', [Validators.required, Validators.min(1)]),
 
         });
     } // fin initializeFormulario
@@ -238,31 +235,33 @@ export class Cotizador_personalComponent implements OnInit {
     layout: new LineLayout({ width: '80px', height: '80px' }, { length: 0, wrap: true }, 'flex-start')
   };*/
 
-  openModalViaService(id: number | undefined, index: number) {
-   //console.log('opening gallery with index ' + index);
-   //this.galleryService.openGallery(id, index);
- }
+    openModalViaService(id: number | undefined, index: number) {
+        //console.log('opening gallery with index ' + index);
+        //this.galleryService.openGallery(id, index);
+    }
 
 
-public acciones_si_esta_logeeado(){
-  //console.log("acciones_si_esta_logeeado");
+    public acciones_si_esta_logeeado() {
+        //console.log("acciones_si_esta_logeeado");
 
-  let var_token= sessionStorage.getItem(CONFIG.ss_token_val);
-  if(var_token=="ok"){
-    this.tokenValido=true;
-    let var_token_t= JSON.parse(sessionStorage.getItem(CONFIG.ss_token));
-    this.tokenNameUser=var_token_t.user_display_name;
-  }
-  else {this.tokenValido=false;this.tokenNameUser="";}
+        let var_token = sessionStorage.getItem(CONFIG.ss_token_val);
+        if (var_token == "ok") {
+            this.tokenValido = true;
+            let var_token_t = JSON.parse(sessionStorage.getItem(CONFIG.ss_token));
+            this.tokenNameUser = var_token_t.user_display_name;
+        } else {
+            this.tokenValido = false;
+            this.tokenNameUser = "";
+        }
 
-}
+    }
 
-public cerrar_session(){
-  sessionStorage.removeItem(CONFIG.ss_token);
-  sessionStorage.setItem(CONFIG.ss_token_val, "-");
-  let uri = '/' ;
-  window.location.href = uri ;
-}
+    public cerrar_session() {
+        sessionStorage.removeItem(CONFIG.ss_token);
+        sessionStorage.setItem(CONFIG.ss_token_val, "-");
+        let uri = '/';
+        window.location.href = uri;
+    }
 
 
 
@@ -275,14 +274,14 @@ public cerrar_session(){
             }
         });
 
-        if(this.ListaCiudades_via_get=="")
-        this.ListaCiudades_via_get= this.f.fs_ciudad_filtro.value;
+        if (this.ListaCiudades_via_get == "")
+            this.ListaCiudades_via_get = this.f.fs_ciudad_filtro.value;
 
-        if(this.ListaProyectos_via_get=="")
-        this.ListaProyectos_via_get= this.f.fs_proyecto_filtro.value;
+        if (this.ListaProyectos_via_get == "")
+            this.ListaProyectos_via_get = this.f.fs_proyecto_filtro.value;
 
-        if(this.ListaproyectosTamano_via_get=="")
-        this.ListaproyectosTamano_via_get= this.f.fs_proyectosTamano_filtro.value;
+        if (this.ListaproyectosTamano_via_get == "")
+            this.ListaproyectosTamano_via_get = this.f.fs_proyectosTamano_filtro.value;
 
         let fs_formulario = {
             "fs_ciudad_filtro": this.ListaCiudades_via_get,
@@ -299,12 +298,18 @@ public cerrar_session(){
             "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
             "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado.proyecto,
             //"texto_cotizacion_persona": this.texto_cotizacion_persona,
-            "fs_ingresosGrupoFamiliar_campo" : this.fs_ingresosGrupoFamiliar_value,
+            "fs_ingresosGrupoFamiliar_campo": this.fs_ingresosGrupoFamiliar_value,
             "fs_ahorros_campo": this.fs_ahorros_value,
             "fs_cesantias_campo": this.fs_cesantias_value,
         };
 
         return fs_formulario;
+    }
+
+
+    public  onSeleccion_afiliadoColsubsidio(){
+      if( this.f.fs_afiliadoColsubsidio_campo.value== "si")this.afiliadoColsubsidio_valido=true;
+      else this.afiliadoColsubsidio_valido=false;
     }
 
     public initializeData() {
@@ -345,9 +350,9 @@ public cerrar_session(){
                     "tipo_documento": item.title.rendered
                 };
                 this.addElementToObservableArray_tipo_documento_lista(item_t);
-                if(item_t.id.indexOf("ECI")>-1){
-                  this.idtipo_documentoPre=index+1;
-                  this.f.fs_tipo_documento_campo.setValue(item_t.id);
+                if (item_t.id.indexOf("ECI") > -1) {
+                    this.idtipo_documentoPre = index + 1;
+                    this.f.fs_tipo_documento_campo.setValue(item_t.id);
                 }
             });
 
@@ -360,17 +365,17 @@ public cerrar_session(){
             this.proyecto_vivienda_lista = data;
             this.proyecto_vivienda_seleccionado = data[0];
 
-            if(this.id_proyecto_via_get != null){
-              this.proyecto_vivienda_lista.forEach((item, index) => {
+            if (this.id_proyecto_via_get != null) {
+                this.proyecto_vivienda_lista.forEach((item, index) => {
 
-                  if (item.id == this.id_proyecto_via_get) {
-                      this.proyecto_vivienda_seleccionado  = item;
-                      this.addElementToObservableArray_proyectos_lista(this.proyecto_vivienda_seleccionado.proyecto);
-                      this.addElementToObservableArray_proyectosTamano_lista(this.proyecto_vivienda_seleccionado.area_construida);
-                      this.ListaProyectos_via_get=this.proyecto_vivienda_seleccionado.proyecto;
-                      this.ListaproyectosTamano_via_get=this.proyecto_vivienda_seleccionado.area_construida;
-                  }
-              });
+                    if (item.id == this.id_proyecto_via_get) {
+                        this.proyecto_vivienda_seleccionado = item;
+                        this.addElementToObservableArray_proyectos_lista(this.proyecto_vivienda_seleccionado.proyecto);
+                        this.addElementToObservableArray_proyectosTamano_lista(this.proyecto_vivienda_seleccionado.area_construida);
+                        this.ListaProyectos_via_get = this.proyecto_vivienda_seleccionado.proyecto;
+                        this.ListaproyectosTamano_via_get = this.proyecto_vivienda_seleccionado.area_construida;
+                    }
+                });
             }
 
 
@@ -398,6 +403,9 @@ public cerrar_session(){
                         let data_lst00: any = {};
                         data_lst00 = data00;
 
+                        if (data_lst00.alt_text == "principal") {
+                            this.imagen_principal = data_lst00.guid.rendered;
+                        }
                         let data_imagen: any = {
                             "id": data_lst00.id,
                             "dir_imagen": data_lst00.guid.rendered,
@@ -407,15 +415,15 @@ public cerrar_session(){
 
 
 
-                      let data_imagen2: any  ={}
-                      /* new Image(
-                              this.i_pos_gal_ima,
-                              { // modal
-                                img:  data_lst00.guid.rendered,
-                                extUrl: data_lst00.guid.rendered,
-                              }
-                            );*/
-                         this.i_pos_gal_ima++;
+                        let data_imagen2: any = {}
+                        /* new Image(
+                                this.i_pos_gal_ima,
+                                { // modal
+                                  img:  data_lst00.guid.rendered,
+                                  extUrl: data_lst00.guid.rendered,
+                                }
+                              );*/
+                        this.i_pos_gal_ima++;
 
                         this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
                         this.addElementToObservableArray_imagenes(data_imagen2);
@@ -459,7 +467,7 @@ public cerrar_session(){
 
 
     regresarPaso1() {
-
+        this.submitted1 = false;
         this.hidden_paso1 = false;
         this.hidden_paso2 = true;
         this.hidden_paso3 = true;
@@ -469,33 +477,33 @@ public cerrar_session(){
     onSubmit_paso1() {
 
 
-      this.submitted1=true;
+        this.submitted1 = true;
 
-      if(this.id_proyecto_via_get == null){
-            let validar_filtros=false;
+        if (this.id_proyecto_via_get == null) {
+            let validar_filtros = false;
 
-            if(this.f.fs_ciudad_filtro.value.length<=0){
-              this.ListaCiudades_validar=true;
-              validar_filtros=true;
-            }else this.ListaCiudades_validar=false;
+            if (this.f.fs_ciudad_filtro.value.length <= 0) {
+                this.ListaCiudades_validar = true;
+                validar_filtros = true;
+            } else this.ListaCiudades_validar = false;
 
-            if(this.f.fs_proyecto_filtro.value.length<=0){
-              this.ListaProyectos_validar=true;
-              validar_filtros=true;
-            }else this.ListaProyectos_validar=false;
+            if (this.f.fs_proyecto_filtro.value.length <= 0) {
+                this.ListaProyectos_validar = true;
+                validar_filtros = true;
+            } else this.ListaProyectos_validar = false;
 
-            if(this.f.fs_proyectosTamano_filtro.value.length<=0){
-              this.ListaproyectosTamano_validar=true;
-              validar_filtros=true;
-            }else this.ListaproyectosTamano_validar=false;
+            if (this.f.fs_proyectosTamano_filtro.value.length <= 0) {
+                this.ListaproyectosTamano_validar = true;
+                validar_filtros = true;
+            } else this.ListaproyectosTamano_validar = false;
 
-            if(validar_filtros)return;
+            if (validar_filtros) return;
 
-          }else{
-            this.ListaCiudades_validar=false;
-            this.ListaProyectos_validar=false;
-            this.ListaproyectosTamano_validar=false;
-          }
+        } else {
+            this.ListaCiudades_validar = false;
+            this.ListaProyectos_validar = false;
+            this.ListaproyectosTamano_validar = false;
+        }
 
         // stop here if form is invalid
         if (this.regFormPaso1.invalid) {
@@ -505,11 +513,12 @@ public cerrar_session(){
             return;
         }
 
-
-        //if(!this.recaptcha2_valido){
-        //  this.hidden_paso1 = false;
-        //  return;
-        //}
+        if(!this.tokenValido){
+            if(!this.recaptcha2_valido){
+              this.hidden_paso1 = false;
+              return;
+            }
+        }
 
 
         this.hidden_paso1 = true;
@@ -529,7 +538,7 @@ public cerrar_session(){
 
     onSubmit_paso2() {
 
-      this.submitted2=true;
+        this.submitted2 = true;
         // stop here if form is invalid
         if (this.regFormPaso2.invalid) {
             this.hidden_paso1 = true;
@@ -544,82 +553,101 @@ public cerrar_session(){
 
 
         ////////test add///
+        let ev: any;
 
-        this.spinnerService.show();
+          this.hidden_paso1 = true;
+          this.hidden_paso2 = true;
+          this.hidden_paso3 = false;
 
-       let info_session_usuario=  JSON.parse(sessionStorage.getItem(CONFIG.ss_token));
+          if(!this.tokenValido){
+            this.guardar_paso_3(ev);
 
-       let  guardar_cotizacion = {
-            formulario:this.fs,
-            condiciones_venta: this.condiciones_venta,
-            "info_session_usuario":info_session_usuario,
+             setTimeout(() => {
+                this.downloadPDF() ;
+             }, 3000);
           }
-
-        let json = JSON.stringify(guardar_cotizacion);
-        let params = "json="+json;
-        let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-
-        this.http.post(CONFIG.api_add_cotizacion_persona, params, {headers: headers}).pipe(delay(0)).subscribe(data => {
-
-            let data_lst: any = {};
-            data_lst = data;
-            console.log(data_lst);
-
-            this.hidden_paso1 = true;
-            this.hidden_paso2 = true;
-            this.hidden_paso3 = false;
-
-            this.spinnerService.hide();
-
-        });
 
         ////////test add///
 
         return;
     }
 
+    guardar_paso_3(ev: any) {
+      ////////test add///
+
+      this.spinnerService.show();
+
+      let info_session_usuario = JSON.parse(sessionStorage.getItem(CONFIG.ss_token));
+
+      let guardar_cotizacion = {
+          formulario: this.fs,
+          condiciones_venta: this.condiciones_venta,
+          "info_session_usuario": info_session_usuario,
+      }
+
+      let json = JSON.stringify(guardar_cotizacion);
+      let params = "json=" + json;
+      let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+      this.http.post(CONFIG.api_add_cotizacion_persona, params, {
+          headers: headers
+      }).pipe(delay(0)).subscribe(data => {
+
+          let data_lst: any = {};
+          data_lst = data;
+          console.log(data_lst);
+
+          this.spinnerService.hide();
+
+      });
+
+        if(this.tokenValido){
+            this.downloadPDF();
+        }
+
+      ////////test add///
+    }
+
+    onChangeCuotasmensuales(event: any) {
+        //console.log(event.target.value)
+        if (event.target.value.length > 0) this.Cuotasmensuales_asesor = event.target.value;
+
+        this.crear_calculos_paso3_sinacabados();
+        this.crear_calculos_paso3_conacabados();
 
 
-            onChangeCuotasmensuales(event: any){
-              //console.log(event.target.value)
-              if(event.target.value.length>0)this.Cuotasmensuales_asesor=event.target.value;
+    }
+    onChangeCoutaInicial(event: any) {
+        //console.log(event.target.value)
+        if (event.target.value.length > 0) this.Cuotainicial_asesor = event.target.value;
 
-                      this.crear_calculos_paso3_sinacabados();
-                      this.crear_calculos_paso3_conacabados();
+        this.crear_calculos_paso3_sinacabados();
+        this.crear_calculos_paso3_conacabados();
 
+    }
 
-            }
-            onChangeCoutaInicial(event: any){
-              //console.log(event.target.value)
-              if(event.target.value.length>0)this.Cuotainicial_asesor=event.target.value;
+    onChangeSubsidio_asesor(event: any) {
 
-                      this.crear_calculos_paso3_sinacabados();
-                      this.crear_calculos_paso3_conacabados();
+        //console.log(event.target.checked)
+        this.Subsidio_asesor = event.target.checked;
 
-            }
-
-            onChangeSubsidio_asesor(event: any){
-
-              //console.log(event.target.checked)
-              this.Subsidio_asesor=event.target.checked;
-
-                      this.crear_calculos_paso3_sinacabados();
-                      this.crear_calculos_paso3_conacabados();
+        this.crear_calculos_paso3_sinacabados();
+        this.crear_calculos_paso3_conacabados();
 
 
-            }
+    }
 
     onSubmit_regresarpaso2() {
-      this.hidden_paso1 = true;
-      this.hidden_paso2 = false;
-      this.hidden_paso3 = true;
+        this.hidden_paso1 = true;
+        this.hidden_paso2 = false;
+        this.hidden_paso3 = true;
     }
 
 
 
     public crear_calculos_paso3_conacabados() {
 
-        this.condiciones_venta.conacabados.numerocuotasmensuales=this.Cuotasmensuales_asesor;
+        this.condiciones_venta.conacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.conacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.conacabados.ahorros = this.fs_ahorros_value;
         this.condiciones_venta.conacabados.cesantias = this.fs_cesantias_value;
@@ -632,7 +660,7 @@ public cerrar_session(){
             (this.condiciones_venta.conacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
                 (this.condiciones_venta.conacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
 
-        if(!this.Subsidio_asesor)subsidioaproximado=0;
+        if (!this.Subsidio_asesor) subsidioaproximado = 0;
 
         this.condiciones_venta.conacabados.subsidioaproximado = subsidioaproximado;
 
@@ -687,7 +715,7 @@ public cerrar_session(){
         let type = 1;
 
         let PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
-        let cuotapesos_10 = PMT ;//+ 100000;
+        let cuotapesos_10 = PMT; //+ 100000;
 
         this.condiciones_venta.conacabados.cuotapesos_10 = cuotapesos_10;
 
@@ -702,7 +730,7 @@ public cerrar_session(){
         type = 1;
 
         PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
-        let cuotapesos_15 = PMT ;// + 100000;
+        let cuotapesos_15 = PMT; // + 100000;
 
         this.condiciones_venta.conacabados.cuotapesos_15 = cuotapesos_15;
 
@@ -717,7 +745,7 @@ public cerrar_session(){
         type = 1;
 
         PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
-        let cuotapesos_20 = PMT ;//+ 100000;
+        let cuotapesos_20 = PMT; //+ 100000;
 
         this.condiciones_venta.conacabados.cuotapesos_20 = cuotapesos_20;
 
@@ -728,116 +756,115 @@ public cerrar_session(){
 
 
 
-      public  crear_calculos_paso3_sinacabados() {
+    public crear_calculos_paso3_sinacabados() {
 
-            this.condiciones_venta.sinacabados.numerocuotasmensuales=this.Cuotasmensuales_asesor;
-            this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
-            this.condiciones_venta.sinacabados.ahorros = this.fs_ahorros_value;
-            this.condiciones_venta.sinacabados.cesantias = this.fs_cesantias_value;
-            this.condiciones_venta.sinacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
-            this.condiciones_venta.sinacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
-            this.condiciones_venta.sinacabados.cuotainicial = (this.condiciones_venta.sinacabados.valordelinmueble * this.Cuotainicial_asesor / 100);
+        this.condiciones_venta.sinacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
+        this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
+        this.condiciones_venta.sinacabados.ahorros = this.fs_ahorros_value;
+        this.condiciones_venta.sinacabados.cesantias = this.fs_cesantias_value;
+        this.condiciones_venta.sinacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
+        this.condiciones_venta.sinacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
+        this.condiciones_venta.sinacabados.cuotainicial = (this.condiciones_venta.sinacabados.valordelinmueble * this.Cuotainicial_asesor / 100);
 
-            let subsidioaproximado = (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
-                (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
-                    (this.condiciones_venta.sinacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
+        let subsidioaproximado = (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 1562484 ? 23437260 :
+            (this.condiciones_venta.sinacabados.ingresosgrupofamiliar <= 3124968 ? 15624840 :
+                (this.condiciones_venta.sinacabados.ingresosgrupofamiliar > 3124968 ? 0 : 0)));
 
-            if(!this.Subsidio_asesor)subsidioaproximado=0;
+        if (!this.Subsidio_asesor) subsidioaproximado = 0;
 
-            this.condiciones_venta.sinacabados.subsidioaproximado = subsidioaproximado;
+        this.condiciones_venta.sinacabados.subsidioaproximado = subsidioaproximado;
 
-            let saldodecuotainicial = (this.condiciones_venta.sinacabados.separacion +
-                this.condiciones_venta.sinacabados.subsidioaproximado +
-                this.condiciones_venta.sinacabados.ahorros +
-                this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ? 0 :
-                this.condiciones_venta.sinacabados.cuotainicial -
-                this.condiciones_venta.sinacabados.separacion -
-                this.condiciones_venta.sinacabados.subsidioaproximado -
-                this.condiciones_venta.sinacabados.ahorros -
-                this.condiciones_venta.sinacabados.cesantias);
-            this.condiciones_venta.sinacabados.saldodecuotainicial = saldodecuotainicial;
+        let saldodecuotainicial = (this.condiciones_venta.sinacabados.separacion +
+            this.condiciones_venta.sinacabados.subsidioaproximado +
+            this.condiciones_venta.sinacabados.ahorros +
+            this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ? 0 :
+            this.condiciones_venta.sinacabados.cuotainicial -
+            this.condiciones_venta.sinacabados.separacion -
+            this.condiciones_venta.sinacabados.subsidioaproximado -
+            this.condiciones_venta.sinacabados.ahorros -
+            this.condiciones_venta.sinacabados.cesantias);
+        this.condiciones_venta.sinacabados.saldodecuotainicial = saldodecuotainicial;
 
-            if (this.condiciones_venta.sinacabados.numerocuotasmensuales > 0) {
-                this.condiciones_venta.sinacabados.cuotasmensuales =
-                    this.condiciones_venta.sinacabados.saldodecuotainicial /
-                    this.condiciones_venta.sinacabados.numerocuotasmensuales;
-            } else {
-                this.condiciones_venta.sinacabados.cuotasmensuales = 0;
-            }
-
-            let creditorequerido = (this.condiciones_venta.sinacabados.separacion +
-                this.condiciones_venta.sinacabados.ingresosgrupofamiliar +
-                this.condiciones_venta.sinacabados.subsidioaproximado +
-                this.condiciones_venta.sinacabados.ahorros +
-                this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ?
-                this.condiciones_venta.sinacabados.valordelinmueble -
-                this.condiciones_venta.sinacabados.separacion -
-                this.condiciones_venta.sinacabados.ingresosgrupofamiliar -
-                this.condiciones_venta.sinacabados.subsidioaproximado -
-                this.condiciones_venta.sinacabados.ahorros -
-                this.condiciones_venta.sinacabados.cesantias :
-                this.condiciones_venta.sinacabados.valordelinmueble -
-                this.condiciones_venta.sinacabados.cuotainicial);
-            this.condiciones_venta.sinacabados.creditorequerido = creditorequerido;
-
-            this.condiciones_venta.sinacabados.cuotauvr_10 =
-                (this.tabla_uvr.ANOS_10 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
-            this.condiciones_venta.sinacabados.cuotauvr_15 =
-                (this.tabla_uvr.ANOS_15 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
-            this.condiciones_venta.sinacabados.cuotauvr_20 =
-                (this.tabla_uvr.ANOS_20 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
-
-
-            //cuotapesos_10
-
-            let fv = 0;
-            let pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
-            let rate = 0.011;
-            let nper = 12 * 10; //años
-            let type = 1;
-
-            let PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
-            let cuotapesos_10 = PMT ;//+ 100000;
-
-            this.condiciones_venta.sinacabados.cuotapesos_10 = cuotapesos_10;
-
-            //cuotapesos_10
-
-            //cuotapesos_15
-
-            fv = 0;
-            pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
-            rate = 0.011;
-            nper = 12 * 15; //años
-            type = 1;
-
-            PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
-            let cuotapesos_15 = PMT ;// + 100000;
-
-            this.condiciones_venta.sinacabados.cuotapesos_15 = cuotapesos_15;
-
-            //cuotapesos_15
-
-            //cuotapesos_20
-
-            fv = 0;
-            pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
-            rate = 0.011;
-            nper = 12 * 20; //años
-            type = 1;
-
-            PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
-            let cuotapesos_20 = PMT ;//+ 100000;
-
-            this.condiciones_venta.sinacabados.cuotapesos_20 = cuotapesos_20;
-
-            //cuotapesos_20
-
-
-
-
-
+        if (this.condiciones_venta.sinacabados.numerocuotasmensuales > 0) {
+            this.condiciones_venta.sinacabados.cuotasmensuales =
+                this.condiciones_venta.sinacabados.saldodecuotainicial /
+                this.condiciones_venta.sinacabados.numerocuotasmensuales;
+        } else {
+            this.condiciones_venta.sinacabados.cuotasmensuales = 0;
         }
+
+        let creditorequerido = (this.condiciones_venta.sinacabados.separacion +
+            this.condiciones_venta.sinacabados.ingresosgrupofamiliar +
+            this.condiciones_venta.sinacabados.subsidioaproximado +
+            this.condiciones_venta.sinacabados.ahorros +
+            this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ?
+            this.condiciones_venta.sinacabados.valordelinmueble -
+            this.condiciones_venta.sinacabados.separacion -
+            this.condiciones_venta.sinacabados.ingresosgrupofamiliar -
+            this.condiciones_venta.sinacabados.subsidioaproximado -
+            this.condiciones_venta.sinacabados.ahorros -
+            this.condiciones_venta.sinacabados.cesantias :
+            this.condiciones_venta.sinacabados.valordelinmueble -
+            this.condiciones_venta.sinacabados.cuotainicial);
+        this.condiciones_venta.sinacabados.creditorequerido = creditorequerido;
+
+        this.condiciones_venta.sinacabados.cuotauvr_10 =
+            (this.tabla_uvr.ANOS_10 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
+        this.condiciones_venta.sinacabados.cuotauvr_15 =
+            (this.tabla_uvr.ANOS_15 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
+        this.condiciones_venta.sinacabados.cuotauvr_20 =
+            (this.tabla_uvr.ANOS_20 * this.condiciones_venta.sinacabados.creditorequerido / 1000000) + 27000;
+
+
+        //cuotapesos_10
+
+        let fv = 0;
+        let pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
+        let rate = 0.011;
+        let nper = 12 * 10; //años
+        let type = 1;
+
+        let PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+        let cuotapesos_10 = PMT; //+ 100000;
+
+        this.condiciones_venta.sinacabados.cuotapesos_10 = cuotapesos_10;
+
+        //cuotapesos_10
+
+        //cuotapesos_15
+
+        fv = 0;
+        pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
+        rate = 0.011;
+        nper = 12 * 15; //años
+        type = 1;
+
+        PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+        let cuotapesos_15 = PMT; // + 100000;
+
+        this.condiciones_venta.sinacabados.cuotapesos_15 = cuotapesos_15;
+
+        //cuotapesos_15
+
+        //cuotapesos_20
+
+        fv = 0;
+        pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
+        rate = 0.011;
+        nper = 12 * 20; //años
+        type = 1;
+
+        PMT = (-fv - pv * Math.pow(1 + rate, nper)) / (1 + rate * type) / ((Math.pow(1 + rate, nper) - 1) / rate);
+        let cuotapesos_20 = PMT; //+ 100000;
+
+        this.condiciones_venta.sinacabados.cuotapesos_20 = cuotapesos_20;
+
+        //cuotapesos_20
+
+
+
+
+    }
 
     onSeleccion_tipo_documento_lista() {}
     onSeleccion_como_se_entero_lista() {}
@@ -851,19 +878,19 @@ public cerrar_session(){
         this.getListaProyectos();
         this.spinnerService.hide();
 
-        if(this.f.fs_ciudad_filtro.value.length<=0){
-          this.ListaCiudades_validar=true;
-        }else{
-          this.ListaCiudades_validar=false;
+        if (this.f.fs_ciudad_filtro.value.length <= 0) {
+            this.ListaCiudades_validar = true;
+        } else {
+            this.ListaCiudades_validar = false;
         }
 
 
-        this.ListaProyectos_validar=false;
-        this.ListaproyectosTamano_validar=false;
-        this.ListaCiudades_via_get="";
-        this.ListaProyectos_via_get="";
-        this.ListaproyectosTamano_via_get="";
-        this.id_proyecto_via_get=null;
+        this.ListaProyectos_validar = false;
+        this.ListaproyectosTamano_validar = false;
+        this.ListaCiudades_via_get = "";
+        this.ListaProyectos_via_get = "";
+        this.ListaproyectosTamano_via_get = "";
+        this.id_proyecto_via_get = null;
 
 
     }
@@ -875,9 +902,9 @@ public cerrar_session(){
         this.getListaproyectosTamano();
         this.spinnerService.hide();
 
-        if(this.f.fs_proyecto_filtro.value.length<=0){
-          this.ListaProyectos_validar=true;
-        }else this.ListaProyectos_validar=false;
+        if (this.f.fs_proyecto_filtro.value.length <= 0) {
+            this.ListaProyectos_validar = true;
+        } else this.ListaProyectos_validar = false;
 
     }
 
@@ -925,14 +952,15 @@ public cerrar_session(){
                                 "alt_text": data_lst00.alt_text,
                             };
 
-                            let data_imagen2: any ={} /*new Image(
-                                    this.i_pos_gal_ima,
-                                    { // modal
-                                      img:  data_lst00.guid.rendered,
-                                      extUrl: data_lst00.guid.rendered,
-                                    }
-                                  );*/
-                               this.i_pos_gal_ima++;
+                            let data_imagen2: any = {}
+                            /*new Image(
+                                                               this.i_pos_gal_ima,
+                                                               { // modal
+                                                                 img:  data_lst00.guid.rendered,
+                                                                 extUrl: data_lst00.guid.rendered,
+                                                               }
+                                                             );*/
+                            this.i_pos_gal_ima++;
 
                             this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
                             this.addElementToObservableArray_imagenes(data_imagen2);
@@ -954,10 +982,9 @@ public cerrar_session(){
 
 
 
-        if(this.f.fs_proyectosTamano_filtro.value.length<=0){
-          this.ListaproyectosTamano_validar=true;
-        }else this.ListaproyectosTamano_validar=false;
-
+        if (this.f.fs_proyectosTamano_filtro.value.length <= 0) {
+            this.ListaproyectosTamano_validar = true;
+        } else this.ListaproyectosTamano_validar = false;
 
 
 
@@ -1009,10 +1036,10 @@ public cerrar_session(){
         for (i = 0; i < temp_ciudades_lista.length; i++) {
             this.addElementToObservableArray_ciudades_lista(temp_ciudades_lista[i]);
 
-            if(this.id_proyecto_via_get != null){
-                if(this.proyecto_vivienda_seleccionado.ubicacion==temp_ciudades_lista[i]){
-                    this.idListaCiudadesPre=i;
-                    this.ListaCiudades_via_get=temp_ciudades_lista[i]
+            if (this.id_proyecto_via_get != null) {
+                if (this.proyecto_vivienda_seleccionado.ubicacion == temp_ciudades_lista[i]) {
+                    this.idListaCiudadesPre = i;
+                    this.ListaCiudades_via_get = temp_ciudades_lista[i]
                 }
             }
 
@@ -1053,45 +1080,42 @@ public cerrar_session(){
 
 
 
+    public downloadPDF() {
+      this.spinnerService.show();
+        var data = document.getElementById('contentok');
+        html2canvas(data, {
+            //  width: 595,
+            //  height: 842,
+            //scale:0.8
+        }).then(canvas => {
 
-    public downloadPDF(){
-      var data = document.getElementById('contentok');
-      html2canvas(data, {
-      //  width: 595,
-      //  height: 842,
-          //scale:0.8
-      }).then(canvas => {
+            /*
+              var a = document.createElement('a');
+              a.href = canvas.toDataURL("image/png");
+              a.download = 'myfile.png';
+              a.click();
+            */
 
-/*
-  var a = document.createElement('a');
-  a.href = canvas.toDataURL("image/png");
-  a.download = 'myfile.png';
-  a.click();
-*/
-
-         const contentDataURL = canvas.toDataURL('image/png')
-         let pdf = new jspDF('p', 'mm', 'a4'); // A4 size page of PDF
-         let position = 10;
-         let width = 10;
-         let height = 10;
-
-
-         let porcentaje = 30;
-         height =270;// canvas.height * porcentaje / 100;
-         width =170;// canvas.width * porcentaje / 100;
-         //console.log(height)
+            const contentDataURL = canvas.toDataURL('image/png')
+            let pdf = new jspDF('p', 'mm', 'a4'); // A4 size page of PDF
+            let position = 10;
+            let width = 10;
+            let height = 10;
 
 
-         pdf.addImage(contentDataURL, 'PNG', 20, position, width, height)
-         pdf.save('MYPdf.pdf'); // Generated PDF
+            let porcentaje = 30;
+            height = 270; // canvas.height * porcentaje / 100;
+            width = 170; // canvas.width * porcentaje / 100;
+            //console.log(height)
 
 
+            pdf.addImage(contentDataURL, 'PNG', 20, position, width, height)
+            pdf.save('MYPdf.pdf'); // Generated PDF
+
+            this.spinnerService.hide();
 
 
-
-
-
-       });
+        });
 
 
     }
@@ -1113,7 +1137,7 @@ public cerrar_session(){
         let roomArr: any[] = this.images_obsArray.getValue();
         roomArr.splice(0, roomArr.length);
         this.images_obsArray.next(roomArr);
-        this.i_pos_gal_ima=0;
+        this.i_pos_gal_ima = 0;
     }
     //galeria_5
 
