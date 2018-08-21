@@ -564,7 +564,7 @@ export class Cotizador_personalComponent implements OnInit {
 
              setTimeout(() => {
                 this.downloadPDF() ;
-             }, 3000);
+             }, 5000);
           }
 
         ////////test add///
