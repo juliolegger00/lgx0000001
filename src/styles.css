@@ -78,9 +78,9 @@ h4{
 	padding:20px;
 }
 .alert_seguridad{
-	margin-top:20px;
+	margin:20px 0px 20px 0px;
+	padding: 10px;
 	background: #011F5B;
-	padding:10px 0px;
 }
 .contrast-layer{
 	color:#FFF;
@@ -183,6 +183,10 @@ ul.accordion li.accordion-item.is-active .accordion-title {
 	    color: #011f5a;
 			font-weight: 500px;
 			font-size: 10px;
+	}
+	.borde_der{
+		border-right:0px solid #a9a9a9 !important;
+		border-bottom: 1px solid #a9a9a9 !important;
 	}
 }
 @media (min-width:768px) {
@@ -502,6 +506,7 @@ h4{
 }
 .borde_der{
 	border-right:1px solid #a9a9a9;
+	border-bottom: 0px solid #a9a9a9;
 }
 
 .link_legal {
@@ -524,6 +529,9 @@ h4{
 }
 .clear{
 	clear: both;
+}
+.list-group {
+	padding-top: 20px;
 }
 .list-group-item {
     padding: .25rem 1.25rem !important;

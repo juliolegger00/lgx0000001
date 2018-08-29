@@ -17,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import * as jspDF from 'jspdf';
 
+
+
 import html2canvas from 'html2canvas';
 
 import { registerLocaleData } from '@angular/common';
@@ -106,7 +108,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     afiliadoColsubsidio_valido=true;
 
-
+    pdfSrc="";
     //var CONDICIONES DE VENTA
 
 
@@ -262,6 +264,7 @@ export class Cotizador_personalComponent implements OnInit {
         let uri = '/';
         window.location.href = uri;
     }
+
 
 
 
@@ -466,13 +469,15 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
-    regresarPaso1() {
+    regresarPaso1(event:any) {
         this.submitted1 = false;
         this.hidden_paso1 = false;
         this.hidden_paso2 = true;
         this.hidden_paso3 = true;
         return;
     }
+
+    onSubmit_paso3() {}
 
     onSubmit_paso1() {
 
@@ -1081,6 +1086,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     public downloadPDF() {
+
       this.spinnerService.show();
         var data = document.getElementById('contentok');
         html2canvas(data, {
@@ -1110,7 +1116,16 @@ export class Cotizador_personalComponent implements OnInit {
 
 
             pdf.addImage(contentDataURL, 'PNG', 20, position, width, height)
-            pdf.save('MYPdf.pdf'); // Generated PDF
+            pdf.save('cotizacion_vivienda_colsubsidio.pdf'); // Generated PDF
+           //this.pdfSrc= pdf.output('datauristring');
+           //window.open(string);
+
+            /*var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
+
+            var x = window.open();
+            x.document.open();
+            x.document.write(iframe);
+            x.document.close();*/
 
             this.spinnerService.hide();
 

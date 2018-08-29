@@ -324,98 +324,13 @@
 </div>
 </form>
 </div>
-    <!-- paso 1 -->
+<!-- paso 1 -->
 
 <!-- paso 2 -->
     <div [hidden]="hidden_paso2">
         <form (ngSubmit)="onSubmit_paso2()">
             <div class="container seccion_titulos">
-                <div class="ingreso center-block info_pasada">
-                    <br />
-                    <div class="row pasos">
-                        <div class="col-xl-4 col-md-4 col-lg-4">
-                            <div class="paso_proceso ico_proceso1">
-                                <span class="numm">1</span>
-                                <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso1}}</span>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-4 col-lg-4">
-                            <div class="paso_proceso ico_proceso2">
-                                <span class="numm  activo">2</span>
-                                <span class="titupaso activo d-none d-md-block">{{texto_cotizacion_persona.tituloPaso2}}</span>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-md-4 col-lg-4">
-                            <div class="paso_proceso ico_proceso3">
-                                <span class="numm">3</span>
-                                <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso3}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <h2 class="category-section-title title_line auto_width">
-                        {{texto_cotizacion_persona.tituloPaso2}}
-                    </h2>
-                    <br style="clear:both;" />
-                    <div class="row">
-                        <div class="col-sm-12 col-md-4 col-lg-4">
-                            <div class="form-group" [formGroup]="regFormPaso2">
-                                <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
-                                <input currencyMask [(ngModel)]="fs_ingresosGrupoFamiliar_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
-                                <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
-                                    <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
-                                    <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.min">mayor a cero</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4 col-lg-4">
-                            <div class="form-group" [formGroup]="regFormPaso2">
-                                <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
-                                <input currencyMask [(ngModel)]="fs_ahorros_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_ahorros_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
-                                <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
-                                    <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
-                                    <div *ngIf="f2.fs_ahorros_campo.errors.min">mayor a cero</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-4 col-lg-4">
-                            <div class="form-group" [formGroup]="regFormPaso2">
-                                <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
-                                <input currencyMask [(ngModel)]="fs_cesantias_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_cesantias_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
-                                <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
-                                    <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
-                                    <div *ngIf="f2.fs_cesantias_campo.errors.min">mayor a cero</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <div class="button-wrapper">
-                                <button (click)="regresarPaso1($event)" class="form-btn" type="button">
-                                    <span class="icon reversa"></span><span class="text">Anterior</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="form-group">
-                            <div class="button-wrapper">
-                                <!--  [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" -->
-                                <button type="submit" class="form-btn">
-                                    <span class="text">Siguiente</span> <span class="icon"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
+
                 <div class="ingreso center-block info_pasada">
                     <div class="row">
                       <div class="col-xl-4 col-md-4 col-lg-4">
@@ -513,9 +428,94 @@
                             </div>
                         </li>
                     </ul>
-
                     <br />
                 </div>
+                <div class="ingreso center-block info_pasada">
+                    <br />
+                    <div class="row pasos">
+                        <div class="col-xl-4 col-md-4 col-lg-4">
+                            <div class="paso_proceso ico_proceso1">
+                                <span class="numm">1</span>
+                                <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso1}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 col-lg-4">
+                            <div class="paso_proceso ico_proceso2">
+                                <span class="numm  activo">2</span>
+                                <span class="titupaso activo d-none d-md-block">{{texto_cotizacion_persona.tituloPaso2}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 col-lg-4">
+                            <div class="paso_proceso ico_proceso3">
+                                <span class="numm">3</span>
+                                <span class="titupaso d-none d-md-block">{{texto_cotizacion_persona.tituloPaso3}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <h2 class="category-section-title title_line auto_width">
+                        {{texto_cotizacion_persona.tituloPaso2}}
+                    </h2>
+                    <br style="clear:both;" />
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="form-group" [formGroup]="regFormPaso2">
+                                <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
+                                <input currencyMask [(ngModel)]="fs_ingresosGrupoFamiliar_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
+                                <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
+                                    <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
+                                    <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.min">mayor a cero</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="form-group" [formGroup]="regFormPaso2">
+                                <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
+                                <input currencyMask [(ngModel)]="fs_ahorros_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_ahorros_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
+                                <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
+                                    <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
+                                    <div *ngIf="f2.fs_ahorros_campo.errors.min">mayor a cero</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="form-group" [formGroup]="regFormPaso2">
+                                <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
+                                <input currencyMask [(ngModel)]="fs_cesantias_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_cesantias_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
+                                <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
+                                    <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
+                                    <div *ngIf="f2.fs_cesantias_campo.errors.min">mayor a cero</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <div class="button-wrapper">
+                                <button (click)="regresarPaso1($event)" class="form-btn" type="button">
+                                    <span class="icon reversa"></span><span class="text">Anterior</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <div class="button-wrapper">
+                                <!--  [disabled]="regFormPaso2.pristine || regFormPaso2.invalid" -->
+                                <button type="submit" class="form-btn">
+                                    <span class="text">Siguiente</span> <span class="icon"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
             </div>
         </form>
     </div>
@@ -954,3 +954,4 @@
                   [plainGalleryConfig]="plainGalleryRow">
 </ks-modal-gallery>
 -->
+ 

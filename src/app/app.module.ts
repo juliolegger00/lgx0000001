@@ -22,6 +22,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { NgxCurrencyModule } from "ngx-currency";
 
+
 //import 'hammerjs';
         //import 'mousetrap';
         //import {ModalGalleryModule} from 'angular-modal-gallery';
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule, 
     ReactiveFormsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(appRoutes, { useHash: true }  ) ,//, { useHash: true }

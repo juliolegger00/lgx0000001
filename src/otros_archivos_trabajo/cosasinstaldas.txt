@@ -18,6 +18,15 @@ sudo npm install ngx-captcha
 https://www.npmjs.com/package/ngx-currency
 npm i ngx-currency
 
+https://www.npmjs.com/package/fs-extra
+npm install --save fs-extra
+
+npm i ng2-pdf-viewer
+npm i --save browserify-zlib
+
+
+actualizar el angular IMPORTANTE
+ng update @angular/cli
 
 https://ks89.github.io/angular-modal-gallery-2018.github.io/gettingStarted
 npm i --save angular-modal-gallery hammerjs mousetrap
