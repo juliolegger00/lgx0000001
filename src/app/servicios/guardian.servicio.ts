@@ -15,7 +15,7 @@ export class Guardian implements CanActivate{
       let var_token= sessionStorage.getItem(CONFIG.ss_token_val);
       if(var_token=="ok")this.tokenValido=true;
       else this.tokenValido=false;
-
+ 
       if(this.tokenValido ){
           this.loggedIn = true;
       }else{

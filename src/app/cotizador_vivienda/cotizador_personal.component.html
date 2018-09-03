@@ -491,31 +491,63 @@
                         <div class="col-sm-12 col-md-4 col-lg-4">
                             <div class="form-group" [formGroup]="regFormPaso2">
                                 <label>{{texto_cotizacion_persona.tituloIngresosGrupoFamiliar}}</label>
-                                <input currencyMask [(ngModel)]="fs_ingresosGrupoFamiliar_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors }" />
+                                <input currencyMask [(ngModel)]="fs_ingresosGrupoFamiliar_value"
+                                [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }"
+                                formControlName="fs_ingresosGrupoFamiliar_campo" class="form-control"
+                                  (keyup)="onkeyValidaringresosGrupoFamiliar($event)"
+                                [ngClass]="{ 'is-invalid': submitted2 && (fs_ingresosGrupoFamiliar_campo_min || f2.fs_ingresosGrupoFamiliar_campo.errors) }" />
+
+                                <div *ngIf="submitted2 && fs_ingresosGrupoFamiliar_campo_min" class="invalid-feedback">
+                                    <div *ngIf="fs_ingresosGrupoFamiliar_campo_min">mayor a cero</div>
+                                </div>
+
                                 <div *ngIf="submitted2 && f2.fs_ingresosGrupoFamiliar_campo.errors" class="invalid-feedback">
                                     <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.required">Campo necesario</div>
-                                    <div *ngIf="f2.fs_ingresosGrupoFamiliar_campo.errors.min">mayor a cero</div>
                                 </div>
+
                             </div>
+
+
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-4">
                             <div class="form-group" [formGroup]="regFormPaso2">
                                 <label>{{texto_cotizacion_persona.tituloAhorros}}</label>
-                                <input currencyMask [(ngModel)]="fs_ahorros_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_ahorros_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_ahorros_campo.errors }" />
+                                <input currencyMask [(ngModel)]="fs_ahorros_value"
+                                    (keyup)="onkeyValidarahorros($event)"
+                                [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }"
+                                formControlName="fs_ahorros_campo" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted2 &&  (fs_ahorros_campo_min || f2.fs_ahorros_campo.errors) }" />
+
+                                <div *ngIf="submitted2 && fs_ahorros_campo_min" class="invalid-feedback">
+                                    <div *ngIf="fs_ahorros_campo_min">mayor a cero</div>
+                                </div>
+
+
                                 <div *ngIf="submitted2 && f2.fs_ahorros_campo.errors" class="invalid-feedback">
                                     <div *ngIf="f2.fs_ahorros_campo.errors.required">Campo necesario</div>
-                                    <div *ngIf="f2.fs_ahorros_campo.errors.min">mayor a cero</div>
                                 </div>
+
+
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-4">
                             <div class="form-group" [formGroup]="regFormPaso2">
                                 <label>{{texto_cotizacion_persona.tituloCesantias}}</label>
-                                <input currencyMask [(ngModel)]="fs_cesantias_value" [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }" formControlName="fs_cesantias_campo" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fs_cesantias_campo.errors }" />
+                                <input currencyMask [(ngModel)]="fs_cesantias_value"
+                                  (keyup)="onkeyValidarcesantias($event)"
+                                [options]="{ precision: 0, prefix: '', thousands: '.', decimal: ',' }"
+                                formControlName="fs_cesantias_campo" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted2 && (fs_cesantias_campo_min || f2.fs_cesantias_campo.errors) }" />
+
+
+                              <div *ngIf="submitted2 && fs_cesantias_campo_min" class="invalid-feedback">
+                                  <div *ngIf="fs_cesantias_campo_min">mayor a cero</div>
+                              </div>
+
                                 <div *ngIf="submitted2 && f2.fs_cesantias_campo.errors" class="invalid-feedback">
                                     <div *ngIf="f2.fs_cesantias_campo.errors.required">Campo necesario</div>
-                                    <div *ngIf="f2.fs_cesantias_campo.errors.min">mayor a cero</div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -947,12 +979,12 @@
           <div class="col-sm-12 col-md-4 col-lg-4">
               <div class="form-group paddin40">
                   <div class="button-wrapper">
-                    <ng-container *ngIf="tokenValido">
-                    <a href="{{direccion_usuario_final}}#/cotizador/"  >   Agregar nueva cotización  </a>
-                    </ng-container >
-                    <ng-container *ngIf="!tokenValido">
-                    <a href="{{direccion_usuario_final}}"  >   Agregar nueva cotización  </a>
-                    </ng-container >
+
+                    <button (click)="onSubimit_nuevaCotizacion($event)" class="form-btn" type="button">
+                      <span class="text"> Agregar nueva cotización  </span>
+                    </button>
+
+
                   </div>
               </div>
           </div>
@@ -998,6 +1030,3 @@
                   [plainGalleryConfig]="plainGalleryRow">
 </ks-modal-gallery>
 -->
-
-
- 

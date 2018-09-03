@@ -41,7 +41,7 @@ import {
 export class Cotizador_personalComponent implements OnInit {
 
 
-    direccion_usuario_final="http://localhost:4200/";
+    direccion_usuario_final=CONFIG.url_usuario_final;
 
     id_proyecto_via_get = 0;
     id_proyecto_via_validar = false;
@@ -117,6 +117,10 @@ export class Cotizador_personalComponent implements OnInit {
 
     fs_numeroDocumento_campo_minlength=false;
     fs_numeroDocumento_campo_maxlength=false;
+
+    fs_ingresosGrupoFamiliar_campo_min=false;
+    fs_ahorros_campo_min=false;
+    fs_cesantias_campo_min=false;
 
     pdfSrc="";
     //var CONDICIONES DE VENTA
@@ -655,9 +659,101 @@ export class Cotizador_personalComponent implements OnInit {
     } //fin onSubmit
 
 
+
+    onkeyValidaringresosGrupoFamiliar(evt:any){
+      this.submitted2 = true; 
+
+      if(this.fs_ingresosGrupoFamiliar_value!=null){
+          if(this.fs_ingresosGrupoFamiliar_value<=0){
+            this.fs_ingresosGrupoFamiliar_campo_min=true;
+
+          }else{
+            this.fs_ingresosGrupoFamiliar_campo_min=false;
+          }
+      }else{
+        this.fs_ingresosGrupoFamiliar_campo_min=true;
+
+      }
+        return;
+    }
+    onkeyValidarahorros(evt:any){
+        this.submitted2 = true;
+        if(this.fs_ahorros_value!=null){
+            if(this.fs_ahorros_value<=0){
+              this.fs_ahorros_campo_min=true;
+
+            }else{
+              this.fs_ahorros_campo_min=false;
+            }
+        }else{
+          this.fs_ahorros_campo_min=true;
+
+        }
+          return;
+    }
+    onkeyValidarcesantias(evt:any){
+        this.submitted2 = true;
+
+                 if(this.fs_cesantias_value!=null){
+                     if(this.fs_cesantias_value<=0){
+                       this.fs_cesantias_campo_min=true;
+
+                     }else{
+                       this.fs_cesantias_campo_min=false;
+                     }
+                 }else{
+                   this.fs_cesantias_campo_min=true;
+
+                 }
+                 return;
+
+    }
+
     onSubmit_paso2() {
 
         this.submitted2 = true;
+
+
+        if(this.fs_ingresosGrupoFamiliar_value!=null){
+            if(this.fs_ingresosGrupoFamiliar_value<=0){
+              this.fs_ingresosGrupoFamiliar_campo_min=true;
+              return;
+            }else{
+              this.fs_ingresosGrupoFamiliar_campo_min=false;
+            }
+        }else{
+          this.fs_ingresosGrupoFamiliar_campo_min=true;
+          return;
+        }
+
+         if(this.fs_ahorros_value!=null){
+             if(this.fs_ahorros_value<=0){
+               this.fs_ahorros_campo_min=true;
+               return;
+             }else{
+               this.fs_ahorros_campo_min=false;
+             }
+         }else{
+           this.fs_ahorros_campo_min=true;
+           return;
+         }
+
+
+         if(this.fs_cesantias_value!=null){
+             if(this.fs_cesantias_value<=0){
+               this.fs_cesantias_campo_min=true;
+               return;
+             }else{
+               this.fs_cesantias_campo_min=false;
+             }
+         }else{
+           this.fs_cesantias_campo_min=true;
+           return;
+         }
+
+
+
+
         // stop here if form is invalid
         if (this.regFormPaso2.invalid) {
             this.hidden_paso1 = true;
@@ -757,9 +853,12 @@ export class Cotizador_personalComponent implements OnInit {
     }
 
 
-        onSubimit_nuevaCotizacion(){
-          if(this.tokenValido){ window.location.href = CONFIG.url_usuario_final+"#/cotizador"; console.log("asdfasdf")}
-          else{ window.location.href = CONFIG.url_usuario_final;}
+        onSubimit_nuevaCotizacion(event: any) {
+          if(this.tokenValido){
+            window.location.reload();
+           }
+          else{
+             window.location.reload();}
         }
 
 
