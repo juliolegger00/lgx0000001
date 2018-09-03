@@ -41,6 +41,8 @@ import {
 export class Cotizador_personalComponent implements OnInit {
 
 
+    direccion_usuario_final="http://localhost:4200/";
+
     id_proyecto_via_get = 0;
     id_proyecto_via_validar = false;
 
@@ -52,6 +54,8 @@ export class Cotizador_personalComponent implements OnInit {
     hidden_paso1 = false;
     hidden_paso2 = true;
     hidden_paso3 = true;
+
+    mostrar_info_proyecto = false;
 
     texto_cotizacion_persona: any = {};
     proyecto_vivienda_lista: any = {};
@@ -107,6 +111,12 @@ export class Cotizador_personalComponent implements OnInit {
     imagen_principal = "";
 
     afiliadoColsubsidio_valido=true;
+
+    fs_celular_campo_minlength=false;
+    fs_celular_campo_maxlength=false;
+
+    fs_numeroDocumento_campo_minlength=false;
+    fs_numeroDocumento_campo_maxlength=false;
 
     pdfSrc="";
     //var CONDICIONES DE VENTA
@@ -206,12 +216,12 @@ export class Cotizador_personalComponent implements OnInit {
             fs_como_se_entero_filtro: new FormControl('', Validators.required),
             fs_tipo_documento_campo: new FormControl('', []),
             fs_nombres_campo: new FormControl('', Validators.required),
-            fs_numeroDocumento_campo: new FormControl('', Validators.required),
+            fs_numeroDocumento_campo: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(12)]),
             fs_email_campo: new FormControl('', [Validators.required,
                 Validators.pattern("[^ @]*@[^ @]*")
             ]),
             fs_afiliadoColsubsidio_campo: new FormControl('', Validators.required),
-            fs_celular_campo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.maxLength(10)]),
+            fs_celular_campo:  new FormControl('', Validators.compose( [Validators.required ] ) ),
             fs_abeasdata_campo: new FormControl('', Validators.requiredTrue),
         });
 
@@ -479,10 +489,114 @@ export class Cotizador_personalComponent implements OnInit {
 
     onSubmit_paso3() {}
 
+    onkeyValidarCelular(evt:any){
+        this.submitted1 = true;
+        let fs_celular_campo_t=this.f.fs_celular_campo.value
+        let fs_celular_campo_length=0
+
+        if(fs_celular_campo_t!=null){
+           fs_celular_campo_length=fs_celular_campo_t.toString().length
+        }
+
+        if(fs_celular_campo_length<6){
+          this.fs_celular_campo_minlength=true;
+        }else{
+            this.fs_celular_campo_minlength=false;
+        }
+
+        if(fs_celular_campo_length>10){
+          this.fs_celular_campo_maxlength=true;
+        }else{
+            this.fs_celular_campo_maxlength=false;
+        }
+
+
+        return ;
+    }
+
+
+        onkeyValidarNumeroDocumento(evt:any){
+            this.submitted1 = true;
+            let fs_numeroDocumento_campo_t=this.f.fs_numeroDocumento_campo.value
+            let fs_numeroDocumento_campo_length=0
+
+            if(fs_numeroDocumento_campo_t!=null){
+               fs_numeroDocumento_campo_length=fs_numeroDocumento_campo_t.toString().length
+            }
+
+            if(fs_numeroDocumento_campo_length<1){
+              this.fs_numeroDocumento_campo_minlength=true;
+            }else{
+                this.fs_numeroDocumento_campo_minlength=false;
+            }
+
+            if(fs_numeroDocumento_campo_length>16){
+              this.fs_numeroDocumento_campo_maxlength=true;
+            }else{
+                this.fs_numeroDocumento_campo_maxlength=false;
+            }
+
+
+            return ;
+        }
+
+
+
+
     onSubmit_paso1() {
 
-
         this.submitted1 = true;
+        let fs_celular_campo_t=this.f.fs_celular_campo.value
+        let fs_celular_campo_length=0
+
+        if(fs_celular_campo_t!=null){
+           fs_celular_campo_length=fs_celular_campo_t.toString().length
+        }
+
+
+        if(fs_celular_campo_length<6){
+          this.fs_celular_campo_minlength=true;
+          return;
+        }else{
+            this.fs_celular_campo_minlength=false;
+        }
+
+        if(fs_celular_campo_length>10){
+          this.fs_celular_campo_maxlength=true;
+          return;
+        }else{
+            this.fs_celular_campo_maxlength=false;
+        }
+
+
+
+
+        let fs_numeroDocumento_campo_t=this.f.fs_numeroDocumento_campo.value
+        let fs_numeroDocumento_campo_length=0
+
+        if(fs_numeroDocumento_campo_t!=null){
+           fs_numeroDocumento_campo_length=fs_numeroDocumento_campo_t.toString().length
+        }
+
+        if(fs_numeroDocumento_campo_length<1){
+          this.fs_numeroDocumento_campo_minlength=true;
+          return;
+        }else{
+            this.fs_numeroDocumento_campo_minlength=false;
+        }
+
+        if(fs_numeroDocumento_campo_length>16){
+          this.fs_numeroDocumento_campo_maxlength=true;
+          return;
+        }else{
+            this.fs_numeroDocumento_campo_maxlength=false;
+        }
+
+
+
+
+
+
 
         if (this.id_proyecto_via_get == null) {
             let validar_filtros = false;
@@ -641,6 +755,13 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     }
+
+
+        onSubimit_nuevaCotizacion(){
+          if(this.tokenValido){ window.location.href = CONFIG.url_usuario_final+"#/cotizador"; console.log("asdfasdf")}
+          else{ window.location.href = CONFIG.url_usuario_final;}
+        }
+
 
     onSubmit_regresarpaso2() {
         this.hidden_paso1 = true;
@@ -970,6 +1091,7 @@ export class Cotizador_personalComponent implements OnInit {
                             this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
                             this.addElementToObservableArray_imagenes(data_imagen2);
 
+                            this.mostrar_info_proyecto=true;
 
                         });
                         // buscar info media
@@ -986,9 +1108,10 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
-
         if (this.f.fs_proyectosTamano_filtro.value.length <= 0) {
             this.ListaproyectosTamano_validar = true;
+
+
         } else this.ListaproyectosTamano_validar = false;
 
 
