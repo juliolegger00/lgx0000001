@@ -88,9 +88,9 @@ export class Cotizador_personalComponent implements OnInit {
     images$: Observable < any > = this.images_obsArray.asObservable();
     i_pos_gal_ima = 0;
 
-    fs_ingresosGrupoFamiliar_value: any;
-    fs_ahorros_value: any;
-    fs_cesantias_value: any;
+    fs_ingresosGrupoFamiliar_value: any=0;
+    fs_ahorros_value: any=0;
+    fs_cesantias_value: any=0;
 
     tokenValido = false;
     tokenNameUser: string = "";
@@ -168,12 +168,13 @@ export class Cotizador_personalComponent implements OnInit {
     };
 
     tabla_uvr = {
-        ANOS_20: 7243,
-        ANOS_15: 8518,
-        ANOS_10: 11185,
-        ANOS_5: 19437,
+        ANOS_20: 0,
+        ANOS_15: 0,
+        ANOS_10: 0,
+        ANOS_5: 0,
     };
 
+    tabla_tasainteres=0;
 
 
     //var CONDICIONES DE VENTA
@@ -238,9 +239,9 @@ export class Cotizador_personalComponent implements OnInit {
     public initializeFormularioPaso2() {
 
         this.regFormPaso2 = new FormGroup({
-            fs_ingresosGrupoFamiliar_campo: new FormControl('', [Validators.required, Validators.min(1)]),
-            fs_ahorros_campo: new FormControl('', [Validators.required, Validators.min(1)]),
-            fs_cesantias_campo: new FormControl('', [Validators.required, Validators.min(1)]),
+            fs_ingresosGrupoFamiliar_campo: new FormControl('', [Validators.required ]),
+            fs_ahorros_campo: new FormControl('', [Validators.required ]),
+            fs_cesantias_campo: new FormControl('', [Validators.required]),
 
         });
     } // fin initializeFormulario
@@ -282,7 +283,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
-    get fs() {
+    fs() {
 
         let nombre_tipo_documento: string = "";
         this.data_lst_tipo_documento.forEach((item, index) => {
@@ -301,23 +302,23 @@ export class Cotizador_personalComponent implements OnInit {
             this.ListaproyectosTamano_via_get = this.f.fs_proyectosTamano_filtro.value;
 
         let fs_formulario = {
-            "fs_ciudad_filtro": this.ListaCiudades_via_get,
-            "fs_proyecto_filtro": this.ListaProyectos_via_get,
-            "fs_proyectosTamano_filtro": this.ListaproyectosTamano_via_get,
-            "fs_como_se_entero_filtro": this.f.fs_como_se_entero_filtro.value,
-            "fs_tipo_documento_campo": this.f.fs_tipo_documento_campo.value,
-            "fs_nombre_documento_campo": nombre_tipo_documento,
-            "fs_numeroDocumento_campo": this.f.fs_numeroDocumento_campo.value,
-            "fs_nombres_campo": this.f.fs_nombres_campo.value,
-            "fs_email_campo": this.f.fs_email_campo.value,
-            "fs_afiliadoColsubsidio_campo": this.f.fs_afiliadoColsubsidio_campo.value,
-            "fs_celular_campo": this.f.fs_celular_campo.value,
-            "fs_abeasdata_campo": this.f.fs_abeasdata_campo.value,
-            "proyecto_vivienda_seleccionado": this.proyecto_vivienda_seleccionado.proyecto,
+            fs_ciudad_filtro: this.ListaCiudades_via_get,
+            fs_proyecto_filtro: this.ListaProyectos_via_get,
+            fs_proyectosTamano_filtro: this.ListaproyectosTamano_via_get,
+            fs_como_se_entero_filtro: this.f.fs_como_se_entero_filtro.value,
+            fs_tipo_documento_campo: this.f.fs_tipo_documento_campo.value,
+            fs_nombre_documento_campo: nombre_tipo_documento,
+            fs_numeroDocumento_campo: this.f.fs_numeroDocumento_campo.value,
+            fs_nombres_campo: this.f.fs_nombres_campo.value,
+            fs_email_campo: this.f.fs_email_campo.value,
+            fs_afiliadoColsubsidio_campo: this.f.fs_afiliadoColsubsidio_campo.value,
+            fs_celular_campo: this.f.fs_celular_campo.value,
+            fs_abeasdata_campo: this.f.fs_abeasdata_campo.value,
+            proyecto_vivienda_seleccionado: this.proyecto_vivienda_seleccionado.proyecto,
             //"texto_cotizacion_persona": this.texto_cotizacion_persona,
-            "fs_ingresosGrupoFamiliar_campo": this.fs_ingresosGrupoFamiliar_value,
-            "fs_ahorros_campo": this.fs_ahorros_value,
-            "fs_cesantias_campo": this.fs_cesantias_value,
+            fs_ingresosGrupoFamiliar_campo: this.fs_ingresosGrupoFamiliar_value,
+            fs_ahorros_campo: this.fs_ahorros_value,
+            fs_cesantias_campo: this.fs_cesantias_value,
         };
 
         return fs_formulario;
@@ -333,7 +334,16 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.spinnerService.show();
         this.http.get(CONFIG.api_texto_cotizacion_persona).pipe(delay(0)).subscribe(data => {
-            this.texto_cotizacion_persona = data;
+
+            let data_tmp: any = {};
+            data_tmp = data;
+            this.texto_cotizacion_persona = data_tmp;
+            this.tabla_uvr.ANOS_5= this.texto_cotizacion_persona.uvr_anos_5;
+            this.tabla_uvr.ANOS_10= this.texto_cotizacion_persona.uvr_anos_10;
+            this.tabla_uvr.ANOS_15= this.texto_cotizacion_persona.uvr_anos_15;
+            this.tabla_uvr.ANOS_20= this.texto_cotizacion_persona.uvr_anos_20;
+            this.tabla_tasainteres=parseInt(this.texto_cotizacion_persona.tasainteres);
+
         });
 
         this.spinnerService.show();
@@ -502,7 +512,7 @@ export class Cotizador_personalComponent implements OnInit {
            fs_celular_campo_length=fs_celular_campo_t.toString().length
         }
 
-        if(fs_celular_campo_length<6){
+        if(fs_celular_campo_length<10){
           this.fs_celular_campo_minlength=true;
         }else{
             this.fs_celular_campo_minlength=false;
@@ -528,13 +538,13 @@ export class Cotizador_personalComponent implements OnInit {
                fs_numeroDocumento_campo_length=fs_numeroDocumento_campo_t.toString().length
             }
 
-            if(fs_numeroDocumento_campo_length<1){
+            if(fs_numeroDocumento_campo_length<5){
               this.fs_numeroDocumento_campo_minlength=true;
             }else{
                 this.fs_numeroDocumento_campo_minlength=false;
             }
 
-            if(fs_numeroDocumento_campo_length>16){
+            if(fs_numeroDocumento_campo_length>10){
               this.fs_numeroDocumento_campo_maxlength=true;
             }else{
                 this.fs_numeroDocumento_campo_maxlength=false;
@@ -558,7 +568,7 @@ export class Cotizador_personalComponent implements OnInit {
         }
 
 
-        if(fs_celular_campo_length<6){
+        if(fs_celular_campo_length<10){
           this.fs_celular_campo_minlength=true;
           return;
         }else{
@@ -582,14 +592,14 @@ export class Cotizador_personalComponent implements OnInit {
            fs_numeroDocumento_campo_length=fs_numeroDocumento_campo_t.toString().length
         }
 
-        if(fs_numeroDocumento_campo_length<1){
+        if(fs_numeroDocumento_campo_length<5){
           this.fs_numeroDocumento_campo_minlength=true;
           return;
         }else{
             this.fs_numeroDocumento_campo_minlength=false;
         }
 
-        if(fs_numeroDocumento_campo_length>16){
+        if(fs_numeroDocumento_campo_length>10){
           this.fs_numeroDocumento_campo_maxlength=true;
           return;
         }else{
@@ -661,10 +671,10 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     onkeyValidaringresosGrupoFamiliar(evt:any){
-      this.submitted2 = true; 
+      this.submitted2 = true;
 
       if(this.fs_ingresosGrupoFamiliar_value!=null){
-          if(this.fs_ingresosGrupoFamiliar_value<=0){
+          if(this.fs_ingresosGrupoFamiliar_value<0){
             this.fs_ingresosGrupoFamiliar_campo_min=true;
 
           }else{
@@ -679,7 +689,7 @@ export class Cotizador_personalComponent implements OnInit {
     onkeyValidarahorros(evt:any){
         this.submitted2 = true;
         if(this.fs_ahorros_value!=null){
-            if(this.fs_ahorros_value<=0){
+            if(this.fs_ahorros_value<0){
               this.fs_ahorros_campo_min=true;
 
             }else{
@@ -695,7 +705,7 @@ export class Cotizador_personalComponent implements OnInit {
         this.submitted2 = true;
 
                  if(this.fs_cesantias_value!=null){
-                     if(this.fs_cesantias_value<=0){
+                     if(this.fs_cesantias_value<0){
                        this.fs_cesantias_campo_min=true;
 
                      }else{
@@ -715,7 +725,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
         if(this.fs_ingresosGrupoFamiliar_value!=null){
-            if(this.fs_ingresosGrupoFamiliar_value<=0){
+            if(this.fs_ingresosGrupoFamiliar_value<0){
               this.fs_ingresosGrupoFamiliar_campo_min=true;
               return;
             }else{
@@ -727,7 +737,7 @@ export class Cotizador_personalComponent implements OnInit {
         }
 
          if(this.fs_ahorros_value!=null){
-             if(this.fs_ahorros_value<=0){
+             if(this.fs_ahorros_value<0){
                this.fs_ahorros_campo_min=true;
                return;
              }else{
@@ -740,7 +750,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
          if(this.fs_cesantias_value!=null){
-             if(this.fs_cesantias_value<=0){
+             if(this.fs_cesantias_value<0){
                this.fs_cesantias_campo_min=true;
                return;
              }else{
@@ -872,6 +882,9 @@ export class Cotizador_personalComponent implements OnInit {
 
     public crear_calculos_paso3_conacabados() {
 
+       let tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
+       if(tmpValorInmueble>0){
+
         this.condiciones_venta.conacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.conacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.conacabados.ahorros = this.fs_ahorros_value;
@@ -935,7 +948,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         let fv = 0;
         let pv = -1 * (this.condiciones_venta.conacabados.creditorequerido);
-        let rate = 0.011;
+        let rate = (this.tabla_tasainteres/100);//0.011;
         let nper = 12 * 10; //años
         let type = 1;
 
@@ -950,7 +963,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         fv = 0;
         pv = -1 * (this.condiciones_venta.conacabados.creditorequerido);
-        rate = 0.011;
+        rate = (this.tabla_tasainteres/100);//0.011;
         nper = 12 * 15; //años
         type = 1;
 
@@ -965,7 +978,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         fv = 0;
         pv = -1 * (this.condiciones_venta.conacabados.creditorequerido);
-        rate = 0.011;
+        rate = (this.tabla_tasainteres/100);//0.011;
         nper = 12 * 20; //años
         type = 1;
 
@@ -976,12 +989,16 @@ export class Cotizador_personalComponent implements OnInit {
 
         //cuotapesos_20
 
+      }//tmpValorInmueble>0
     }
 
 
 
 
     public crear_calculos_paso3_sinacabados() {
+
+      let tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
+      if(tmpValorInmueble>0){
 
         this.condiciones_venta.sinacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
@@ -1045,7 +1062,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         let fv = 0;
         let pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
-        let rate = 0.011;
+        let rate = (this.tabla_tasainteres/100);//0.011;
         let nper = 12 * 10; //años
         let type = 1;
 
@@ -1060,7 +1077,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         fv = 0;
         pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
-        rate = 0.011;
+        rate = (this.tabla_tasainteres/100);//0.011;
         nper = 12 * 15; //años
         type = 1;
 
@@ -1075,7 +1092,7 @@ export class Cotizador_personalComponent implements OnInit {
 
         fv = 0;
         pv = -1 * (this.condiciones_venta.sinacabados.creditorequerido);
-        rate = 0.011;
+        rate = (this.tabla_tasainteres/100);//0.011;
         nper = 12 * 20; //años
         type = 1;
 
@@ -1087,7 +1104,7 @@ export class Cotizador_personalComponent implements OnInit {
         //cuotapesos_20
 
 
-
+      }//tmpValorInmueble>0
 
     }
 
@@ -1145,62 +1162,8 @@ export class Cotizador_personalComponent implements OnInit {
                 (this.f.fs_proyecto_filtro.value.indexOf(this.proyecto_vivienda_lista[i].proyecto) > -1) &&
                 (this.f.fs_proyectosTamano_filtro.value.indexOf(this.proyecto_vivienda_lista[i].area_construida) > -1)
             ) {
-                this.proyecto_vivienda_seleccionado = this.proyecto_vivienda_lista[i];
-
-                ///cargar galeria_imagenes
-                if (this.proyecto_vivienda_seleccionado.id > 0) {
-                    this.removeRoomAll_galeria_imagenes_lista();
-                    this.removeRoomAll_imagenes_lista();
-
-                    let galeria_ima: any = [
-                        this.proyecto_vivienda_seleccionado.galeria_1,
-                        this.proyecto_vivienda_seleccionado.galeria_2,
-                        this.proyecto_vivienda_seleccionado.galeria_3,
-                        this.proyecto_vivienda_seleccionado.galeria_4,
-                        this.proyecto_vivienda_seleccionado.galeria_5
-                    ]
-
-
-                    for (var _i = 0; _i < galeria_ima.length; _i++) {
-                        let item = galeria_ima[_i];
-
-                        this.http.get(CONFIG.api_lista_media + item + "/").pipe(delay(0)).subscribe(data00 => {
-
-
-                            let data_lst00: any = {};
-                            data_lst00 = data00;
-
-                            let data_imagen: any = {
-                                "id": data_lst00.id,
-                                "dir_imagen": data_lst00.guid.rendered,
-                                "leyenda": data_lst00.caption.rendered,
-                                "alt_text": data_lst00.alt_text,
-                            };
-
-                            let data_imagen2: any = {}
-                            /*new Image(
-                                                               this.i_pos_gal_ima,
-                                                               { // modal
-                                                                 img:  data_lst00.guid.rendered,
-                                                                 extUrl: data_lst00.guid.rendered,
-                                                               }
-                                                             );*/
-                            this.i_pos_gal_ima++;
-
-                            this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
-                            this.addElementToObservableArray_imagenes(data_imagen2);
-
-                            this.mostrar_info_proyecto=true;
-
-                        });
-                        // buscar info media
-                    } // for lista de images
-
-
-                }
-                ///cargar galeria_imagenes
-
-            }
+                this.cargarProyectoSeleccionado(this.proyecto_vivienda_lista[i]);
+            }//proyecto seleeionado
         }
 
         this.spinnerService.hide();
@@ -1209,14 +1172,73 @@ export class Cotizador_personalComponent implements OnInit {
 
         if (this.f.fs_proyectosTamano_filtro.value.length <= 0) {
             this.ListaproyectosTamano_validar = true;
-
-
         } else this.ListaproyectosTamano_validar = false;
 
 
 
 
     } //onSeleccion_proyectosTamano_lista
+
+
+
+    public cargarProyectoSeleccionado(_param_proyectoseleccionado:any){
+
+      this.proyecto_vivienda_seleccionado = _param_proyectoseleccionado;
+
+      ///cargar galeria_imagenes
+      if (this.proyecto_vivienda_seleccionado.id > 0) {
+          this.removeRoomAll_galeria_imagenes_lista();
+          this.removeRoomAll_imagenes_lista();
+
+          let galeria_ima: any = [
+              this.proyecto_vivienda_seleccionado.galeria_1,
+              this.proyecto_vivienda_seleccionado.galeria_2,
+              this.proyecto_vivienda_seleccionado.galeria_3,
+              this.proyecto_vivienda_seleccionado.galeria_4,
+              this.proyecto_vivienda_seleccionado.galeria_5
+          ]
+
+
+          for (var _i = 0; _i < galeria_ima.length; _i++) {
+              let item = galeria_ima[_i];
+
+              this.http.get(CONFIG.api_lista_media + item + "/").pipe(delay(0)).subscribe(data00 => {
+
+
+                  let data_lst00: any = {};
+                  data_lst00 = data00;
+
+                  let data_imagen: any = {
+                      "id": data_lst00.id,
+                      "dir_imagen": data_lst00.guid.rendered,
+                      "leyenda": data_lst00.caption.rendered,
+                      "alt_text": data_lst00.alt_text,
+                  };
+
+                  let data_imagen2: any = {}
+                  /*new Image(
+                                                     this.i_pos_gal_ima,
+                                                     { // modal
+                                                       img:  data_lst00.guid.rendered,
+                                                       extUrl: data_lst00.guid.rendered,
+                                                     }
+                                                   );*/
+                  this.i_pos_gal_ima++;
+
+                  this.addElementToObservableArray_galeria_imagenes_lista(data_imagen);
+                  this.addElementToObservableArray_imagenes(data_imagen2);
+
+                  this.mostrar_info_proyecto=true;
+
+              });
+              // buscar info media
+          } // for lista de images
+
+
+      }
+      ///cargar galeria_imagenes
+
+    }//cargarProyectoSeleccionado
 
     public getListaproyectosTamano() {
 
@@ -1225,12 +1247,20 @@ export class Cotizador_personalComponent implements OnInit {
         let i = 0;
         let i0 = 0;
 
+        let tamaSeleccion="";
+
         for (i = 0; i < this.proyecto_vivienda_lista.length; i++) {
 
             if (
                 (this.f.fs_ciudad_filtro.value.indexOf(this.proyecto_vivienda_lista[i].ubicacion) > -1) &&
                 (this.f.fs_proyecto_filtro.value.indexOf(this.proyecto_vivienda_lista[i].proyecto) > -1)
             ) {
+
+                if(i==0){//primer tamaña
+                  this.cargarProyectoSeleccionado(this.proyecto_vivienda_lista[i]);
+                  tamaSeleccion=this.proyecto_vivienda_lista[i].area_construida;
+                }
+
                 temp_proyectosTamano_lista0.push(this.proyecto_vivienda_lista[i].area_construida);
                 i0++;
             }
@@ -1244,8 +1274,21 @@ export class Cotizador_personalComponent implements OnInit {
 
         //this.addElementToObservableArray_proyectosTamano_lista("Selecciona");
         for (i = 0; i < temp_proyectosTamano_lista1.length; i++) {
-            this.addElementToObservableArray_proyectosTamano_lista(temp_proyectosTamano_lista1[i]);
+          this.addElementToObservableArray_proyectosTamano_lista(temp_proyectosTamano_lista1[i]);
         }
+
+
+
+        //seleecionar primer addElementToObservableArray_imagenes
+        this.f.fs_proyectosTamano_filtro.setValue(tamaSeleccion);
+
+
+
+
+
+
+
+
     } //getListaproyectosTamano
 
     public getListaCiudades() {

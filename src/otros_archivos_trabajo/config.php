@@ -398,7 +398,7 @@ function twentyseventeen_colors_css_wrap() {
 	require_once( get_parent_theme_file_path( '/inc/color-patterns.php' ) );
 	$hue = absint( get_theme_mod( 'colorscheme_hue', 250 ) );
 ?>
-<style type="text/css" id="custom-theme-colors" <?php if ( is_customize_preview() ) { echo 'data-hue="' . $hue . '"'; } ?>
+<style type="text/css" id="custom-theme-colors" <?php if ( is_customize_preview() ) { echo 'data-hue="' . $hue . '"' ; } ?>
     ><?php echo twentyseventeen_custom_colors_css();
     ?>
 </style>
@@ -1832,13 +1832,68 @@ function register_custom_fields_info_texto_vivienda()
         )
     );
 
-
     register_rest_field(
         'info_texto_vivienda','tituloNombresApellidos',
         array(
             'get_callback' => 'show_fields'
         )
     );
+
+    register_rest_field(
+        'info_texto_vivienda','asesorvirtual',
+        array(
+            'get_callback' => 'show_fields'
+        )
+    );
+
+		register_rest_field(
+				'info_texto_vivienda','tasainteres',
+				array(
+						'get_callback' => 'show_fields'
+				)
+		);
+
+		register_rest_field(
+				'info_texto_vivienda','uvr_anos_5',
+				array(
+						'get_callback' => 'show_fields'
+				)
+		);
+
+			register_rest_field(
+					'info_texto_vivienda','uvr_anos_10',
+					array(
+							'get_callback' => 'show_fields'
+					)
+			);
+
+			register_rest_field(
+					'info_texto_vivienda','uvr_anos_15',
+					array(
+							'get_callback' => 'show_fields'
+					)
+			);
+
+			register_rest_field(
+					'info_texto_vivienda','uvr_anos_20',
+					array(
+							'get_callback' => 'show_fields'
+					)
+			);
+
+			register_rest_field(
+					'info_texto_vivienda','texto_legales',
+					array(
+							'get_callback' => 'show_fields'
+					)
+			);
+
+			register_rest_field(
+					'info_texto_vivienda','texto_doc_requeridos',
+					array(
+							'get_callback' => 'show_fields'
+					)
+			);
 
 
 
@@ -2283,7 +2338,129 @@ if(function_exists("register_field_group"))
 				'append' => '',
 				'formatting' => 'html',
 				'maxlength' => '',
-			)
+			),
+
+
+
+
+			array (
+				'key' => 'field_16057',
+				'label' => 'asesorvirtual',
+				'name' => 'asesorvirtual',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+
+
+			array (
+				'key' => 'field_40652',
+				'label' => 'tasainteres',
+				'name' => 'tasainteres',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+
+
+
+			array (
+				'key' => 'field_27243',
+				'label' => 'uvr_anos_5',
+				'name' => 'uvr_anos_5',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+
+			array (
+				'key' => 'field_39598',
+				'label' => 'uvr_anos_10',
+				'name' => 'uvr_anos_10',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+
+
+				array (
+					'key' => 'field_64740',
+					'label' => 'uvr_anos_15',
+					'name' => 'uvr_anos_15',
+					'type' => 'text',
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'formatting' => 'html',
+					'maxlength' => '',
+				),
+
+
+				array (
+					'key' => 'field_90701',
+					'label' => 'uvr_anos_20',
+					'name' => 'uvr_anos_20',
+					'type' => 'text',
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'formatting' => 'html',
+					'maxlength' => '',
+				),
+
+
+
+
+				array (
+					'key' => 'field_6962',
+					'label' => 'texto_legales',
+					'name' => 'texto_legales',
+					'type' => 'textarea',
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'formatting' => 'html',
+					'maxlength' => '',
+				),
+
+
+
+				array (
+					'key' => 'field_31640',
+					'label' => 'texto_doc_requeridos',
+					'name' => 'texto_doc_requeridos',
+					'type' => 'textarea',
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'formatting' => 'html',
+					'maxlength' => '',
+				)
+
+
 
 
 
@@ -2489,6 +2666,7 @@ if(function_exists("register_field_group"))
 
 
 
+
 //////////funciones especializadas
 
 add_action( 'rest_api_init', function () {
@@ -2500,11 +2678,12 @@ add_action( 'rest_api_init', function () {
 
 
 function lg_add_cotizacion_persona( WP_REST_Request $request ) {
+	date_default_timezone_set("America/Bogota");
 	$parameters = $request->get_body_params();//post y json
 	//$manage = json_decode($parameters["json"]);
 	//print_r($manage);
 
-	global $wpdb; 
+	global $wpdb;
 
 	$table_name = $wpdb->prefix . 'cotizaciones_personales';
 
@@ -2549,6 +2728,7 @@ function my_awesome_func( WP_REST_Request $request ) {
 
 
 ///////////funciones especializadas
+
 
 
 

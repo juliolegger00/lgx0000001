@@ -51,7 +51,7 @@
 
 <!-- paso 1 -->
 <div [hidden]="hidden_paso1">
-<form   (ngSubmit)="onSubmit_paso1()" autocomplete="off" >
+<form   (ngSubmit)="onSubmit_paso1()" autocomplete="on" >
 <div class="container seccion_titulos">
   <div class="ingreso center-block" style="padding:30px;">
     <div class="row pasos">
@@ -116,7 +116,7 @@
           (ngModelChange)="onSeleccion_proyectosTamano_lista()"
           class="form-control"
           [ngClass]="{ 'is-invalid': submitted1 && ListaproyectosTamano_validar }">
-              <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 0">
+              <option *ngFor="let proyectosTamano of (fs_proyectosTamano_lista$ | async); let i = index" [value]="proyectosTamano" [selected]="i == 1">
                 {{proyectosTamano}}
               </option>
           </select>
@@ -215,8 +215,8 @@
               </div>
 
           <div *ngIf="submitted1 && (fs_numeroDocumento_campo_minlength || fs_numeroDocumento_campo_maxlength)" class="invalid-feedback">
-             <div *ngIf="fs_numeroDocumento_campo_minlength">minimo 1 caracteres</div>
-             <div *ngIf="fs_numeroDocumento_campo_maxlength">maximo 16 caracteres</div>
+             <div *ngIf="fs_numeroDocumento_campo_minlength">minimo 5 caracteres</div>
+             <div *ngIf="fs_numeroDocumento_campo_maxlength">maximo 10 caracteres</div>
           </div>
 
 
@@ -273,7 +273,7 @@
               </div>
 
               <div *ngIf="submitted1 && (fs_celular_campo_minlength || fs_celular_campo_maxlength)" class="invalid-feedback">
-                 <div *ngIf="fs_celular_campo_minlength">minimo 6 caracteres</div>
+                 <div *ngIf="fs_celular_campo_minlength">minimo 10 caracteres</div>
                  <div *ngIf="fs_celular_campo_maxlength">maximo 10 caracteres</div>
               </div>
         </div>
@@ -358,7 +358,7 @@
 
 <!-- paso 2 -->
     <div [hidden]="hidden_paso2">
-        <form (ngSubmit)="onSubmit_paso2()" autocomplete="off">
+        <form (ngSubmit)="onSubmit_paso2()" autocomplete="on">
             <div class="container seccion_titulos">
 
                 <div class="ingreso center-block info_pasada">
@@ -588,7 +588,7 @@
 
     <!-- paso 3 -->
 <div [hidden]="hidden_paso3">
-<form   (ngSubmit)="onSubmit_paso3()" autocomplete="off">
+<form   (ngSubmit)="onSubmit_paso3()" autocomplete="on">
 <div class="container seccion_titulos" >
   <div class="ingreso center-block info_pasada"  >
     <br />
@@ -916,18 +916,8 @@
           <li class="list-group-item">
               <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12">
-                      <p> <strong>Términos y condiciones</strong></p>
-                      <ul style="padding-left:10px; text-align:left;">
-                          <li>Esta cotización es válida por 8 días y sujeta a disponibilidad en el momento de entregar la documentación requerida.</li>
-                          <li>La cuota del crédito hipotecario está sujeta a la tasa que esté vigente en la entidad a la fecha del desembolso.</li>
-                          <li>Crédito Colsubsidio: Si eres afiliado categoría A o B, pregunta por nuestro Crédito Hipotecario, línea Tu hogar soñado.</li>
-                          <li>El comprador no debe estar reportado negativamente en centrales de riesgo y debe mantener su capacidad de endeudamiento hasta el desembolso del crédito.</li>
-                          <li>Los precios podrán ser modificados sin previo aviso, antes de la separación del inmueble.</li>
-                          <li>El plazo para la cuota inicial no está asociado a la fecha de entrega.</li>
-                          <li>El proyecto podrá ser desarrollado por etapas y ajustadas o modificadas por el Constructor, cumpliendo con las normas establecidas por las autoridades competentes.</li>
-                          <li>Las características técnicas de los inmuebles estarán indicadas en el documento Especificaciones Técnicas y Acabados, podrán ser consultadas en la sala de ventas. Éste documento es entregado en el momento de la promesa de compraventa.</li>
-                          <li>En el valor del inmueble no están incluidos los gastos de escrituración, registro ni estudio de títulos, avaluos o gastos por intereses de liquidación de crédito.</li>
-                      </ul>
+                       {{texto_cotizacion_persona.texto_legales}}
+                        {{texto_cotizacion_persona.texto_doc_requeridos}}
                   </div>
               </div>
           </li>
@@ -942,12 +932,12 @@
             </div>
             <div class="row">
               <div class="col-xl-4 col-sm-4 col-md-4 col-lg-4">
-                <strong>Asesor virtual</strong><br />
+                <strong>Asesor </strong><br />
                 <ng-container *ngIf="tokenValido">
                   {{tokenNameUser}}
                 </ng-container>
                 <ng-container *ngIf="!tokenValido">
-                  Página web
+                  {{texto_cotizacion_persona.asesorvirtual}}
                 </ng-container>
               </div>
               <div class="col-xl-4 col-sm-4 col-md-4 col-lg-4">
@@ -981,7 +971,7 @@
                   <div class="button-wrapper">
 
                     <button (click)="onSubimit_nuevaCotizacion($event)" class="form-btn" type="button">
-                      <span class="text"> Agregar nueva cotización  </span>
+                      <span class="text"> Nueva cotización </span>
                     </button>
 
 
@@ -1003,7 +993,7 @@
               <div class="form-group  paddin40">
                   <div class="button-wrapper">
                       <button (click)="guardar_paso_3($event)" class="form-btn" type="button">
-                        <span class="text">Guardar y descargar Paso 3</span>
+                        <span class="text">Guardar y descargar</span>
                       </button>
                   </div>
               </div>
