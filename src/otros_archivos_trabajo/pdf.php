@@ -5,6 +5,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 date_default_timezone_set('America/Bogota');
 header("Content-Type: text/html;charset=utf-8");
 
+$_id_=$_GET["id"];
 
 
 /*conn mysql*/
@@ -18,7 +19,7 @@ header("Content-Type: text/html;charset=utf-8");
 		    mysqli_query($con, "SET NAMES 'utf8'");
 		    mysqli_set_charset( $con, 'utf8');
 
-	$result = mysqli_query($con,"SELECT * FROM wp_cotizaciones_personales where id='53' limit 0,1")
+	$result = mysqli_query($con,"SELECT * FROM wp_cotizaciones_personales where id='".$_id_."' limit 0,1")
 		or die('Cannot info: ' .mysqli_error($con));
 
 	$row = mysqli_fetch_assoc($result);
@@ -34,6 +35,10 @@ header("Content-Type: text/html;charset=utf-8");
 	//proyecto_vivienda_seleccionado_inventarioproyecto
 	//proyecto_vivienda_seleccionado_valorproyecto
 	//proyecto_vivienda_seleccionado_imagen
+  //proyecto_vivienda_seleccionado_areaconstruida
+  //proyecto_vivienda_seleccionado_areaprivada
+  //proyecto_vivienda_cuotainicial_porcentaje
+	//asi se trae la imagen del proyecto $array_formulario["proyecto_vivienda_seleccionado_imagen"]
 	$array_formulario = (array)$json_cotizacion->formulario;
 
 	//user_email	user_nicename	user_display_name
@@ -57,12 +62,16 @@ header("Content-Type: text/html;charset=utf-8");
 	$fecha="Bogotá D.C., ".date('l, d M Y');
 	$senores= "";
 	$persona= "";
-	$cedula= "".$_POST['Documento'];
+	$cedula= "".$array_formulario["fs_numeroDocumento_campo"];
 	$ciudad= "";
-	$asunto= "<strong>Asunto: Respuesta a PQR </strong>".$_POST['NumeroPQR'];
+	$asunto= "<strong>Asunto: Respuesta a PQR </strong>".$_id_;
 	$numero_pqr="";
 	$encabezado="Respetados Señores:";
-	$cuerpo="Reciba un cordial saludo. En respuesta a su requerimiento recibido el ".$_POST['FechaCreacionCaso'].", mediante el cual solicita el pago de la cuota a favor de su trabajadora ----- identificada con CC. ".$_POST['Documento'].".";
+
+	$cuerpo="Reciba un cordial saludo. En respuesta a su requerimiento recibido el ".
+          $fecha.", mediante el cual solicita el pago de la cuota a favor de su trabajadora ----- identificada con CC. ".
+          $array_formulario["fs_numeroDocumento_campo"].".";
+
 	$respuesta="Por lo anterior nos permitimos detallar la respuesta así:"."<br />";
 	$descripcion="".$_POST['CampoRespuesta'];
 	$respuesta2=$_POST['CampoRespuesta'];
@@ -70,7 +79,7 @@ header("Content-Type: text/html;charset=utf-8");
 	$fin_pagina="Cordialmente,<br /><br />
 				Coordinación de Servicio al Cliente Corporativo";
 
-$_pagina_pqr="
+$_pagina_coti="
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -92,7 +101,7 @@ $_pagina_pqr="
 					top: 10px;
 				}
 				.proyecto{
-					
+
 					background-color: #fff;
 					background-repeat: no-repeat;
 					background-size:contain;
@@ -114,8 +123,8 @@ $_pagina_pqr="
 				<p>".$array_formulario["proyecto_vivienda_seleccionado_inventarioproyecto"]."</p>
 			</div>
 			<div>Valor del proyectos $".$array_formulario["proyecto_vivienda_seleccionado_valorproyecto"]."</div>
-			<div>Área Construida 43,50 metros</div>
-			<div>Área Privada 35,50 metros</div>
+			<div>Área Construida ".$array_formulario["proyecto_vivienda_seleccionado_areaconstruida"]."</div>
+			<div>Área Privada ".$array_formulario["proyecto_vivienda_seleccionado_areaprivada"]."</div>
 
 
 			<table cellpadding='0' cellspacing='0' style='max-width:600px; margin:auto;' width='100%'>
@@ -135,7 +144,7 @@ $_pagina_pqr="
 			  </tr>
 			  <tr>
 				<td><div style='float: left;display: inline-block'> Cuota inicial &nbsp;</div>
-				  <div style='float: left;display: inline-block'><strong>30</strong></div>
+				  <div style='float: left;display: inline-block'><strong>".$array_formulario["proyecto_vivienda_cuotainicial_porcentaje"]."</strong></div>
 				  <div style='float: left;display: inline-block'><strong> % </strong></div></td>
 				<td class='text-right' colspan='2'>$ ".$array_sinacabados["cuotainicial"]."</td>
 				<td class='text-right' colspan='2'>$ ".$array_conacabados["cuotainicial"]."</td>
@@ -237,15 +246,15 @@ $_pagina_pqr="
 
     //ob_start();
     //include dirname(__FILE__).'/res/bookmark.php';
-    //$content = ob_get_clean(); 
-    
+    //$content = ob_get_clean();
+
 require __DIR__.'/vendor/autoload.php';
 
 use Spipu\Html2Pdf\Html2Pdf;
 
 $html2pdf = new Html2Pdf();
-$html2pdf->writeHTML($_pagina_pqr);
+$html2pdf->writeHTML($_pagina_coti);
 $html2pdf->output();
-  
+
 
 ?>
