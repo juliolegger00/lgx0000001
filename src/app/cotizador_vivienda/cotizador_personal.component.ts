@@ -124,6 +124,8 @@ export class Cotizador_personalComponent implements OnInit {
 
     proyecto_image_pdf="";
 
+    pdfIdGenerado="";
+
 
     pdfSrc="";
     //var CONDICIONES DE VENTA
@@ -830,7 +832,8 @@ export class Cotizador_personalComponent implements OnInit {
 
           let data_lst: any = {};
           data_lst = data;
-          console.log(data_lst);
+          this.pdfIdGenerado=data_lst;
+          console.log(this.pdfIdGenerado);
 
           this.spinnerService.hide();
 
@@ -1358,9 +1361,11 @@ export class Cotizador_personalComponent implements OnInit {
     } // fin metodo getListaCiudades
 
 
-
-
     public downloadPDF() {
+      window.open("http://192.168.102.10/vivienda_pdf/pdf.php?id="+this.pdfIdGenerado, '_blank');
+    }
+
+    public downloadPDFviejo() {
 
       this.spinnerService.show();
         var data = document.getElementById('contentok');

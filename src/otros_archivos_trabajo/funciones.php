@@ -2697,7 +2697,7 @@ function lg_add_cotizacion_persona( WP_REST_Request $request ) {
 	);
 
 
-	return "ok";
+	return $wpdb->insert_id;;
 }
 
 //ejemplo
