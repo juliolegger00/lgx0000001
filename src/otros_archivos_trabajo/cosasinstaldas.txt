@@ -93,3 +93,24 @@ https://colsubsidio00.appspot.com/#/
 https://colsubsidio00.appspot.com/#/proyecto/118
 https://colsubsidio00.appspot.com/#/login
 https://colsubsidio00.appspot.com/#/cotizador
+
+
+
+
+
+
+
+
+https://html2pdf.fr/es/home
+https://github.com/spipu/html2pdf/tree/master/examples
+instalando lib pdf
+$ curl -sS https://getcomposer.org/installer | php
+$ mv composer.phar /usr/local/bin/composer
+$ chmod +x /usr/local/bin/composer
+$ composer -V
+Composer version 1.5.2 2017-09-11 16:59:25
+
+$ composer config -g repo.packagist composer https://packagist.phpcomposer.com
+$ composer require spipu/html2pdf
+
+

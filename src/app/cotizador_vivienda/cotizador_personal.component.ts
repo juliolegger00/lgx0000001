@@ -122,6 +122,9 @@ export class Cotizador_personalComponent implements OnInit {
     fs_ahorros_campo_min=false;
     fs_cesantias_campo_min=false;
 
+    proyecto_image_pdf="";
+
+
     pdfSrc="";
     //var CONDICIONES DE VENTA
 
@@ -283,7 +286,7 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
-    fs() {
+    get fs() {
 
         let nombre_tipo_documento: string = "";
         this.data_lst_tipo_documento.forEach((item, index) => {
@@ -315,6 +318,9 @@ export class Cotizador_personalComponent implements OnInit {
             fs_celular_campo: this.f.fs_celular_campo.value,
             fs_abeasdata_campo: this.f.fs_abeasdata_campo.value,
             proyecto_vivienda_seleccionado: this.proyecto_vivienda_seleccionado.proyecto,
+            proyecto_vivienda_seleccionado_inventarioproyecto: this.proyecto_vivienda_seleccionado.InventarioProyecto,
+            proyecto_vivienda_seleccionado_valorproyecto: this.proyecto_vivienda_seleccionado.valorProyecto,
+            proyecto_vivienda_seleccionado_imagen: this.proyecto_image_pdf,
             //"texto_cotizacion_persona": this.texto_cotizacion_persona,
             fs_ingresosGrupoFamiliar_campo: this.fs_ingresosGrupoFamiliar_value,
             fs_ahorros_campo: this.fs_ahorros_value,
@@ -432,6 +438,7 @@ export class Cotizador_personalComponent implements OnInit {
 
                         if (data_lst00.alt_text == "principal") {
                             this.imagen_principal = data_lst00.guid.rendered;
+                            this.proyecto_image_pdf = data_lst00.guid.rendered;
                         }
                         let data_imagen: any = {
                             "id": data_lst00.id,
