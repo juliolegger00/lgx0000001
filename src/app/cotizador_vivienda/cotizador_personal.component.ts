@@ -799,9 +799,9 @@ export class Cotizador_personalComponent implements OnInit {
           if(!this.tokenValido){
             this.guardar_paso_3(ev);
 
-             setTimeout(() => {
-                this.downloadPDF() ;
-             }, 5000);
+            // setTimeout(() => {
+            //    this.downloadPDF() ;
+            // }, 5000);
           }
 
         ////////test add///
