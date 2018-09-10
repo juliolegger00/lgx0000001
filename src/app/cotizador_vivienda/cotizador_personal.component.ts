@@ -182,6 +182,8 @@ export class Cotizador_personalComponent implements OnInit {
     tabla_tasainteres=0;
 
 
+    texto_legales_sb="";
+
     //var CONDICIONES DE VENTA
 
 
@@ -330,6 +332,12 @@ export class Cotizador_personalComponent implements OnInit {
             fs_ingresosGrupoFamiliar_campo: this.fs_ingresosGrupoFamiliar_value,
             fs_ahorros_campo: this.fs_ahorros_value,
             fs_cesantias_campo: this.fs_cesantias_value,
+            fecha_escrituras_probable: this.proyecto_vivienda_seleccionado.fecha_escrituras_probable,
+            trimestre_entrega: this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion,
+            vr_gastos_escrituracion: this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion,
+            vr_administracion: this.proyecto_vivienda_seleccionado.vr_administracion,
+            proyecto_vivienda_telefono: this.proyecto_vivienda_seleccionado.telefono,
+            proyecto_vivienda_email: this.proyecto_vivienda_seleccionado.descripcion,
         };
 
         return fs_formulario;
@@ -354,7 +362,8 @@ export class Cotizador_personalComponent implements OnInit {
             this.tabla_uvr.ANOS_15= this.texto_cotizacion_persona.uvr_anos_15;
             this.tabla_uvr.ANOS_20= this.texto_cotizacion_persona.uvr_anos_20;
             this.tabla_tasainteres=parseInt(this.texto_cotizacion_persona.tasainteres);
-
+            this.texto_legales_sb= this.texto_cotizacion_persona.texto_legales.replace(/\\/g, "");
+            //console.log(this.texto_legales_sb);
         });
 
         this.spinnerService.show();
@@ -822,6 +831,7 @@ export class Cotizador_personalComponent implements OnInit {
           "info_session_usuario": info_session_usuario,
       }
 
+      this.spinnerService.show();
       let json = JSON.stringify(guardar_cotizacion);
       let params = "json=" + json;
       let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
@@ -837,11 +847,12 @@ export class Cotizador_personalComponent implements OnInit {
 
           this.spinnerService.hide();
 
+          if(this.tokenValido){
+              this.downloadPDF();
+          }
+
       });
 
-        if(this.tokenValido){
-            this.downloadPDF();
-        }
 
       ////////test add///
     }
@@ -1269,7 +1280,7 @@ export class Cotizador_personalComponent implements OnInit {
                 (this.f.fs_proyecto_filtro.value.indexOf(this.proyecto_vivienda_lista[i].proyecto) > -1)
             ) {
 
-                if(i==0){//primer tamaña
+                if(i0==0){//primer tamaña
                   this.cargarProyectoSeleccionado(this.proyecto_vivienda_lista[i]);
                   tamaSeleccion=this.proyecto_vivienda_lista[i].area_construida;
                 }
@@ -1362,8 +1373,27 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     public downloadPDF() {
-      window.open("http://192.168.102.10/vivienda_pdf/pdf.php?id="+this.pdfIdGenerado, '_blank');
+
+      let v1= this.randomString(15, 16);
+
+      window.open("http://192.168.102.10/vivienda_pdf/pdf.php?id=" +v1+this.pdfIdGenerado, '_blank');
     }
+
+
+    //randomString(12, 16); // 12 hexadecimal characters
+    //randomString(200); // 200 alphanumeric characters
+    public randomString   (len, bits)
+    {
+        bits = bits || 36;
+        var outStr = "", newStr;
+        while (outStr.length < len)
+        {
+            newStr = Math.random().toString(bits).slice(2);
+            outStr += newStr.slice(0, Math.min(newStr.length, (len - outStr.length)));
+        }
+        return outStr.toUpperCase();
+    }
+
 
     public downloadPDFviejo() {
 
