@@ -184,6 +184,9 @@ export class Cotizador_personalComponent implements OnInit {
 
     texto_legales_sb="";
 
+    estilopopup="none";
+    var_abrir_popup=false;
+
     //var CONDICIONES DE VENTA
 
 
@@ -253,6 +256,17 @@ export class Cotizador_personalComponent implements OnInit {
         });
     } // fin initializeFormulario
 
+
+
+    public cerrar_final() {
+      this.estilopopup="none";
+    }
+
+    public abrir_popup() {
+      this.estilopopup="block";
+      this.var_abrir_popup=true;
+      console.log("asdf");
+    }
 
     /*plainGalleryRow: PlainGalleryConfig = {
     strategy: PlainGalleryStrategy.ROW,
@@ -338,6 +352,7 @@ export class Cotizador_personalComponent implements OnInit {
             vr_administracion: this.proyecto_vivienda_seleccionado.vr_administracion,
             proyecto_vivienda_telefono: this.proyecto_vivienda_seleccionado.telefono,
             proyecto_vivienda_email: this.proyecto_vivienda_seleccionado.descripcion,
+            asesorvirtual:this.texto_cotizacion_persona.asesorvirtual,
         };
 
         return fs_formulario;
@@ -362,7 +377,7 @@ export class Cotizador_personalComponent implements OnInit {
             this.tabla_uvr.ANOS_15= this.texto_cotizacion_persona.uvr_anos_15;
             this.tabla_uvr.ANOS_20= this.texto_cotizacion_persona.uvr_anos_20;
             this.tabla_tasainteres=parseInt(this.texto_cotizacion_persona.tasainteres);
-            this.texto_legales_sb= this.texto_cotizacion_persona.texto_legales.replace(/\\/g, "");
+            this.texto_legales_sb= this.texto_cotizacion_persona.texto_legales;//.replace(/\\/g, "");
             //console.log(this.texto_legales_sb);
         });
 
@@ -808,9 +823,12 @@ export class Cotizador_personalComponent implements OnInit {
           if(!this.tokenValido){
             this.guardar_paso_3(ev);
 
-            // setTimeout(() => {
+            setTimeout(() => {
             //    this.downloadPDF() ;
-            // }, 5000);
+            this.estilopopup="block"
+          }, 3000);
+          }else{
+
           }
 
         ////////test add///
@@ -848,7 +866,8 @@ export class Cotizador_personalComponent implements OnInit {
           this.spinnerService.hide();
 
           if(this.tokenValido){
-              this.downloadPDF();
+              //this.downloadPDF();
+              this.estilopopup="block"
           }
 
       });

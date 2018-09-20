@@ -1,7 +1,7 @@
 export class CONFIG {
 
-    public static modo_http="https://";//https
-    public static dominio_http="leggercolombia.com"; //"192.168.102.10"; //"192.168.102.10";//"leggercolombia.com"; //
+    public static modo_http="http://";//https
+    public static dominio_http="192.168.102.10"; //"leggercolombia.com"; //"192.168.102.10"; //"192.168.102.10";//"leggercolombia.com"; //
     public static api_wp_json =    CONFIG.modo_http+CONFIG.dominio_http+"/wordpress/wp-json/wp/v2/" ;
     public static api_jwt_auth =   CONFIG.modo_http+CONFIG.dominio_http+"/wordpress/wp-json/jwt-auth/v1/token" ;
     public static api_jwt_validate =   CONFIG.modo_http+CONFIG.dominio_http+"/wordpress/wp-json/jwt-auth/v1/token/validate";

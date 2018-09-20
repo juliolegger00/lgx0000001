@@ -88,7 +88,8 @@ $obj_info_text = json_decode($result);
 
 
 
-
+$asesorvirtual=$array_formulario["asesorvirtual"];
+if($asesorvirtual=="")$asesorvirtual=$array_info_session_usuario["user_display_name"];
 
 
 
@@ -218,9 +219,9 @@ $_pagina_coti='
 					<th width="180px;" scope="col">Área privada</th>
 				  </tr>
 				  <tr>
-					<td>$'.$array_formulario["proyecto_vivienda_seleccionado_valorproyecto"].'</td>
-					<td>'.$array_formulario["proyecto_vivienda_seleccionado_areaconstruida"].'</td>
-					<td>'.$array_formulario["proyecto_vivienda_seleccionado_areaprivada"].'</td>
+					<td>$'.@number_format($array_formulario["proyecto_vivienda_seleccionado_valorproyecto"],0,",",".").'</td>
+					<td>'.@number_format($array_formulario["proyecto_vivienda_seleccionado_areaconstruida"],0,",",".").'</td>
+					<td>'.@number_format($array_formulario["proyecto_vivienda_seleccionado_areaprivada"],0,",",".").'</td>
 				  </tr>
 				</table>
 			</div>
@@ -365,8 +366,8 @@ $_pagina_coti='
 			  </tr>
 			  <tr>
 				<td>   '.$array_formulario["trimestre_entrega"].'  </td>
-				<td>$ '.$array_formulario["vr_gastos_escrituracion"].'</td>
-				<td>$ '.$array_formulario["vr_administracion"].'</td>
+				<td>$ '.number_format($array_formulario["vr_gastos_escrituracion"],0,",",".").'</td>
+				<td>$ '.number_format($array_formulario["vr_administracion"],0,",",".").'</td>
 			  </tr>
 			</table>
 		</div>
@@ -390,7 +391,7 @@ $_pagina_coti='
 				<th width="220px;" scope="col">Email de proyecto</th>
 			  </tr>
 			  <tr>
-				<td>'.$array_info_session_usuario["user_display_name"].'</td>
+				<td>'.$asesorvirtual.'</td>
 				<td>'.$array_formulario["proyecto_vivienda_telefono"].'</td>
 				<td>'.$array_formulario["proyecto_vivienda_email"].'</td>
 			  </tr>

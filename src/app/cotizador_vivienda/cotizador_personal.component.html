@@ -1,4 +1,16 @@
 
+<div class="back_popup2" id="back_popup2" [ngStyle]="{'display': estilopopup}">
+  <div class="contenedor_popup2">
+    <div class="cerrar2" id="cerrar_final"  (click)="cerrar_final()"> <img src="assets/cerrar.png"> </div>
+    <div id="mensaje_popup_final">
+      <h2>Su cotización fue creada con éxito</h2>
+      <p></p>
+      <a target="_blank" (click)="downloadPDF()">
+      	<img src="assets/Pdf_icono.jpg" width="120"> <br>
+      Abrir PDF </a> </div>
+  </div>
+</div>
+
 
 <ng-container *ngIf="tokenValido">
   <div class="container">
@@ -51,7 +63,7 @@
 
 <!-- paso 1 -->
 <div [hidden]="hidden_paso1">
-<form   (ngSubmit)="onSubmit_paso1()" autocomplete="on" >
+<form   (ngSubmit)="onSubmit_paso1()"  >
 <div class="container seccion_titulos">
   <div class="ingreso center-block" style="padding:30px;">
     <div class="row pasos">
@@ -358,7 +370,7 @@
 
 <!-- paso 2 -->
     <div [hidden]="hidden_paso2">
-        <form (ngSubmit)="onSubmit_paso2()" autocomplete="on">
+        <form (ngSubmit)="onSubmit_paso2()" >
             <div class="container seccion_titulos">
 
                 <div class="ingreso center-block info_pasada">
@@ -588,7 +600,7 @@
 
     <!-- paso 3 -->
 <div [hidden]="hidden_paso3">
-<form   (ngSubmit)="onSubmit_paso3()" autocomplete="on">
+<form   (ngSubmit)="onSubmit_paso3()" >
 <div class="container seccion_titulos" >
   <div class="ingreso center-block info_pasada"  >
     <br />
@@ -916,7 +928,7 @@
           <li class="list-group-item">
               <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div [innerHTML]="texto_legales_sb"></div> 
+                    <div [innerHTML]="texto_legales_sb"></div>
                         {{texto_cotizacion_persona.texto_doc_requeridos}}
                   </div>
               </div>
