@@ -347,7 +347,7 @@ export class Cotizador_personalComponent implements OnInit {
             fs_ahorros_campo: this.fs_ahorros_value,
             fs_cesantias_campo: this.fs_cesantias_value,
             fecha_escrituras_probable: this.proyecto_vivienda_seleccionado.fecha_escrituras_probable,
-            trimestre_entrega: this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion,
+            trimestre_entrega: this.proyecto_vivienda_seleccionado.trimestre_entrega,
             vr_gastos_escrituracion: this.proyecto_vivienda_seleccionado.vr_gastos_escrituracion,
             vr_administracion: this.proyecto_vivienda_seleccionado.vr_administracion,
             proyecto_vivienda_telefono: this.proyecto_vivienda_seleccionado.telefono,
