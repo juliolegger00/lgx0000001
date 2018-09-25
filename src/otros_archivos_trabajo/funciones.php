@@ -2665,7 +2665,32 @@ if(function_exists("register_field_group"))
 /*SERVICIOS DE galeria_imagnes*/
 
 
+/// lg subsidios de lg_get_subsidio_vivienda
 
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/get_subsidio_vivienda/(?P<id>\d+)', array(
+    'methods' => 'POST',
+    'callback' => 'lg_get_subsidio_vivienda',
+  ) );
+} );
+
+
+
+function lg_get_subsidio_vivienda( WP_REST_Request $request ) {
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_body_params();//post y json
+		$manage = json_decode($parameters["json"]);
+		//print_r($manage);
+		//echo $manage->cedula."asdfsdf";
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_personas';
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE cedula = ".$manage->cedula." ", OBJECT );
+
+		return $results;
+}
 
 //////////funciones especializadas
 
@@ -2697,7 +2722,7 @@ function lg_add_cotizacion_persona( WP_REST_Request $request ) {
 	);
 
 
-	return $wpdb->insert_id;;
+	return $wpdb->insert_id;
 }
 
 //ejemplo
