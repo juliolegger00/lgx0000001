@@ -825,7 +825,7 @@ export class Cotizador_personalComponent implements OnInit {
 
             setTimeout(() => {
             //    this.downloadPDF() ;
-            this.estilopopup="block"
+            //this.estilopopup="block"
           }, 3000);
           }else{
 

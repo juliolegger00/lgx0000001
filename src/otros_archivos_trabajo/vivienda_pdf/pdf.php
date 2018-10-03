@@ -220,8 +220,8 @@ $_pagina_coti='
 				  </tr>
 				  <tr>
 					<td>$'.@number_format($array_formulario["proyecto_vivienda_seleccionado_valorproyecto"],0,",",".").'</td>
-					<td>'.@number_format($array_formulario["proyecto_vivienda_seleccionado_areaconstruida"],0,",",".").'</td>
-					<td>'.@number_format($array_formulario["proyecto_vivienda_seleccionado_areaprivada"],0,",",".").'</td>
+					<td>'.$array_formulario["proyecto_vivienda_seleccionado_areaconstruida"].'</td>
+					<td>'.$array_formulario["proyecto_vivienda_seleccionado_areaprivada"].'</td>
 				  </tr>
 				</table>
 			</div>
@@ -293,8 +293,8 @@ $_pagina_coti='
 				</tr>
 				<tr>
 					<td>Ingresos grupo familiar</td>
-					<td style="text-align:right;">$ '.number_format($array_sinacabados["fs_ingresosGrupoFamiliar_campo"],0,",",".").'</td>
-					<td style="text-align:right;">$ '.number_format($array_conacabados["fs_ingresosGrupoFamiliar_campo"],0,",",".").'</td>
+					<td style="text-align:right;">$ '.number_format($array_formulario["fs_ingresosGrupoFamiliar_campo"],0,",",".").'</td>
+					<td style="text-align:right;">$ '.number_format($array_formulario["fs_ingresosGrupoFamiliar_campo"],0,",",".").'</td>
 				  </tr>
 				  <tr>
 					<td>Subsidio aproximado</td>
