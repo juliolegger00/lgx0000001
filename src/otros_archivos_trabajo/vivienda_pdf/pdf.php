@@ -317,7 +317,7 @@ $_pagina_coti='
 					<td style="text-align:right;">$ '.number_format($array_conacabados["saldodecuotainicial"],0,",",".").'</td>
 				  </tr>
 				  <tr>
-					<td> '.$array_conacabados["numerocuotasmensuales"].'  &nbsp; Cuotas mensuales </td>
+					<td> '.$array_sinacabados["numerocuotasmensuales"].'  &nbsp; Cuotas mensuales </td>
 					<td bgcolor="#d7e5fb" style="text-align:right;">$ '.number_format($array_sinacabados["cuotasmensuales"],0,",",".").' </td>
 					<td bgcolor="#fdf3d6" style="text-align:right;">$ '.number_format($array_conacabados["cuotasmensuales"],0,",",".").' </td>
 				  </tr>

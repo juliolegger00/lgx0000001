@@ -412,7 +412,7 @@ export class Cotizador_personalComponent implements OnInit {
                     "tipo_documento": item.title.rendered
                 };
                 this.addElementToObservableArray_tipo_documento_lista(item_t);
-                if (item_t.id.indexOf("ECI") > -1) {
+                if (item_t.id.indexOf("CC") > -1) {
                     this.idtipo_documentoPre = index + 1;
                     this.f.fs_tipo_documento_campo.setValue(item_t.id);
                 }
@@ -833,6 +833,8 @@ export class Cotizador_personalComponent implements OnInit {
 
         ////////test add///
 
+        window.scrollTo(0, 0);
+
         return;
     }
 
@@ -928,6 +930,7 @@ export class Cotizador_personalComponent implements OnInit {
        let tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
        if(tmpValorInmueble>0){
 
+         debugger
         this.condiciones_venta.conacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.conacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.conacabados.ahorros = this.fs_ahorros_value;
@@ -1043,6 +1046,7 @@ export class Cotizador_personalComponent implements OnInit {
       let tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
       if(tmpValorInmueble>0){
 
+        debugger
         this.condiciones_venta.sinacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.sinacabados.ahorros = this.fs_ahorros_value;
@@ -1227,6 +1231,7 @@ export class Cotizador_personalComponent implements OnInit {
     public cargarProyectoSeleccionado(_param_proyectoseleccionado:any){
 
       this.proyecto_vivienda_seleccionado = _param_proyectoseleccionado;
+      this.Cuotasmensuales_asesor=this.proyecto_vivienda_seleccionado.plazo_cuota_inicial;//cambio para cuotas
 
       ///cargar galeria_imagenes
       if (this.proyecto_vivienda_seleccionado.id > 0) {

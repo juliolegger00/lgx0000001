@@ -220,6 +220,7 @@
           <label>{{texto_cotizacion_persona.titulonumeroDocumento}}</label>
           <input type="number" formControlName="fs_numeroDocumento_campo" class="form-control"
           (keyup)="onkeyValidarNumeroDocumento($event)"
+          autocomplete="on"
              [ngClass]="{ 'is-invalid': submitted1 && (f.fs_numeroDocumento_campo.errors || fs_numeroDocumento_campo_minlength || fs_numeroDocumento_campo_maxlength) }" />
 
           <div *ngIf="submitted1 && f.fs_numeroDocumento_campo.errors" class="invalid-feedback">
