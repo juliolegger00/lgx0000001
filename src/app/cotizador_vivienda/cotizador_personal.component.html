@@ -113,6 +113,8 @@
            (ngModelChange)="onSeleccion_proyectos_lista()"
             class="form-control"
             [ngClass]="{ 'is-invalid': submitted1 && ListaProyectos_validar }">
+            <option value="Selecciona">Selecciona</option>
+
             <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
               {{proyecto}}
             </option>
@@ -142,6 +144,7 @@
         <div class="form-group" [formGroup]="regFormPaso1">
           <label>{{texto_cotizacion_persona.titulofiltroDondeEntero}}</label>
           <select formControlName="fs_como_se_entero_filtro" (ngModelChange)="onSeleccion_como_se_entero_lista()" class="form-control" [ngClass]="{ 'is-invalid': submitted1 && f.fs_como_se_entero_filtro.errors }">
+              <option value="Selecciona">Selecciona</option>
             <option *ngFor="let como_se_entero of (fs_como_se_entero_lista$ | async); let i = index" [value]="como_se_entero" [selected]="i == 0">
               {{como_se_entero}}
             </option>
@@ -382,7 +385,7 @@
                       </div>
                       <div class="col-xl-6 col-md-6 col-lg-6 text-center">
                         <h2 class="category-section-title" style="width:100%">
-                            Cotización  de proyectos <br />Vivienda Colsubsidio
+                            Cotización  de Proyectos <br />Vivienda Colsubsidio
                         </h2>
                       </div>
                       <div class="col-xl-2 col-md-2 col-lg-2">
@@ -421,7 +424,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 borde_der">
                                             {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
                                             <br />
-                                            <strong>{{proyecto_vivienda_seleccionado.areaconstruidaProyecto}}</strong>
+                                            <strong>{{proyecto_vivienda_seleccionado.area_construida}}</strong>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4">
                                             {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}
@@ -702,7 +705,7 @@
                         <div class="col-sm-4 col-md-4 col-lg-4 borde_der">
                             {{texto_cotizacion_persona.tituloareaconstruidaProyecto}}
                             <br />
-                            <strong>{{proyecto_vivienda_seleccionado.areaconstruidaProyecto}}</strong>
+                            <strong>{{proyecto_vivienda_seleccionado.area_construida}}</strong>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4">
                             {{texto_cotizacion_persona.tituloareaPrivadaproyecto}}
@@ -787,7 +790,7 @@
                   <table cellspacing='0' cellpadding='0' width='100%' style="max-width:700px; margin:auto;">
                       <tr>
                           <td colspan='5' align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
-                              Proyecto preferencial para afiliados a Colsubsidio</td>
+                              Proyecto preferencial para {{f.fs_afiliadoColsubsidio_campo.value}} afiliados a Colsubsidio</td>
                       </tr>
                       <tr>
                           <td width='40%' bgcolor='#4674C1' style='color:#FFF !important;'><strong>Condiciones de venta</strong></td>
@@ -931,11 +934,23 @@
               <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12">
                     <div [innerHTML]="texto_legales_sb"></div>
-                        {{texto_cotizacion_persona.texto_doc_requeridos}}
                   </div>
               </div>
           </li>
       </ul>
+
+      <br />
+      <ul class="list-group">
+          <li class="list-group-item">
+              <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div [innerHTML]="texto_cotizacion_persona.texto_doc_requeridos"></div>
+                  </div>
+              </div>
+          </li>
+      </ul>
+
+
       <br />
       <ul class="list-group">
           <li class="list-group-item">

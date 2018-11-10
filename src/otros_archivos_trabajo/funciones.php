@@ -971,7 +971,7 @@ function register_custom_fields_proyectos_vivienda()
         )
     );
     register_rest_field(
-        'proyectos_vivienda','precio_afiliado',
+        'proyectos_vivienda','precio_no_afiliado_sin_acabados',
         array(
             'get_callback' => 'show_fields'
         )
@@ -1140,7 +1140,7 @@ if(function_exists("register_field_group"))
 		'fields' => array (
 			array (
 				'key' => 'field_5b4a76013d6bf',
-				'label' => 'proyecto',
+				'label' => 'Proyecto',
 				'name' => 'proyecto',
 				'type' => 'text',
 				'default_value' => '',
@@ -1150,10 +1150,11 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
+
 			array (
-				'key' => 'field_5b4a79b4ab1c5',
-				'label' => 'descripcion',
-				'name' => 'descripcion',
+				'key' => 'field_2509461',
+				'label' => 'Descripción - Inventario-Proyecto',
+				'name' => 'InventarioProyecto',
 				'type' => 'text',
 				'default_value' => '',
 				'placeholder' => '',
@@ -1162,9 +1163,10 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
+
 			array (
 				'key' => 'field_5b4a79cfab1c6',
-				'label' => 'direccion',
+				'label' => 'Direccion',
 				'name' => 'direccion',
 				'type' => 'text',
 				'default_value' => '',
@@ -1174,9 +1176,11 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
+
+
 			array (
 				'key' => 'field_5b4a79d6ab1c7',
-				'label' => 'ubicacion',
+				'label' => 'Ubicación',
 				'name' => 'ubicacion',
 				'type' => 'text',
 				'default_value' => '',
@@ -1186,9 +1190,10 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
+
 			array (
 				'key' => 'field_5b4a79dfab1c8',
-				'label' => 'telefono',
+				'label' => 'Teléfono',
 				'name' => 'telefono',
 				'type' => 'text',
 				'default_value' => '',
@@ -1199,8 +1204,20 @@ if(function_exists("register_field_group"))
 				'maxlength' => '',
 			),
 			array (
+				'key' => 'field_5b4a79b4ab1c5',
+				'label' => 'Email Sala de Ventas',
+				'name' => 'descripcion',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+			array (
 				'key' => 'field_5b4a79e3ab1c9',
-				'label' => 'area_construida',
+				'label' => 'Área Construida',
 				'name' => 'area_construida',
 				'type' => 'text',
 				'default_value' => '',
@@ -1211,69 +1228,9 @@ if(function_exists("register_field_group"))
 				'maxlength' => '',
 			),
 			array (
-				'key' => 'field_5b4a79e8ab1ca',
-				'label' => 'vr_separacion',
-				'name' => 'vr_separacion',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
-			),
-			array (
-				'key' => 'field_5b4a79f5ab1cb',
-				'label' => 'precio_afiliado',
-				'name' => 'precio_afiliado',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
-			),
-			array (
-				'key' => 'field_5b4a79fdab1cc',
-				'label' => 'precio_no_afiliado_con_acabados',
-				'name' => 'precio_no_afiliado_con_acabados',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
-			),
-			array (
-				'key' => 'field_5b4a7a08ab1cd',
-				'label' => 'precio_sin_acabados',
-				'name' => 'precio_sin_acabados',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
-			),
-			array (
-				'key' => 'field_5b4a7a13ab1ce',
-				'label' => 'precio_con_acabados',
-				'name' => 'precio_con_acabados',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'none',
-				'maxlength' => '',
-			),
-			array (
-				'key' => 'field_5b4a7a19ab1cf',
-				'label' => 'vr_separacion',
-				'name' => 'vr_separacion',
+				'key' => 'field_6166647',
+				'label' => 'Área Privada',
+				'name' => 'areaPrivadaproyecto',
 				'type' => 'text',
 				'default_value' => '',
 				'placeholder' => '',
@@ -1283,8 +1240,74 @@ if(function_exists("register_field_group"))
 				'maxlength' => '',
 			),
 			array (
+				'key' => 'field_5b4a79e8ab1ca',
+				'label' => 'Valor separación',
+				'name' => 'vr_separacion',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_5b4a7a08ab1cd',
+				'label' => 'Precio Afiliado sin Acabados',
+				'name' => 'precio_sin_acabados',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_5b4a7a13ab1ce',
+				'label' => 'Precio Afiliado con Acabados',
+				'name' => 'precio_con_acabados',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_5b4a79fdab1cc',
+				'label' => 'Precio No Afiliado con Acabados',
+				'name' => 'precio_no_afiliado_con_acabados',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_5b4a79f5ab1cb',
+				'label' => 'Precio No Afiliado sin Acabados',
+				'name' => 'precio_no_afiliado_sin_acabados',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'none',
+				'maxlength' => '',
+			),
+
+
+			array (
 				'key' => 'field_5b4a7a23ab1d0',
-				'label' => 'plazo_cuota_inicial',
+				'label' => 'Plazo Cuota Inicial',
 				'name' => 'plazo_cuota_inicial',
 				'type' => 'text',
 				'default_value' => '',
@@ -1296,7 +1319,7 @@ if(function_exists("register_field_group"))
 			),
 			array (
 				'key' => 'field_5b4a7a2aab1d1',
-				'label' => 'fecha_escrituras_probable',
+				'label' => 'Fecha de escrituras Probable',
 				'name' => 'fecha_escrituras_probable',
 				'type' => 'text',
 				'default_value' => '',
@@ -1308,7 +1331,7 @@ if(function_exists("register_field_group"))
 			),
 			array (
 				'key' => 'field_5b4a7a30ab1d2',
-				'label' => 'trimestre_entrega',
+				'label' => 'Trimestre de Entrega',
 				'name' => 'trimestre_entrega',
 				'type' => 'text',
 				'default_value' => '',
@@ -1318,6 +1341,20 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			array (
 				'key' => 'field_5b4a7a36ab1d3',
 				'label' => 'vr_gastos_escrituracion',
@@ -1370,35 +1407,13 @@ if(function_exists("register_field_group"))
 				'maxlength' => '',
 			),
 
-			array (
-				'key' => 'field_2509461',
-				'label' => 'InventarioProyecto',
-				'name' => 'InventarioProyecto',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'html',
-				'maxlength' => '',
-			),
 
-			array (
-				'key' => 'field_6166647',
-				'label' => 'areaPrivadaproyecto',
-				'name' => 'areaPrivadaproyecto',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'html',
-				'maxlength' => '',
-			),
+
+
 
 			array (
 				'key' => 'field_3649458',
-				'label' => 'valorProyecto',
+				'label' => 'valor Proyecto un titulo',
 				'name' => 'valorProyecto',
 				'type' => 'text',
 				'default_value' => '',
@@ -2673,7 +2688,6 @@ add_action( 'rest_api_init', function () {
     'callback' => 'lg_get_subsidio_vivienda',
   ) );
 } );
-
 
 
 function lg_get_subsidio_vivienda( WP_REST_Request $request ) {

@@ -360,8 +360,13 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     public  onSeleccion_afiliadoColsubsidio(){
-      if( this.f.fs_afiliadoColsubsidio_campo.value== "si")this.afiliadoColsubsidio_valido=true;
-      else this.afiliadoColsubsidio_valido=false;
+      if( this.f.fs_afiliadoColsubsidio_campo.value== "si"){
+        this.afiliadoColsubsidio_valido=true;
+        this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados); 
+      }else{
+        this.afiliadoColsubsidio_valido=false;
+        this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_no_afiliado_sin_acabados);
+      }
     }
 
     public initializeData() {
@@ -382,7 +387,7 @@ export class Cotizador_personalComponent implements OnInit {
         });
 
         this.spinnerService.show();
-        this.addElementToObservableArray_como_se_entero_lista(CONFIG.lang_seleccione);
+        //this.addElementToObservableArray_como_se_entero_lista(CONFIG.lang_seleccione);
         this.http.get(CONFIG.api_lista_como_se_entero).pipe(delay(0)).subscribe(data => {
 
             let data_lst: any = {};
@@ -927,7 +932,13 @@ export class Cotizador_personalComponent implements OnInit {
 
     public crear_calculos_paso3_conacabados() {
 
-       let tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
+      let tmpValorInmueble=0;
+      if( this.f.fs_afiliadoColsubsidio_campo.value== "si"){
+        tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
+      }else{
+        tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_no_afiliado_con_acabados);
+      }
+
        if(tmpValorInmueble>0){
 
          debugger
@@ -935,7 +946,7 @@ export class Cotizador_personalComponent implements OnInit {
         this.condiciones_venta.conacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.conacabados.ahorros = this.fs_ahorros_value;
         this.condiciones_venta.conacabados.cesantias = this.fs_cesantias_value;
-        this.condiciones_venta.conacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_con_acabados);
+        this.condiciones_venta.conacabados.valordelinmueble = tmpValorInmueble;
         this.condiciones_venta.conacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
         this.condiciones_venta.conacabados.cuotainicial = (this.condiciones_venta.conacabados.valordelinmueble * this.Cuotainicial_asesor / 100);
 
@@ -1043,7 +1054,14 @@ export class Cotizador_personalComponent implements OnInit {
 
     public crear_calculos_paso3_sinacabados() {
 
-      let tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
+
+      let tmpValorInmueble=0;
+      if( this.f.fs_afiliadoColsubsidio_campo.value== "si"){
+        tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
+      }else{
+        tmpValorInmueble= parseInt(this.proyecto_vivienda_seleccionado.precio_no_afiliado_sin_acabados);
+      }
+
       if(tmpValorInmueble>0){
 
         debugger
@@ -1051,7 +1069,7 @@ export class Cotizador_personalComponent implements OnInit {
         this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.sinacabados.ahorros = this.fs_ahorros_value;
         this.condiciones_venta.sinacabados.cesantias = this.fs_cesantias_value;
-        this.condiciones_venta.sinacabados.valordelinmueble = parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
+        this.condiciones_venta.sinacabados.valordelinmueble = tmpValorInmueble;
         this.condiciones_venta.sinacabados.separacion = parseInt(this.proyecto_vivienda_seleccionado.vr_separacion);
         this.condiciones_venta.sinacabados.cuotainicial = (this.condiciones_venta.sinacabados.valordelinmueble * this.Cuotainicial_asesor / 100);
 
@@ -1163,7 +1181,8 @@ export class Cotizador_personalComponent implements OnInit {
         this.spinnerService.show();
         this.removeRoomAll_proyectosTamano_lista();
         this.removeRoomAll_proyectos_lista();
-        this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
+        //this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
+
         this.getListaProyectos();
         this.spinnerService.hide();
 
@@ -1524,6 +1543,7 @@ export class Cotizador_personalComponent implements OnInit {
     addElementToObservableArray_como_se_entero_lista(item) {
         this.fs_como_se_entero_lista$.pipe(take(1)).subscribe(val => {
             const newArr = [...val, item];
+            newArr.sort();
             this.fs_como_se_entero_lista_obsArray.next(newArr);
         })
     }
@@ -1563,6 +1583,14 @@ export class Cotizador_personalComponent implements OnInit {
     //proyectos
     //proyectos
     addElementToObservableArray_proyectos_lista(item) {
+        this.fs_proyectos_lista$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            newArr.sort();
+            this.fs_proyectos_lista_obsArray.next(newArr);
+        })
+    }
+
+    addElementToObservableArray_proyectos_lista2(item) {
         this.fs_proyectos_lista$.pipe(take(1)).subscribe(val => {
             const newArr = [...val, item];
             this.fs_proyectos_lista_obsArray.next(newArr);
