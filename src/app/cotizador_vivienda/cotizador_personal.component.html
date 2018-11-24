@@ -115,7 +115,7 @@
             [ngClass]="{ 'is-invalid': submitted1 && ListaProyectos_validar }">
             <option value="Selecciona">Selecciona</option>
 
-            <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto" [selected]="i == 0">
+            <option *ngFor="let proyecto of (fs_proyectos_lista$ | async); let i = index" [value]="proyecto">
               {{proyecto}}
             </option>
           </select>
@@ -790,7 +790,7 @@
                   <table cellspacing='0' cellpadding='0' width='100%' style="max-width:700px; margin:auto;">
                       <tr>
                           <td colspan='5' align='center' bgcolor='#011f5a' style='color:#FFF !important;'>
-                              Proyecto preferencial para {{f.fs_afiliadoColsubsidio_campo.value}} afiliados a Colsubsidio</td>
+                              Proyecto preferencial para afiliados a Colsubsidio</td>
                       </tr>
                       <tr>
                           <td width='40%' bgcolor='#4674C1' style='color:#FFF !important;'><strong>Condiciones de venta</strong></td>

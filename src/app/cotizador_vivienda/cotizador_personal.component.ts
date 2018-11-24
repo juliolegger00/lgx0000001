@@ -362,7 +362,7 @@ export class Cotizador_personalComponent implements OnInit {
     public  onSeleccion_afiliadoColsubsidio(){
       if( this.f.fs_afiliadoColsubsidio_campo.value== "si"){
         this.afiliadoColsubsidio_valido=true;
-        this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados); 
+        this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
       }else{
         this.afiliadoColsubsidio_valido=false;
         this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_no_afiliado_sin_acabados);
@@ -941,7 +941,7 @@ export class Cotizador_personalComponent implements OnInit {
 
        if(tmpValorInmueble>0){
 
-         debugger
+        // debugger
         this.condiciones_venta.conacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.conacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.conacabados.ahorros = this.fs_ahorros_value;
@@ -959,10 +959,12 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.condiciones_venta.conacabados.subsidioaproximado = subsidioaproximado;
 
-        let saldodecuotainicial = (this.condiciones_venta.conacabados.separacion +
+        let iSeparasaldodecuotainicial=this.condiciones_venta.conacabados.separacion +
             this.condiciones_venta.conacabados.subsidioaproximado +
             this.condiciones_venta.conacabados.ahorros +
-            this.condiciones_venta.conacabados.cesantias > this.condiciones_venta.conacabados.cuotainicial ? 0 :
+            this.condiciones_venta.conacabados.cesantias ;
+
+        let saldodecuotainicial = ( iSeparasaldodecuotainicial > this.condiciones_venta.conacabados.cuotainicial ? 0 :
             this.condiciones_venta.conacabados.cuotainicial -
             this.condiciones_venta.conacabados.separacion -
             this.condiciones_venta.conacabados.subsidioaproximado -
@@ -978,14 +980,20 @@ export class Cotizador_personalComponent implements OnInit {
             this.condiciones_venta.conacabados.cuotasmensuales = 0;
         }
 
-        let creditorequerido = (this.condiciones_venta.conacabados.separacion +
-            this.condiciones_venta.conacabados.ingresosgrupofamiliar +
+        //Separación+Subsidio aproximado	+Ahorros+Cesantías>Cuota inicial
+        let iSeperacreditorequerido=this.condiciones_venta.conacabados.separacion +
+            //this.condiciones_venta.conacabados.ingresosgrupofamiliar +
             this.condiciones_venta.conacabados.subsidioaproximado +
             this.condiciones_venta.conacabados.ahorros +
-            this.condiciones_venta.conacabados.cesantias > this.condiciones_venta.conacabados.cuotainicial ?
+            this.condiciones_venta.conacabados.cesantias ;
+
+
+
+
+        let creditorequerido = (iSeperacreditorequerido > this.condiciones_venta.conacabados.cuotainicial ?
             this.condiciones_venta.conacabados.valordelinmueble -
             this.condiciones_venta.conacabados.separacion -
-            this.condiciones_venta.conacabados.ingresosgrupofamiliar -
+            //this.condiciones_venta.conacabados.ingresosgrupofamiliar -
             this.condiciones_venta.conacabados.subsidioaproximado -
             this.condiciones_venta.conacabados.ahorros -
             this.condiciones_venta.conacabados.cesantias :
@@ -1064,7 +1072,7 @@ export class Cotizador_personalComponent implements OnInit {
 
       if(tmpValorInmueble>0){
 
-        debugger
+        //debugger
         this.condiciones_venta.sinacabados.numerocuotasmensuales = this.Cuotasmensuales_asesor;
         this.condiciones_venta.sinacabados.ingresosgrupofamiliar = this.fs_ingresosGrupoFamiliar_value;
         this.condiciones_venta.sinacabados.ahorros = this.fs_ahorros_value;
@@ -1081,10 +1089,11 @@ export class Cotizador_personalComponent implements OnInit {
 
         this.condiciones_venta.sinacabados.subsidioaproximado = subsidioaproximado;
 
-        let saldodecuotainicial = (this.condiciones_venta.sinacabados.separacion +
+        let iSeparasaldodecuotainicial=this.condiciones_venta.sinacabados.separacion +
             this.condiciones_venta.sinacabados.subsidioaproximado +
             this.condiciones_venta.sinacabados.ahorros +
-            this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ? 0 :
+            this.condiciones_venta.sinacabados.cesantias ;
+        let saldodecuotainicial = (iSeparasaldodecuotainicial> this.condiciones_venta.sinacabados.cuotainicial ? 0 :
             this.condiciones_venta.sinacabados.cuotainicial -
             this.condiciones_venta.sinacabados.separacion -
             this.condiciones_venta.sinacabados.subsidioaproximado -
@@ -1100,14 +1109,16 @@ export class Cotizador_personalComponent implements OnInit {
             this.condiciones_venta.sinacabados.cuotasmensuales = 0;
         }
 
-        let creditorequerido = (this.condiciones_venta.sinacabados.separacion +
-            this.condiciones_venta.sinacabados.ingresosgrupofamiliar +
+        let iSeperacreditorequerido=this.condiciones_venta.sinacabados.separacion +
+            //this.condiciones_venta.sinacabados.ingresosgrupofamiliar +
             this.condiciones_venta.sinacabados.subsidioaproximado +
             this.condiciones_venta.sinacabados.ahorros +
-            this.condiciones_venta.sinacabados.cesantias > this.condiciones_venta.sinacabados.cuotainicial ?
+            this.condiciones_venta.sinacabados.cesantias ;
+
+        let creditorequerido = (iSeperacreditorequerido> this.condiciones_venta.sinacabados.cuotainicial ?
             this.condiciones_venta.sinacabados.valordelinmueble -
             this.condiciones_venta.sinacabados.separacion -
-            this.condiciones_venta.sinacabados.ingresosgrupofamiliar -
+            //this.condiciones_venta.sinacabados.ingresosgrupofamiliar -
             this.condiciones_venta.sinacabados.subsidioaproximado -
             this.condiciones_venta.sinacabados.ahorros -
             this.condiciones_venta.sinacabados.cesantias :
