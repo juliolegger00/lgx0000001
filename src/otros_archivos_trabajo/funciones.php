@@ -1126,6 +1126,13 @@ function register_custom_fields_proyectos_vivienda()
 
 
 
+		register_rest_field(
+				'proyectos_vivienda','exclusivo_para_afiliados',
+				array(
+						'get_callback' => 'show_fields'
+				)
+		);
+
 
 }
 
@@ -1162,6 +1169,20 @@ if(function_exists("register_field_group"))
 				'append' => '',
 				'formatting' => 'html',
 				'maxlength' => '',
+			),
+
+			array (
+				'key' => 'field_5c0979efd3c1d',
+				'label' => 'Exclusivo para afiliados a Colsubsidio',
+				'name' => 'exclusivo_para_afiliados',
+				'type' => 'select',
+				'choices' => array (
+					'no' => 'no',
+					'si' => 'si',
+				),
+				'default_value' => '',
+				'allow_null' => 0,
+				'multiple' => 0,
 			),
 
 			array (
@@ -1341,15 +1362,6 @@ if(function_exists("register_field_group"))
 				'formatting' => 'html',
 				'maxlength' => '',
 			),
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1905,6 +1917,13 @@ function register_custom_fields_info_texto_vivienda()
 
 			register_rest_field(
 					'info_texto_vivienda','texto_doc_requeridos',
+					array(
+							'get_callback' => 'show_fields'
+					)
+			);
+
+			register_rest_field(
+					'info_texto_vivienda','texto_exclusivos_para_afiliados',
 					array(
 							'get_callback' => 'show_fields'
 					)
@@ -2473,6 +2492,21 @@ if(function_exists("register_field_group"))
 					'append' => '',
 					'formatting' => 'html',
 					'maxlength' => '',
+				),
+
+
+
+				array (
+					'key' => 'field_e65962',
+					'label' => 'Mensaje para proyectos exclusivos para afiliados a Colsubsidio',
+					'name' => 'texto_exclusivos_para_afiliados',
+					'type' => 'textarea',
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'formatting' => 'html',
+					'maxlength' => '',
 				)
 
 
@@ -2798,3 +2832,681 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
  * SVG icons functions and filters.
  */
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_ciudad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_ciudad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_ciudad',
+  ) );
+} );
+
+
+function lg_get_ciudad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_ciudad';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE ciudad like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_localidad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_localidad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_ciudad',
+  ) );
+} );
+
+
+function lg_get_localidad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_localidad';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE localidad like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+/// lg subsidios de lg_get_categoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_categoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_categoria',
+  ) );
+} );
+
+
+function lg_get_categoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_categoria';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE categoria like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_subcategoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_subcategoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_subcategoria',
+  ) );
+} );
+
+
+function lg_get_subcategoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_subcategoria';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE subcategoria like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_comercio_by_razonzocial
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_comercio_by_razonzocial/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_comercio_by_razonzocial',
+  ) );
+} );
+
+
+
+function lg_get_comercio_by_razonzocial( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_comercio';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE razonzocial like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_punto_by_nombredelcomercio
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_nombredelcomercio/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_nombredelcomercio',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_nombredelcomercio( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE nombredelcomercio like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_punto_by_direccion
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_direccion/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_direccion',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_direccion( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE direccionpuntos like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_punto_by_telefono
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_telefono/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_telefono',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_telefono( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE telefono like '%".$parameters["id"]."%' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+/// lg subsidios de lg_get_punto_by_idcomercio
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_idcomercio/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_idcomercio',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_idcomercio( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idcomercio = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_punto_by_idcategoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_idcategoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_idcategoria',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_idcategoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idcategoria = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_punto_by_idsubcategoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_idsubcategoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_idsubcategoria',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_idsubcategoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idsubcategoria = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_punto_by_idlocalidad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_idlocalidad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_idlocalidad',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_idlocalidad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idlocalidad = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_punto_by_idciudad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_punto_by_idciudad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_punto_by_idciudad',
+  ) );
+} );
+
+
+
+function lg_get_punto_by_idciudad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idciudad = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_by_id_ciudad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_by_id_ciudad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_by_id_ciudad',
+  ) );
+} );
+
+
+function lg_get_by_id_ciudad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_ciudad';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idciudad = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_by_id_localidad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_by_id_localidad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_by_id_ciudad',
+  ) );
+} );
+
+
+function lg_get_by_id_localidad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_localidad';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idlocalidad = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+/// lg subsidios de lg_get_by_id_categoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_by_id_categoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_by_id_categoria',
+  ) );
+} );
+
+
+function lg_get_by_id_categoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_categoria';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idcategoria = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_by_id_subcategoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_by_id_subcategoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_by_id_subcategoria',
+  ) );
+} );
+
+
+function lg_get_by_id_subcategoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_subcategoria';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idsubcategoria = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+/// lg subsidios de lg_get_by_id_comercio
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_by_id_comercio/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_by_id_comercio',
+  ) );
+} );
+
+
+
+function lg_get_by_id_comercio( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_comercio';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idcomercio = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+/// lg subsidios de lg_get_by_id_punto
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_by_id_punto/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_by_id_punto',
+  ) );
+} );
+
+
+
+function lg_get_by_id_punto( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_punto';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idpunto = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+/// lg subsidios de lg_get_localidad_by_idciudad
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_localidad_by_idciudad/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_localidad_by_idciudad',
+  ) );
+} );
+
+
+function lg_get_localidad_by_idciudad( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_localidad';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idciudad = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}
+
+
+
+
+
+
+
+/// lg subsidios de lg_get_subcategoria_by_idcategoria
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'legger/v1', '/lg_get_subcategoria_by_idcategoria/(?P<id>\w+)', array(
+    'methods' => 'GET',
+    'callback' => 'lg_get_subcategoria_by_idcategoria',
+  ) );
+} );
+
+
+function lg_get_subcategoria_by_idcategoria( WP_REST_Request $request ) {
+
+		date_default_timezone_set("America/Bogota");
+		$parameters = $request->get_url_params();
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'lg_subcategoria';
+		if($parameters["id"]=="0")$parameters["id"]="";
+
+		$results = $wpdb->get_results( "SELECT * FROM ".$table_name." WHERE idcategoria = '".$parameters["id"]."' ", OBJECT );
+
+		return $results;
+}

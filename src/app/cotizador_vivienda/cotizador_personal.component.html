@@ -13,6 +13,15 @@
 </div>
 
 
+<div class="back_popup2" id="back_popup3" [ngStyle]="{'display': estilopopup3}">
+  <div class="contenedor_popup2">
+    <div class="cerrar2" id="cerrar_final3"  (click)="cerrar_final3()"> <img src="assets/cerrar.png"> </div>
+    <div id="mensaje_popup_final">
+      <div [innerHTML]="texto_cotizacion_persona.texto_exclusivos_para_afiliados"></div>
+  </div>
+</div>
+</div>
+
 <ng-container *ngIf="tokenValido">
   <div class="container">
   <ul class="list-group">
@@ -246,9 +255,10 @@
             class="form-control"
             (ngModelChange)="onSeleccion_afiliadoColsubsidio()"
             [ngClass]="{ 'is-invalid': submitted1 && f.fs_afiliadoColsubsidio_campo.errors }">
-            <option value="">Selecciona</option>
-            <option value="si">Si</option>
-            <option value="no">No</option>
+            <option *ngFor="let fs_afiliadoColsubsidio_v of (fs_afiliadoColsubsidio_lst$ | async); let i = index"
+              [value]="fs_afiliadoColsubsidio_v.id"  [selected]="i == idtipo_aficolPre" >
+                  {{fs_afiliadoColsubsidio_v.campo}}
+            </option>
           </select>
           <div *ngIf="submitted1 && f.fs_afiliadoColsubsidio_campo.errors" class="invalid-feedback">
             <div *ngIf="f.fs_afiliadoColsubsidio_campo.errors.required">Campo necesario</div>

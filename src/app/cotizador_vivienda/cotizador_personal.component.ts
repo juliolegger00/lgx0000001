@@ -61,6 +61,10 @@ export class Cotizador_personalComponent implements OnInit {
     proyecto_vivienda_lista: any = {};
     proyecto_vivienda_seleccionado: any = {};
 
+    fs_afiliadoColsubsidio_lst_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
+    fs_afiliadoColsubsidio_lst$: Observable < any > = this.fs_afiliadoColsubsidio_lst_obsArray.asObservable();
+
+
     fs_ciudades_lista_obsArray: BehaviorSubject < any[] > = new BehaviorSubject < any[] > ([]);
     fs_ciudades_lista$: Observable < any > = this.fs_ciudades_lista_obsArray.asObservable();
 
@@ -97,6 +101,7 @@ export class Cotizador_personalComponent implements OnInit {
 
     idListaCiudadesPre = 0;
     idtipo_documentoPre = 0;
+    idtipo_aficolPre = 0;
 
     ListaCiudades_validar = false;
     ListaProyectos_validar = false;
@@ -126,9 +131,11 @@ export class Cotizador_personalComponent implements OnInit {
 
     pdfIdGenerado="";
 
+    exclusivo_para_afiliados=false;
 
     pdfSrc="";
     //var CONDICIONES DE VENTA
+
 
 
     condiciones_venta = {
@@ -183,6 +190,8 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     texto_legales_sb="";
+
+    estilopopup3="none";
 
     estilopopup="none";
     var_abrir_popup=false;
@@ -242,6 +251,10 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"",campo:"Selecciona"});
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"si",campo:"Si"});
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"no",campo:"No"});
+
 
     } // fin initializeFormulario
 
@@ -258,9 +271,12 @@ export class Cotizador_personalComponent implements OnInit {
 
 
 
-    public cerrar_final() {
-      this.estilopopup="none";
-    }
+        public cerrar_final() {
+          this.estilopopup="none";
+        }
+            public cerrar_final3() {
+              this.estilopopup3="none";
+            }
 
     public abrir_popup() {
       this.estilopopup="block";
@@ -336,6 +352,7 @@ export class Cotizador_personalComponent implements OnInit {
             fs_celular_campo: this.f.fs_celular_campo.value,
             fs_abeasdata_campo: this.f.fs_abeasdata_campo.value,
             proyecto_vivienda_seleccionado: this.proyecto_vivienda_seleccionado.proyecto,
+            proyecto_vivienda_seleccionado_exclusivo_para_afiliados: this.proyecto_vivienda_seleccionado.exclusivo_para_afiliados,
             proyecto_vivienda_seleccionado_inventarioproyecto: this.proyecto_vivienda_seleccionado.InventarioProyecto,
             proyecto_vivienda_seleccionado_valorproyecto: this.proyecto_vivienda_seleccionado.valorProyecto,
             proyecto_vivienda_seleccionado_imagen: this.proyecto_image_pdf,
@@ -360,12 +377,20 @@ export class Cotizador_personalComponent implements OnInit {
 
 
     public  onSeleccion_afiliadoColsubsidio(){
+      this.exclusivo_para_afiliados=false;
       if( this.f.fs_afiliadoColsubsidio_campo.value== "si"){
         this.afiliadoColsubsidio_valido=true;
         this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_sin_acabados);
       }else{
         this.afiliadoColsubsidio_valido=false;
         this.proyecto_vivienda_seleccionado.valorProyecto=  parseInt(this.proyecto_vivienda_seleccionado.precio_no_afiliado_sin_acabados);
+        //console.log( this.f.fs_afiliadoColsubsidio_campo.value)
+        if( this.f.fs_afiliadoColsubsidio_campo.value== "no"){
+          if(  this.proyecto_vivienda_seleccionado.exclusivo_para_afiliados=="si"){
+              this.exclusivo_para_afiliados=true;
+              this.estilopopup3="block"
+          }
+        }
       }
     }
 
@@ -1190,6 +1215,16 @@ export class Cotizador_personalComponent implements OnInit {
     public onSeleccion_ciudades_lista() {
         //console.log(this.f.fs_ciudad_filtro.value);
         this.spinnerService.show();
+
+
+        this.removeRoomAll_fs_afiliadoColsubsidio_lst();
+
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"",campo:"Selecciona"});
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"si",campo:"Si"});
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"no",campo:"No"});
+
+
+
         this.removeRoomAll_proyectosTamano_lista();
         this.removeRoomAll_proyectos_lista();
         //this.addElementToObservableArray_proyectos_lista(CONFIG.lang_seleccione);
@@ -1216,10 +1251,21 @@ export class Cotizador_personalComponent implements OnInit {
 
     public onSeleccion_proyectos_lista() {
         this.spinnerService.show();
+
+        this.removeRoomAll_fs_afiliadoColsubsidio_lst();
+
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"",campo:"Selecciona"});
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"si",campo:"Si"});
+        this.addElementToObservableArray_fs_afiliadoColsubsidio_lst({id:"no",campo:"No"});
+
+
         this.removeRoomAll_proyectosTamano_lista();
         this.addElementToObservableArray_proyectosTamano_lista(CONFIG.lang_seleccione);
         this.getListaproyectosTamano();
         this.spinnerService.hide();
+
+
+
 
         if (this.f.fs_proyecto_filtro.value.length <= 0) {
             this.ListaProyectos_validar = true;
@@ -1277,7 +1323,10 @@ export class Cotizador_personalComponent implements OnInit {
           ]
 
 
+
           for (var _i = 0; _i < galeria_ima.length; _i++) {
+
+
               let item = galeria_ima[_i];
 
               this.http.get(CONFIG.api_lista_media + item + "/").pipe(delay(0)).subscribe(data00 => {
@@ -1310,6 +1359,9 @@ export class Cotizador_personalComponent implements OnInit {
 
               });
               // buscar info media
+
+
+
           } // for lista de images
 
 
@@ -1572,6 +1624,26 @@ export class Cotizador_personalComponent implements OnInit {
     }
     //ciudades
     //ciudades
+
+
+
+
+    //fs_afiliadoColsubsidio_lst
+    //fs_afiliadoColsubsidio_lst
+    addElementToObservableArray_fs_afiliadoColsubsidio_lst(item) {
+        this.fs_afiliadoColsubsidio_lst$.pipe(take(1)).subscribe(val => {
+            const newArr = [...val, item];
+            this.fs_afiliadoColsubsidio_lst_obsArray.next(newArr);
+        })
+    }
+
+    removeRoomAll_fs_afiliadoColsubsidio_lst() {
+        let roomArr: any[] = this.fs_afiliadoColsubsidio_lst_obsArray.getValue();
+        roomArr.splice(0, roomArr.length);
+        this.fs_afiliadoColsubsidio_lst_obsArray.next(roomArr);
+    }
+    //proyectosTamano
+    //proyectosTamano
 
     //proyectosTamano
     //proyectosTamano
