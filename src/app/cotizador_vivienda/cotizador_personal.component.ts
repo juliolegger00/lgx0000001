@@ -1482,7 +1482,7 @@ export class Cotizador_personalComponent implements OnInit {
 
       let v1= this.randomString(15, 16);
 
-      window.open("http://192.168.102.10/vivienda_pdf/pdf.php?id=" +v1+this.pdfIdGenerado, '_blank');
+      window.open("http://192.168.102.11/vivienda_pdf/pdf.php?id=" +v1+this.pdfIdGenerado, '_blank');
     }
 
 

@@ -13,10 +13,7 @@ $_id_=str_replace($rest,"",$_id_);
 
 //echo $_id_; exit();
 /*conn mysql*/
- $bd_servidor="localhost";
- $bd_base="leggerne_vivienda";
- $bd_usuario="leggerne_user";
- $bd_clave="R1.9Ae01n5";
+include "includes/constantes.php";
  $con = mysqli_connect($bd_servidor, $bd_usuario, $bd_clave)
 		    or die('Error conectando con MySQL!');
 		    mysqli_select_db($con, $bd_base) or die('Base de datos ' . $bd_base . ' no existe!');
@@ -68,7 +65,7 @@ $_id_=str_replace($rest,"",$_id_);
 /*conn mysql*/
 
 
-$_url_="http://192.168.102.10/wordpress/wp-json/wp/v2/info_texto_vivienda/113";
+$_url_= $ruta_wp."/wp-json/wp/v2/info_texto_vivienda/113";
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -327,6 +324,11 @@ $_pagina_coti='
 					<td align="center" bgcolor="#011f5a" colspan="5" style="color:#FFF;"> Información Crédito hipotecario </td>
 				  </tr>
 				  <tr>
+					<td width="240"> Crédito requerido</td>
+					<td colspan="2" bgcolor="#4674C1" style="color:#FFF; text-align:right;">$ '.number_format($array_sinacabados["creditorequerido"],0,",",".").'</td>
+					<td colspan="2" bgcolor="#ffc92f" style="color:#FFF; text-align:right;">$ '.number_format($array_conacabados["creditorequerido"],0,",",".").'</td>
+				  </tr>
+				  <tr>
 					<td width="240"> Plazo (Aprox)</td>
 					<td width="123" bgcolor="#4674C1" style="color:#FFF; text-align:right;">Cuota UVR </td>
 					<td width="123" bgcolor="#4674C1" style="color:#FFF; text-align:right;">Cuota Pesos</td>
@@ -371,11 +373,10 @@ $_pagina_coti='
 			  </tr>
 			</table>
 		</div>
-		<div class="documentos">
-			<strong>Documentos:</strong>
-			<p>
+		<div class="documentos"> 
+			 
 			 '.$obj_info_text->texto_doc_requeridos.'
-			</p>
+			 
 		</div>
 
 		<div class="terminos">

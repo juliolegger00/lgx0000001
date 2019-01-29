@@ -52,7 +52,8 @@ export class LoginComponent {
 
                             //console.log( data_token_t);
                             //console.log("aca ok");
-                            let uri = '/#/cotizador' ;
+                            //let uri = '/#/cotizador' ;
+                            let uri = '/vivienda/cotizador/#/cotizador' ;
                             window.location.href = uri ;
 
 
